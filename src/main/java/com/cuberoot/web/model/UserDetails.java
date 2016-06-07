@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -45,6 +47,10 @@ import javax.validation.constraints.Size;
 		@NotNull
 		@Column(name = "Phone", nullable = false)
 		private int phone;
+		
+	    @OneToOne
+		@PrimaryKeyJoinColumn
+		private User user;
 		
 		public int getId() {
 			return id;
