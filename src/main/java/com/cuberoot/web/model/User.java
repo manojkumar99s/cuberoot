@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -52,9 +53,14 @@ public class User {
 	@Column(name = "CREATEDDATE", nullable = false)
 	private Date createddate;
 	
-	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
+	@Size(min=3, max=100)
+	@Column(name = "USERDETAILID", nullable = false)
+	private int userdetailId;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="USERDETAILID", insertable = false, updatable = false )
     private UserDetails userdetail;
-     
+	
 	public int getId() {
 		return id;
 	}
@@ -103,7 +109,7 @@ public class User {
 		return usertype;
 	}
 
-	public void setgetUserType(int usertype) {
+	public void setUserType(int usertype) {
 		this.usertype = usertype;
 	}
 	
@@ -114,5 +120,18 @@ public class User {
 	public void setCreatedDate(Date createddate) {
 		this.createddate = createddate;
 	}
+	public int getUserDetailId() {
+		return userdetailId;
+	}
 
+	public void setUserDetailId(int userdetailId) {
+		this.userdetailId = userdetailId;
+	}
+	public UserDetails getUserDetail() {
+		return userdetail;
+	}
+
+	public void setUserDetail(UserDetails userdetail) {
+		this.userdetail = userdetail;
+	}
 }

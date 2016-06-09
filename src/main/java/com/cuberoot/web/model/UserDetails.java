@@ -47,11 +47,7 @@ import javax.validation.constraints.Size;
 		@NotNull
 		@Column(name = "Phone", nullable = false)
 		private int phone;
-		
-	    @OneToOne
-		@PrimaryKeyJoinColumn
-		private User user;
-		
+				
 		public int getId() {
 			return id;
 		}
