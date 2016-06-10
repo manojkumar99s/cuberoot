@@ -52,14 +52,15 @@ public class User {
 	@DateTimeFormat(pattern="dd/MM/yyyy") 
 	@Column(name = "CREATEDDATE", nullable = false)
 	private Date createddate;
-	
-	@Size(min=3, max=100)
-	@Column(name = "USERDETAILID", nullable = false)
-	private int userdetailId;
-	
+		
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="USERDETAILID", insertable = false, updatable = false )
     private UserDetails userdetail;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="USERROLEID", insertable = false, updatable = false )
+    private UserRole userrole;
+	
 	
 	public int getId() {
 		return id;
@@ -120,18 +121,20 @@ public class User {
 	public void setCreatedDate(Date createddate) {
 		this.createddate = createddate;
 	}
-	public int getUserDetailId() {
-		return userdetailId;
-	}
-
-	public void setUserDetailId(int userdetailId) {
-		this.userdetailId = userdetailId;
-	}
+	
 	public UserDetails getUserDetail() {
 		return userdetail;
 	}
 
 	public void setUserDetail(UserDetails userdetail) {
 		this.userdetail = userdetail;
+	}
+	
+	public UserRole getUserRole() {
+		return userrole;
+	}
+
+	public void setUserRole(UserRole userrole) {
+		this.userrole = userrole;
 	}
 }
