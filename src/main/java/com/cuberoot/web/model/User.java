@@ -1,18 +1,25 @@
 package com.cuberoot.web.model;
 
 import java.util.Date;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -57,9 +64,9 @@ public class User {
 	@JoinColumn(name="USERDETAILID", insertable = false, updatable = false )
     private UserDetails userdetail;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="USERROLEID", insertable = false, updatable = false )
-    private UserRole userrole;
+	
+   // @OneToMany(fetch = FetchType.LAZY, mappedBy = "User")
+     //private Set<UserRole> userrole;
 	
 	
 	public int getId() {
@@ -130,11 +137,11 @@ public class User {
 		this.userdetail = userdetail;
 	}
 	
-	public UserRole getUserRole() {
-		return userrole;
-	}
+	//public Set<UserRole> getUserRole() {
+	//	return userrole;
+	//}
 
-	public void setUserRole(UserRole userrole) {
-		this.userrole = userrole;
-	}
+	//public void setUserRole(Set<UserRole> userrole) {
+	//	this.userrole = userrole;
+	//}
 }

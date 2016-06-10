@@ -8,12 +8,20 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cuberoot.web.domain.Login;
+import com.cuberoot.web.model.RoleModule;
 import com.cuberoot.web.model.User;
+import com.cuberoot.web.model.UserRole;
+import com.cuberoot.web.service.RoleModuleService;
+import com.cuberoot.web.service.UserRoleService;
 import com.cuberoot.web.service.UserService;
+
+import javassist.bytecode.Descriptor.Iterator;
 
 @RestController
 @RequestMapping("/")
@@ -21,7 +29,29 @@ public class UserController {
 
 	@Autowired
 	UserService service;
+	
+	@Autowired
+	UserRoleService userservice;
 
+	@Autowired
+	RoleModuleService moduleservice;
+	
+	@RequestMapping(value = "/Api/Login", produces = { "application/json" }, method = RequestMethod.GET)
+	public ResponseEntity<String> login(@RequestBody Login login) throws JSONException 
+	{
+	   String response ="no";
+		List<User> users = service.findAllUser();
+		 int size = users.size();
+	        for(int i=0;i<size;i++)
+	        {
+	            if(users.get(i).getUserName()==login.getUsername()&& users.get(i).getPassword()==login.getPassword())
+	            {
+	            	response ="yes";
+	            }
+	        }
+	    return new ResponseEntity<String>( response, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/Api/Users", produces = { "application/json" }, method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllUsers(HttpEntity<byte[]> requestEntity) throws JSONException 
 	{
@@ -36,6 +66,20 @@ public class UserController {
 		User user = service.findById(id);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
-
-	
+	@RequestMapping(value = "/Api/UserRole/{id}", produces = { "application/json" }, method = RequestMethod.GET)
+	public ResponseEntity<List<UserRole>> getAllUserRole(@PathVariable Integer id) throws JSONException 
+	{
+	  
+		List<UserRole> usersroles = userservice.findAllUserRole(id);
+	    return new ResponseEntity<List<UserRole>>( usersroles, HttpStatus.OK);
+	}
+	@RequestMapping(value = "/Api/UserModule/{id}", produces = { "application/json" }, method = RequestMethod.GET)
+	public ResponseEntity<List<RoleModule>> getAllUserModule(@PathVariable Integer id) throws JSONException 
+	{
+	  
+		List<UserRole> usersroles = userservice.findAllUserRole(id);		
+		List<RoleModule> rolemodules = moduleservice.findAllRoleModule(usersroles.get(0).getRoleType());
+		
+	    return new ResponseEntity<List<RoleModule>>( rolemodules, HttpStatus.OK);
+	}
 }
