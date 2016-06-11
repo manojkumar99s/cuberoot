@@ -14,8 +14,11 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -25,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.cuberoot.web")
-public class AppConfig  extends WebMvcConfigurationSupport 
+public class AppConfig  extends WebMvcConfigurerAdapter  
 {
 	
 	@Bean
@@ -37,7 +40,18 @@ public class AppConfig  extends WebMvcConfigurationSupport
 
 		return viewResolver;
 	}
+	@Override public void addResourceHandlers(ResourceHandlerRegistry registry) 
+	{ 
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+		  // registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
+	      //registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
+	      //registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+	} 
 	
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
 	@Bean
 	public MessageSource messageSource() {
 	    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
