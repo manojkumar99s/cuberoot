@@ -36,7 +36,7 @@ public class AppController {
 
 		List<Employee> employees = service.findAllEmployees();
 		model.addAttribute("employees", employees);
-		return "allemployees";
+		return "default";
 	}
 
 	/*

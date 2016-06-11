@@ -7,12 +7,18 @@
     <title>Advant Edeges</title>
 
     <!-- Global stylesheets -->
-    <link href="../../static/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="../../static/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="../../static/css/core.css" rel="stylesheet" type="text/css">
-    <link href="../../static/css/components.css" rel="stylesheet" type="text/css">
-    <link href="../../static/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="../../static/css/custom.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/core.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/components.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/colors.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/custom.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/fonts.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/angular-ui-grid.css" rel="stylesheet" type="text/css">
+
+<!--
+        <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css" />
+-->
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
@@ -30,9 +36,9 @@
 <body ng-app="CubeRootApp">
 <div ng-controller="jqueryScriptsCtrl"></div>
 <!-- Main navbar -->
-<div class="navbar navbar-inverse">
+<div class="navbar navbar-default header-highlight">
     <div class="navbar-header">
-        <a class="navbar-brand" href="dashboard-performance.html"><img src="../../static/images/logo_light.png" alt=""></a>
+        <a class="navbar-brand" href="default.html"><img src="../../static/images/logo_light.png" alt=""></a>
 
         <ul class="nav navbar-nav visible-xs-block">
             <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -79,21 +85,29 @@
     <input type="hidden" value="true" id="loggedIn" />
     <!-- Page container -->
     <div class="page-container">
-        <div ui-view></div>
+        <ui-view></ui-view>
     </div>
     <!-- /page container -->
 
     <!-- angularjs files -->
+
     <script type="text/javascript" src="../../static/js/core/lib/angular.min.js"></script>
     <script type="text/javascript" src="../../static/js/core/lib/angular-ui-router.js"></script>
+
+    <!-- angular plugins for sortable dynamic tabular data -->
+    <script type="text/javascript" src="../../static/js/core/lib/angular-touch.js"></script>
+    <script type="text/javascript" src="../../static/js/core/lib/angular-animate.js"></script>
+    <script type="text/javascript" src="../../static/js/core/lib/angular-ui-grid.js"></script>
+    <!-- /angular plugins for sortable dynamic tabular data -->
     <!--
         <script type="text/javascript" src="../assets/js/core/lib/ui-bootstrap/ui-bootstrap-custom-1.3.3.min.js"></script>
     -->
     <script type="text/javascript" src="../../static/js/core/lib/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3.min.js"></script>
-    <!-- /angularjs files -->
+    <!-- /angular js files -->
 
     <!-- Angular App JS files -->
     <script type="text/javascript" src="../../static/js/core/app.js"></script>
+    <script type="text/javascript" src="../../static/js/core/router.js"></script>
     <script type="text/javascript" src="../../static/js/controllers/jqueryScripts.js"></script>
     <script type="text/javascript" src="../../static/js/controllers/dashboardController.js"></script>
     <script type="text/javascript" src="../../static/js/controllers/uib.datepicker.js"></script>
@@ -101,11 +115,11 @@
     <script type="text/javascript" src="../../static/js/controllers/modalController.js"></script>
     <script type="text/javascript" src="../../static/js/controllers/loginController.js"></script>
     <script type="text/javascript" src="../../static/js/controllers/signupController.js"></script>
-    <script type="text/javascript" src="../../static/js/core/router.js"></script>
+    <script type="text/javascript" src="../../static/js/controllers/appViewCtrl.js"></script>
 
     <!-- /Angular App JS files -->
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css" />
+    <!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css" />-->
 
 </body>
 </html>
