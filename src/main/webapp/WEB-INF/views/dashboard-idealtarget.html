@@ -1,0 +1,68 @@
+<div class="panel panel-flat p-x-10" ng-controller="datePickerCtrl">
+	<div class="panel-heading">
+		<h5 class="panel-title">Ideal Target</h5>
+		<!--						<div class="heading-elements">
+                                        <ul class="icons-list">
+                                            <li><a data-action="collapse"></a></li>
+                                            <li><a data-action="close"></a></li>
+                                        </ul>
+                                    </div>-->
+	</div>
+	<div class="row ">
+		<div class="col-md-3">
+			<select class="form-control">
+				<option value="Campaign">Campaign</option>
+			</select>
+		</div>
+		<div class="col-md-3">
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+									  <span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+									  </span>
+			</p>
+		</div>
+		<div class="col-md-3">
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+									  <span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+									  </span>
+			</p>
+		</div>
+	</div>
+
+	<!-- Basic markup -->
+	<div class="chart-container">
+		<div class="chart" id="d3-streamgraph"></div>
+	</div>
+
+	<!-- With minimum width and scrolling -->
+	<div class="chart-container has-scroll">
+		<div class="chart has-minimum-width" id="d3-waterfall"></div>
+	</div>
+
+	<div style="background-color:#ccc; width:100%; height:400px;">
+
+
+	</div>
+</div>
+
+<div class="panel panel-flat p-x-10" ng-controller="tabularCtrl">
+	<div class="panel-heading">
+		<h5 class="panel-title">Basic table</h5>
+		<!--							<div class="heading-elements">
+                                        <ul class="icons-list">
+                                            <li><a data-action="collapse"></a></li>
+                                            <li><a data-action="close"></a></li>
+                                        </ul>
+                                    </div>-->
+	</div>
+
+	<div class="table-responsive" ng-controller="tabularCtrl">
+		<div id="grid1" ui-grid="gridOptions" class="grid"></div>
+	</div>
+
+
+</div>
+</div>

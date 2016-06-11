@@ -1,0 +1,188 @@
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form id="registerForm" method="POST" >
+                <!---form--->
+                <h3 class="text-center">
+                    Sign Up
+                </h3>
+                <div class="panel panel-flat p-20 m-20 clearfix">
+                <h4 class="text-left">
+                    Basic Details
+                </h4>
+
+                <div class="form-group col-xs-6">
+                    <!---input width--->
+                    <div class="">
+                    <label for="InputName">Full Name</label>
+                    <div class="input-group">
+                        <input type="text" ng-model="form.first_name" class="form-control" name="first_name" placeholder="Enter First Name" required tabindex="1">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                    <br>
+                    <label for="InputName">Username</label>
+                    <div class="input-group">
+                        <input type="text" ng-model="form.username" class="form-control" name="username" placeholder="Enter Username" required tabindex="3">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                    <br/>
+                    <label for="InputNAddressame">Enter email</label>
+                    <div class="input-group">
+                        <input type="text" ng-model="form.email" class="form-control" name="last_name" placeholder="Enter Last Name" required tabindex="5">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                        <!--------------------------------------separator--------------------------------------------------------------->
+                </div>
+                </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-6">
+                            <label for="InputName">&nbsp;</label>
+                            <div class="input-group">
+                                <input type="text" ng-model="form.last_name" class="form-control" name="last_name" placeholder="Enter Last Name" required tabindex="2">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+
+                            <br>
+                            <label for="InputPassword">Enter Password</label>
+                            <div class="input-group">
+                                <input type="password" ng-model="form.password" class="form-control" name="password" placeholder="Enter Password" required tabindex="4">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+
+                            <br>
+                            <label for="InputPassword">Retype Password</label>
+                            <div class="input-group">
+                                <input type="password" ng-model="form.retypePassword"class="form-control" name="retyePassword" placeholder="Retype Password" required tabindex="6">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                            <!--------------------------------------separator--------------------------------------------------------------->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="InputStreetName">Choose your type</label>
+                            <div class="input-group">
+                                <select class="form-control" ng-model="form.userType">
+                                    <option selected value=""></option>
+                                    <option value="advertiser">Advertiser</option>
+                                    <option value="publisher">Publisher</option>
+                                </select>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                            <!----------------------------break-------------------------------------------------------------> <br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-flat p-20 m-20 clearfix">
+                    <h4>Advanced Details</h4>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="InputStreetName">Company Name</label>
+                            <div class="input-group">
+                                <input type="text" ng-model="form.company_name" class="form-control" name="company_name" placeholder="Enter Company Name " required>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                            <!----------------------------break-------------------------------------------------------------> <br>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="form.userType=='publisher'">
+                        <div class="col-xs-12">
+                            <label for="InputStreetName">Monthly Unique Visitor</label>
+                            <div class="input-group">
+                            <select class="form-control" ng-model="form.monthly_visitor" name="monthly_visitor">
+                                <option selected value=""></option>
+                                <option value="less_then_1">> Less then 1 Million</option>
+                                <option value="2to5">2 Million to 5 Million</option>
+                                <option value="5to10">5 Million to 10 Million</option>
+                                <option value="above10">above 10 Million</option>
+                            </select>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                            <!----------------------------break-------------------------------------------------------------> <br>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="InputStreetName">Website Url</label>
+                                <input type="text" ng-model="form.websiteUrl" class="form-control" name="street_name" placeholder="Enter Website Url" >
+                            <!----------------------------break-------------------------------------------------------------> <br>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="InputStreetName">Address</label>
+                            <div class="input-group">
+                                <input type="text" ng-model="form.address" class="form-control" name="street_name" placeholder="Enter Street Name and Number" required>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                            <!----------------------------break-------------------------------------------------------------> <br>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="InputCity">City</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="city" placeholder="Enter City" required>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                            <!----------------------------break-------------------------------------------------------------> <br>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="InputProvince">State</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="province" placeholder="Enter State" required>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                            <!----------------------------break-------------------------------------------------------------> <br>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="InputProvince">Phone</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="phone" placeholder="Enter Phone" required>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                            <!----------------------------break-------------------------------------------------------------> <br>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="InputProvince">Zipcode</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="zipcode" placeholder="Enter Zipcode" required>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                            <!----------------------------break-------------------------------------------------------------> <br>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group text-center">
+                            <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary btn-lg">
+                    </div>
+        </form>
+        </div>
+    </div>
+</div>
