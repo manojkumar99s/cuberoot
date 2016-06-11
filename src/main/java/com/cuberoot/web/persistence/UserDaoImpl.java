@@ -40,7 +40,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	@Override
 	public User findUserByFisrtName(String firstname) {
 		Criteria criteria = createEntityCriteria();
-		criteria.add(Restrictions.eq("firstname", firstname));
+		criteria.add(Restrictions.eq("UserName", firstname));
 		return (User) criteria.uniqueResult();
 	}
 

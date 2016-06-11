@@ -3,6 +3,7 @@ package com.cuberoot.web.controller;
 import java.util.List;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -36,20 +37,19 @@ public class UserController {
 	@Autowired
 	RoleModuleService moduleservice;
 	
-	@RequestMapping(value = "/Api/Login", produces = { "application/json" }, method = RequestMethod.GET)
-	public ResponseEntity<String> login(@RequestBody Login login) throws JSONException 
+	@RequestMapping(value = "/Api/UserLogin",produces = { "application/json" },consumes={ "application/json" }, method = RequestMethod.POST)
+	public ResponseEntity<String> getUserLogin(HttpEntity<String> request) throws JSONException 
 	{
-	   String response ="no";
-		List<User> users = service.findAllUser();
-		 int size = users.size();
-	        for(int i=0;i<size;i++)
-	        {
-	            if(users.get(i).getUserName()==login.getUsername()&& users.get(i).getPassword()==login.getPassword())
-	            {
-	            	response ="yes";
-	            }
-	        }
-	    return new ResponseEntity<String>( response, HttpStatus.OK);
+		 JSONObject jsonObj = new JSONObject(request.getBody());
+         String username = jsonObj.getString("username");
+         //String password = jsonObj.getString("username");
+		 String responsestatus ="notexist";
+		 User users = service.findUserByFisrtName(username);
+		if(users!=null)
+	 	 responsestatus ="exist";		
+		 
+		 
+	    return new ResponseEntity<String>(responsestatus, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/Api/Users", produces = { "application/json" }, method = RequestMethod.GET)
