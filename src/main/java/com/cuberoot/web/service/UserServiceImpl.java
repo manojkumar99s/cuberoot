@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public User IsUserExist(String username, String password) {
+		return dao.IsUserExist(username, password);	
+	}
 	
 	
 }

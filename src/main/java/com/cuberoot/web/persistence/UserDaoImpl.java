@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -40,7 +42,24 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	@Override
 	public User findUserByFisrtName(String firstname) {
 		Criteria criteria = createEntityCriteria();
-		criteria.add(Restrictions.eq("UserName", firstname));
+		
+		Criterion username = Restrictions.eq("UserName", firstname);
+		Criterion email = Restrictions.eq("Password", firstname);
+		LogicalExpression orExp = Restrictions.and(username, email);
+		criteria.add(orExp);
+			
+		return (User) criteria.uniqueResult();
+	}
+
+	@Override
+	public User IsUserExist(String username, String password) {
+		Criteria criteria = createEntityCriteria();
+		
+		Criterion user = Restrictions.eq("username", username);
+		Criterion pass = Restrictions.eq("password", password);
+		LogicalExpression orExp = Restrictions.or(user, pass);
+		criteria.add(orExp);
+			
 		return (User) criteria.uniqueResult();
 	}
 

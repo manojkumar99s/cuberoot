@@ -42,16 +42,31 @@ public class UserController {
 	{
 		 JSONObject jsonObj = new JSONObject(request.getBody());
          String username = jsonObj.getString("username");
-         //String password = jsonObj.getString("username");
+         String password = jsonObj.getString("username");
 		 String responsestatus ="notexist";
-		 User users = service.findUserByFisrtName(username);
-		if(users!=null)
+		 User users = service.IsUserExist(username, password);
+		 if(users!=null)
 	 	 responsestatus ="exist";		
 		 
 		 
 	    return new ResponseEntity<String>(responsestatus, HttpStatus.OK);
 	}
-	
+	@RequestMapping(value = "/Api/UserRegistration",produces = { "application/json" },consumes={ "application/json" }, method = RequestMethod.POST)
+	public ResponseEntity<String> getUserRegistration(HttpEntity<String> request) throws JSONException 
+	{
+		 JSONObject jsonObj = new JSONObject(request.getBody());
+         String username = jsonObj.getString("username");
+         //String password = jsonObj.getString("username");
+		 
+         String responsestatus ="notexist";
+		 User users = service.findUserByFisrtName(username);
+		 
+		 if(users!=null)
+	 	 responsestatus ="exist";		
+		 
+		 
+	    return new ResponseEntity<String>(responsestatus, HttpStatus.OK);
+	}
 	@RequestMapping(value = "/Api/Users", produces = { "application/json" }, method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllUsers(HttpEntity<byte[]> requestEntity) throws JSONException 
 	{

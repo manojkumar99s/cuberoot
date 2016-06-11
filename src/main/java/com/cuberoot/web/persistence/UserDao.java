@@ -17,4 +17,6 @@ public interface UserDao {
 	List<User> findAllUser();
 
 	User findUserByFisrtName(String firstname);
+	
+	User IsUserExist(String username,String password);
 }
