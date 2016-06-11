@@ -1,0 +1,28 @@
+.p-x-10{
+    padding:10px;
+}
+
+.p-t-10{
+    padding-top:10px;
+}
+
+.table-cell{
+    display:table-cell;
+}
+
+.sidebar-content{
+    width:260px;
+}
+
+.sidebar-xs .sidebar-content{
+    width:inherit;
+}
+
+@media (min-width: 769px) screen{
+    .sidebar-content{
+        width:auto;
+    }
+}
+.content{
+    padding:0 10px 60px;
+}
