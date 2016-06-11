@@ -27,53 +27,51 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
-	@Size(min=3, max=50)
-	@Column(name = "FIRSTNAME", nullable = false)
+
+	@Column(name = "FIRSTNAME", nullable = true)
 	private String firstname;
 	
-	@Size(min=3, max=50)
-	@Column(name = "LASTNAME", nullable = false)
+	
+	@Column(name = "LASTNAME", nullable = true)
 	private String lastname;
 	
 	
-	@Size(min=3, max=100)
-	@Column(name = "EMAIL", nullable = false)
+	
+	@Column(name = "EMAIL", nullable = true)
 	private String email;
 	
-	@Size(min=3, max=100)
-	@Column(name = "USERNAME", nullable = false)
+	
+	@Column(name = "USERNAME", nullable = true)
 	private String username;
 	
 	
-	@Size(min=3, max=100)
-	@Column(name = "PASSWORD", nullable = false)
+	
+	@Column(name = "PASSWORD", nullable = true)
 	private String password;
 	
-	@Size(min=3, max=100)
-	@Column(name = "USERTYPE", nullable = false)
-	private int usertype;
+	
+	@Column(name = "USERTYPE", nullable = true)
+	private Integer usertype;
 		
-	@NotNull
-	@DateTimeFormat(pattern="dd/MM/yyyy") 
-	@Column(name = "CREATEDDATE", nullable = false)
+	@Column(name = "CREATEDDATE", nullable = true)
 	private Date createddate;
-		
+	
+	@Column(name = "USERDETAILID", nullable = true)
+	private Integer userdetailsid;
+	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="USERDETAILID", insertable = false, updatable = false )
+	@JoinColumn(name="USERDETAILID",insertable = false, updatable = false, nullable = true )
     private UserDetails userdetail;
 	
+
 	
-   // @OneToMany(fetch = FetchType.LAZY, mappedBy = "User")
-     //private Set<UserRole> userrole;
-	
-	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -81,12 +79,12 @@ public class User {
 		return firstname;
 	}
 
-	public void setFirstName(String lastname) {
-		this.lastname = lastname;
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
 	}
 	
 	public String getLastName() {
-		return firstname;
+		return lastname;
 	}
 
 	public void setLastName(String lastname) {
@@ -128,20 +126,23 @@ public class User {
 	public void setCreatedDate(Date createddate) {
 		this.createddate = createddate;
 	}
+
 	
 	public UserDetails getUserDetail() {
-		return userdetail;
+	return userdetail;
 	}
 
 	public void setUserDetail(UserDetails userdetail) {
 		this.userdetail = userdetail;
 	}
 	
-	//public Set<UserRole> getUserRole() {
-	//	return userrole;
-	//}
+	public int getUserDetailsId() {
+		return userdetailsid;
+	}
 
-	//public void setUserRole(Set<UserRole> userrole) {
-	//	this.userrole = userrole;
-	//}
+	public void setUserDetailsId(int userdetailsid) {
+		this.userdetailsid = userdetailsid;
+	}
+	
+
 }

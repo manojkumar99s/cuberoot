@@ -6,24 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cuberoot.web.model.User;
-import com.cuberoot.web.persistence.UserDao;
+import com.cuberoot.web.model.UserDetails;
+import com.cuberoot.web.persistence.UserDetailsDao;
 
-@Service("userService")
+@Service("userDetailsService")
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UserDao dao;
+	private UserDetailsDao dao;
 
 	@Override
-	public User findById(int id) {
+	public UserDetails findById(int id) {
 		return dao.findById(id);	
 	}
 
 	@Override
-	public void saveUser(User user) {
-		dao.saveUser(user);
+	public void saveUserDetails(UserDetails userdetails) {
+		dao.saveUserDetails(userdetails);
 		
 	}
 
@@ -34,20 +34,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findAllUser() {
-		return dao.findAllUser();
+	public List<UserDetails> findAllUser() {
+		return dao.findAllUserDetails();
 	}
 
 	@Override
-	public User findUserByFisrtName(String firstname) {
+	public UserDetails findUserDetailsByFisrtName(String firstname) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public User IsUserExist(String username, String password) {
-		return dao.IsUserExist(username, password);	
-	}
 	
 	
 }

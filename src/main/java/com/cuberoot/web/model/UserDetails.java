@@ -18,34 +18,34 @@ import javax.validation.constraints.Size;
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private int id;
 
-		@Size(min=3, max=50)
-		@Column(name = "CompanyName", nullable = false)
+		
+		@Column(name = "CompanyName", nullable = true)
 		private String companyname;
 		
-		@Size(min=3, max=50)
-		@Column(name = "WebURL", nullable = false)
+		
+		@Column(name = "WebURL", nullable = true)
 		private String weburl;
 		
 		
-		@Size(min=3, max=100)
-		@Column(name = "Address", nullable = false)
+		
+		@Column(name = "Address", nullable = true)
 		private String address;
 		
-		@Size(min=3, max=100)
-		@Column(name = "State", nullable = false)
+	
+		@Column(name = "State", nullable = true)
 		private String state;
 		
 		
-		@Size(min=3, max=100)
-		@Column(name = "City", nullable = false)
+		
+		@Column(name = "City", nullable = true)
 		private String city;
 		
-		@Size(min=3, max=100)
-		@Column(name = "ZipCode", nullable = false)
+		
+		@Column(name = "ZipCode", nullable = true)
 		private int zipcode;
 			
-		@NotNull
-		@Column(name = "Phone", nullable = false)
+		
+		@Column(name = "Phone", nullable = true)
 		private int phone;
 				
 		public int getId() {
@@ -89,7 +89,7 @@ import javax.validation.constraints.Size;
 			return city;
 		}
 
-		public void setgetCity(String city) {
+		public void setCity(String city) {
 			this.city = city;
 		}
 		
