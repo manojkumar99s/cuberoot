@@ -19,7 +19,7 @@ cubeRootApp.controller('tabularCtrl', ['$scope', '$http', 'uiGridConstants', fun
         }
     };
 
-    $http.get('../../static/dummyData/tabulardata.json')
+    $http.get('static/dummyData/tabulardata.json')
     .success(function(data) {
         $scope.gridOptions.data = data;
     });

@@ -1,3 +1,5 @@
+'use strict';
+
 var cubeRootApp =  angular.module('CubeRootApp',
         [
             'ui.router',

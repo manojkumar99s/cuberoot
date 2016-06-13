@@ -48,7 +48,7 @@ public class UserController {
 	{
 		 JSONObject jsonObj = new JSONObject(request.getBody());
          String username = jsonObj.getString("username");
-         String password = jsonObj.getString("username");
+         String password = jsonObj.getString("password");
 		 String responsestatus ="notexist";
 		 User users = service.IsUserExist(username, password);
 		 if(users!=null)

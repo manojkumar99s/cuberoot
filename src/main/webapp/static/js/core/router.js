@@ -9,23 +9,23 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
     }*/
 
 
-    $urlRouterProvider.otherwise('/performance');
+    //$urlRouterProvider.otherwise('/performance');
 
     $stateProvider
         .state('login', {
             url: '/login',
-            templateUrl: './login.html',
+            templateUrl: './views/login.html',
             controller:'loginCtrl'
         })
         .state('signup', {
             url: '/signup',
-            templateUrl: './signup.html',
+            templateUrl: './views/signup.html',
             controller:'signupController'
         })
         .state('appView',{
             //url: '/loggedIn',
             abstract:true,
-            templateUrl: './logged_in.html',
+            templateUrl: './views/logged_in.html',
             controller: 'appViewCtrl'
         })
 
@@ -34,11 +34,11 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
             url: '/dashboard',
             views: {
                 "mainSidebar": {
-                    templateUrl: './main_sidebar.html',
+                    templateUrl: './views/main_sidebar.html',
                 },
 
                 "content": {
-                    templateUrl: './dashboard-performance.html',
+                    templateUrl: './views/dashboard-performance.html',
                     controller: 'dashboardCtrl'
                 }
 
@@ -55,11 +55,11 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
             },
             views: {
                 "mainSidebar": {
-                    templateUrl: './main_sidebar.html',
+                    templateUrl: './views/main_sidebar.html',
                 },
 
                 "content": {
-                    templateUrl: './dashboard-performance.html',
+                    templateUrl: './views/dashboard-performance.html',
                     controller: 'dashboardCtrl'
                 }
             }
@@ -73,11 +73,11 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
             },
             views: {
                 "mainSidebar": {
-                    templateUrl: './main_sidebar.html',
+                    templateUrl: './views/main_sidebar.html',
                 },
 
                 "content": {
-                    templateUrl: './dashboard-audiences.html',
+                    templateUrl: './views/dashboard-audiences.html',
                     controller: 'dashboardCtrl'
                 }
             }
@@ -90,11 +90,11 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
             },
             views: {
                 "mainSidebar": {
-                    templateUrl: './main_sidebar.html',
+                    templateUrl: './views/main_sidebar.html',
                 },
 
                 "content": {
-                    templateUrl: './dashboard-idealtarget.html',
+                    templateUrl: './views/dashboard-idealtarget.html',
                     controller: 'dashboardCtrl'
                 }
             }
@@ -106,10 +106,10 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
             },
             views: {
                 "mainSidebar": {
-                    templateUrl: './main_sidebar.html'
+                    templateUrl: './views/main_sidebar.html'
                 },
                 "content": {
-                    templateUrl: './campaign.html',
+                    templateUrl: './views/campaign.html',
                     controller: 'campaignCtrl'
                 }
             }
@@ -122,10 +122,10 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
             },
             views: {
                 "mainSidebar": {
-                    templateUrl: './main_sidebar.html'
+                    templateUrl: './views/main_sidebar.html'
                 },
                 "content": {
-                    templateUrl: './creatives.html',
+                    templateUrl: './views/creatives.html',
                     controller: 'campaignCtrl',
                 }
             },
