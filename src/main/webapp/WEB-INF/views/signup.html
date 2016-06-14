@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="signupForm" method="POST" ng-submit="submitSignupForm();" novalidate>
+            <form id="signupForm" method="POST" ng-submit="submitSignupForm();" name="signupForm" novalidate>
                 <!---form--->
                 <h3 class="text-center">
                     Sign Up
@@ -19,19 +19,32 @@
                     <div class="">
                     <label for="InputName">Full Name</label>
                     <div class="input-group">
-                        <input type="text" ng-model="form.firstname" class="form-control" name="first_name" placeholder="Enter First Name" required tabindex="1">
+                        <input type="text" ng-model="registrationForm.firstname" class="form-control" name="first_name" placeholder="Enter First Name" required tabindex="1"
+                               validator="required"
+                               valid-method="submit"
+                               required-error-message="Please enter your first name"
+                        >
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                     <br>
                     <label for="InputName">Username</label>
                     <div class="input-group">
-                        <input type="text" ng-model="form.username" class="form-control" name="username" placeholder="Enter Username" required tabindex="3">
+                        <input type="text" ng-model="registrationForm.username" class="form-control" name="username" placeholder="Enter Username" required tabindex="3"
+                               validator="required"
+                               valid-method="submit"
+                               required-error-message="Please enter your username"
+
+                        >
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                     <br/>
                     <label for="InputNAddressame">Enter email</label>
                     <div class="input-group">
-                        <input type="text" ng-model="form.email" class="form-control" name="last_name" placeholder="Enter Last Name" required tabindex="5">
+                        <input type="text" ng-model="registrationForm.email" class="form-control" name="last_name" placeholder="Enter Last Name" required tabindex="5"
+                               validator="required, email"
+                               valid-method="submit"
+                               required-error-message="Please enter your email id"
+                        >
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                         <!--------------------------------------separator--------------------------------------------------------------->
@@ -42,21 +55,34 @@
                         <div class="col-xs-6">
                             <label for="InputName">&nbsp;</label>
                             <div class="input-group">
-                                <input type="text" ng-model="form.lastname" class="form-control" name="last_name" placeholder="Enter Last Name" required tabindex="2">
+                                <input type="text" ng-model="registrationForm.lastname" class="form-control" name="last_name" placeholder="Enter Last Name" required tabindex="2"
+                                       validator="required"
+                                       valid-method="submit"
+                                       required-error-message="Please enter your last name"
+
+                                >
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
 
                             <br>
                             <label for="InputPassword">Enter Password</label>
                             <div class="input-group">
-                                <input type="password" ng-model="form.password" class="form-control" name="password" placeholder="Enter Password" required tabindex="4">
+                                <input type="password" ng-model="registrationForm.password" class="form-control" name="password" placeholder="Enter Password" required tabindex="4"
+                                       validator="required, password"
+                                       valid-method="submit"
+                                       required-error-message="Please enter your password"
+                                >
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
 
                             <br>
                             <label for="InputPassword">Retype Password</label>
                             <div class="input-group">
-                                <input type="password" ng-model="form.retypePassword"class="form-control" name="retyePassword" placeholder="Retype Password" required tabindex="6">
+                                <input type="password" ng-model="registrationForm.retypePassword"class="form-control" name="retyePassword" placeholder="Retype Password" required tabindex="6"
+                                       validator="required, password"
+                                       valid-method="submit"
+                                       required-error-message="Please retype your password"
+                                >
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
                             <!--------------------------------------separator--------------------------------------------------------------->
@@ -67,8 +93,12 @@
                         <div class="col-xs-12">
                             <label for="InputStreetName">Choose your type</label>
                             <div class="input-group">
-                                <select class="form-control" ng-model="form.usertype">
-                                    <option selected value=""></option>
+                                <select class="form-control" ng-model="registrationForm.usertype"
+                                        validator="required"
+                                        valid-method="submit"
+                                        required-error-message="Please select one option"
+                                >
+                                    <option selected value="">Select</option>
                                     <option value="advertiser">Advertiser</option>
                                     <option value="publisher">Publisher</option>
                                 </select>
@@ -86,18 +116,26 @@
                         <div class="col-xs-12">
                             <label for="InputStreetName">Company Name</label>
                             <div class="input-group">
-                                <input type="text" ng-model="form.companyname" class="form-control" name="company_name" placeholder="Enter Company Name " required>
+                                <input type="text" ng-model="registrationForm.companyname" class="form-control" name="company_name" placeholder="Enter Company Name " required
+                                       validator="required"
+                                       valid-method="submit"
+                                       required-error-message="Enter Company Name"
+                                >
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
                             <!----------------------------break-------------------------------------------------------------> <br>
                         </div>
                     </div>
 
-                    <div class="form-group" ng-if="form.userType=='publisher'">
+                    <div class="form-group" ng-if="registrationForm.userType=='publisher'">
                         <div class="col-xs-12">
                             <label for="InputStreetName">Monthly Unique Visitor</label>
                             <div class="input-group">
-                            <select class="form-control" ng-model="form.monthly_visitor" name="monthly_visitor">
+                            <select class="form-control" ng-model="registrationForm.monthly_visitor" name="monthly_visitor"
+                                    validator="required"
+                                    valid-method="submit"
+                                    required-error-message="Please select your Monthly Unique Visitor"
+                            >
                                 <option selected value=""></option>
                                 <option value="less_then_1">> Less then 1 Million</option>
                                 <option value="2to5">2 Million to 5 Million</option>
@@ -114,7 +152,11 @@
                     <div class="form-group">
                         <div class="col-xs-12">
                             <label for="InputStreetName">Website Url</label>
-                                <input type="text" ng-model="form.weburl" class="form-control" name="street_name" placeholder="Enter Website Url" >
+                                <input type="text" ng-model="registrationForm.weburl" class="form-control" name="street_name" placeholder="Enter Website Url"
+                                       validator="required"
+                                       valid-method="submit"
+                                       required-error-message="Please enter your Website Url"
+                                >
                             <!----------------------------break-------------------------------------------------------------> <br>
                         </div>
                     </div>
@@ -123,7 +165,11 @@
                         <div class="col-xs-12">
                             <label for="InputStreetName">Address</label>
                             <div class="input-group">
-                                <input type="text" ng-model="form.address" class="form-control" name="street_name" placeholder="Enter Street Name and Number" required>
+                                <input type="text" ng-model="registrationForm.address" class="form-control" name="street_name" placeholder="Enter Street Name and Number" required
+                                       validator="required"
+                                       valid-method="submit"
+                                       required-error-message="Please enter Street Name and Number"
+                                >
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
                             <!----------------------------break-------------------------------------------------------------> <br>
@@ -134,7 +180,11 @@
                         <div class="col-xs-12">
                             <label for="InputCity">City</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="form.city" name="city" placeholder="Enter City" required>
+                                <input type="text" class="form-control" ng-model="registrationForm.city" name="city" placeholder="Enter City" required
+                                       validator="required"
+                                       valid-method="submit"
+                                       required-error-message="Please enter your City"
+                                >
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
                             <!----------------------------break-------------------------------------------------------------> <br>
@@ -145,7 +195,11 @@
                         <div class="col-xs-12">
                             <label for="InputProvince">State</label>
                             <div class="input-group">
-                                <input type="text" class="form-control"  ng-model="form.state" name="province" placeholder="Enter State" required>
+                                <input type="text" class="form-control"  ng-model="registrationForm.state" name="province" placeholder="Enter State" required
+                                       validator="required"
+                                       valid-method="submit"
+                                       required-error-message="Please enter your State"
+                                >
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
                             <!----------------------------break-------------------------------------------------------------> <br>
@@ -157,7 +211,11 @@
                         <div class="col-xs-12">
                             <label for="InputProvince">Phone</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="form.phone"  name="phone" placeholder="Enter Phone" required>
+                                <input type="text" class="form-control" ng-model="registrationForm.phone"  name="phone" placeholder="Enter Phone" required
+                                       validator="required"
+                                       valid-method="submit"
+                                       required-error-message="Please enter your Phone Number"
+                                >
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
                             <!----------------------------break-------------------------------------------------------------> <br>
@@ -170,17 +228,21 @@
                         <div class="col-xs-12">
                             <label for="InputProvince">Zipcode</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="form.zip"  name="zipcode" placeholder="Enter Zipcode" required>
+                                <input type="text" class="form-control" ng-model="registrationForm.zip"  name="zipcode" placeholder="Enter Zipcode" required
+                                       validator="required"
+                                       valid-method="submit"
+                                       required-error-message="Please enter your Zipcode"
+                                >
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
                             <!----------------------------break-------------------------------------------------------------> <br>
                         </div>
 
                     </div>
-
+s
 
                     <div class="form-group text-center">
-                            <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary btn-lg">
+                            <input type="submit" name="submit" id="submit" value="Submit" ng-click="form.submit(signupForm)" class="btn btn-primary btn-lg">
                     </div>
         </form>
         </div>

@@ -1,3 +1,5 @@
+"use strict";
+
 var cubeRootApp =  angular.module('CubeRootApp');
 cubeRootApp.controller("jqueryScriptsCtrl", function($scope){
 

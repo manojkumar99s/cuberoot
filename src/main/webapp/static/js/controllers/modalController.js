@@ -1,3 +1,5 @@
+"use strict";
+
 var cubeRootApp =  angular.module('CubeRootApp');
 cubeRootApp.controller('modalViewCtrl', function ($scope, $uibModal, $log) {
 

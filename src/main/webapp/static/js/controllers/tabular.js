@@ -1,3 +1,5 @@
+"use strict";
+
 var cubeRootApp =  angular.module('CubeRootApp');
 cubeRootApp.controller('tabularCtrl', ['$scope', '$http', 'uiGridConstants', function ($scope, $http, uiGridConstants) {
 
@@ -12,7 +14,7 @@ cubeRootApp.controller('tabularCtrl', ['$scope', '$http', 'uiGridConstants', fun
     ];
 
     $scope.gridOptions = {
-        enableSorting: true,
+        enableSorting: true, 
         columnDefs: $scope.columns,
         onRegisterApi: function(gridApi) {
             $scope.gridApi = gridApi;

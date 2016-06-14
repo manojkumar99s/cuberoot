@@ -5,32 +5,29 @@
             <h3 class="text-center">
                 Login
             </h3>
-<style type="text/css">
-  form input.ng-invalid.ng-touched {
-    background-color: #FA787E;
-  }
+<!--  -->
+                <form class="form-horizontal" name="signInForm" novalidate>
 
-  form input.ng-valid.ng-touched {
-    background-color: #78FA89;
-  }
-</style>
-
-<!-- ng-submit="signInForm.$valid && submitLogin()" -->
-                <form class="form-horizontal" name="signInForm" novalidate >
                     <div class="form-group">
-                        <label for="email" class="col-sm-2 control-label">Username</label>
+                        <label for="username" class="col-sm-2 control-label">Username</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="email" ng-model="user.username" placeholder="Email"
-                            	ng-required="true"
-                            	
+                            <input type="text" class="form-control" id="username" name="username" ng-model="user.username" placeholder="Email"
+                           	 validator="required, email"
+                           	 valid-method="submit"
+                           required-error-message="Please enter your registered email id."
         					>
                         </div>
                     </div>
+                    
+
                     <div class="form-group">
                         <label for="password" class="col-sm-2 control-label">Password</label>
                         <div class="col-sm-10">
                             <input type="password" ng-model="user.password" class="form-control" id="password" placeholder="Password"
-                            	ng-required="true"
+                               name="password"
+                            	validator="required"
+                            	valid-method="submit"
+                               required-error-message="Please enter your password."
                             >
                         </div>
                     </div>
@@ -38,7 +35,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" class="valign-text-bottom" ng-model="rememberMe" > <span class="valign-text-bottom">Remember me</span>
+                                    <input type="checkbox" class="valign-text-bottom" ng-model="user.rememberMe" > <span class="valign-text-bottom">Remember me</span>
                                 </label>
                             </div>
                         </div>
@@ -49,8 +46,11 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-1 col-sm-10 text-center">
-                            <button type="submit" class="btn btn-default" ng-click >Sign in</button>
+                            <button type="submit" class="btn btn-default" ng-click="form.submit(signInForm)" >Sign in</button>
                         </div>
+                    </div>
+                    <div>
+                        signInForm.$valid  : {{ signInForm.$valid  }}
                     </div>
                 </form>
             </div>

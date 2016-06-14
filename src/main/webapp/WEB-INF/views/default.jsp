@@ -98,6 +98,8 @@
     <script type="text/javascript" src="static/js/core/lib/angular-touch.js"></script>
     <script type="text/javascript" src="static/js/core/lib/angular-animate.js"></script>
     <script type="text/javascript" src="static/js/core/lib/angular-ui-grid.js"></script>
+    <script type="text/javascript" src="static/js/core/lib/angular-validation.min.js"></script>
+    <script type="text/javascript" src="static/js/core/lib/angular-validation-rule.min.js"></script> 
     <!-- /angular plugins for sortable dynamic tabular data -->
     <!--
         <script type="text/javascript" src="../assets/js/core/lib/ui-bootstrap/ui-bootstrap-custom-1.3.3.min.js"></script>

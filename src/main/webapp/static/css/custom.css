@@ -11,7 +11,7 @@
 }
 
 .sidebar-content{
-    width:275px;
+    width:260px;
 }
 
 .sidebar-xs .sidebar-content{
@@ -26,3 +26,20 @@
 .content{
     padding:0 10px 60px;
 }
+
+
+.validation-invalid{
+	color:#ff0000;
+}
+
+.validation-valid{
+	color:green;
+	display:none;
+}
+.ng-invalid.ng-dirty input,
+.ng-valid.ng-dirty textarea,
+.ng-invalid.ng-dirty select{border:1px solid #ff0000;}
+
+.ng-valid.ng-dirty input,
+.ng-valid.ng-dirty select,
+.ng-valid.ng-dirty textarea{ border:1px solid green;}
