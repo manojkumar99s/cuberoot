@@ -7297,10 +7297,10 @@ function $TemplateCacheProvider() {
    <file name="index.html">
     <script>
       angular.module('compileExample', [], function($compileProvider) {
-        // configure new 'compile' directive by passing a directive
+        directives
         // factory function. The factory function injects the '$compile'
         $compileProvider.directive('compile', function($compile) {
-          // directive factory creates a link function
+          directives
           return function(scope, element, attrs) {
             scope.$watch(
               function(scope) {

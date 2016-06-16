@@ -10,6 +10,9 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
 
 
     //$urlRouterProvider.otherwise('/performance');
+    $urlRouterProvider.when("","/login");
+    $urlRouterProvider.when("/","/login");
+
 
     $stateProvider
         .state('login', {
@@ -22,16 +25,17 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
             templateUrl: './views/signup.html',
             controller:'signupController'
         })
+
         .state('appView',{
-            //url: '/loggedIn',
+            url: '/appView',
             abstract:true,
             templateUrl: './views/logged_in.html',
             controller: 'appViewCtrl'
         })
 
-
         .state('appView.dashboard', {
             url: '/dashboard',
+            parent:'appView',
             views: {
                 "mainSidebar": {
                     templateUrl: './views/main_sidebar.html',
@@ -41,14 +45,13 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
                     templateUrl: './views/dashboard-performance.html',
                     controller: 'dashboardCtrl'
                 }
-
-            },
+            }
             //abstract:true
         })
 
         .state('appView.performance', {
             url: '/performance',
-
+            parent:'appView',
             params:{
                 parentTxt:'Dashboard',
                 pageName:'Performance'
@@ -67,6 +70,7 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
 
         .state('appView.audiences', {
             url: '/audiences',
+            parent:'appView',
             params:{
                 parentTxt:'Dashboard',
                 pageName:'Audiences'
@@ -84,6 +88,7 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
         })
         .state('appView.idealtarget', {
             url: '/idealtarget',
+            parent:'appView',
             params:{
                 parentTxt:'Dashboard',
                 pageName:'Ideal Target'
@@ -101,6 +106,7 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
         })
         .state('appView.campaign', {
             url: '/campaign',
+            parent:'appView',
             params:{
                 pageName:'Manage Campaign'
             },
@@ -117,6 +123,7 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
         })
         .state('appView.creatives', {
             url: '/creatives',
+            parent:'appView',
             params:{
                 pageName:'Manage Creatives'
             },

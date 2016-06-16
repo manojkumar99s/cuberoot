@@ -91,22 +91,22 @@ gulp.task('default', [                                // list of default tasks
 var 
 	sourceStatic = './src/main/webapp/static',  
 //	destinationStatic = '/home/vr/sts-bundle/pivotal-tc-server-developer-3.1.3.SR1/base-instance/webapps/CuberootWeb/static',
-    destinationStatic = '/home/vr/tomcat/webapps/CuberootWeb/static',
+    destinationStatic = '/home/vr/CS/tomcat/webapps/CuberootWeb//static',
 
 	sourceViews = './src/main/webapp/WEB-INF/views',
 //	destinationViews = '/home/vr/sts-bundle/pivotal-tc-server-developer-3.1.3.SR1/base-instance/webapps/CuberootWeb/WEB-INF/views'
-    destinationViews = '/home/vr/tomcat/webapps/CuberootWeb/WEB-INF/views'
+    destinationViews = '/home/vr/CS/tomcat/webapps/CuberootWeb/WEB-INF/views'
 ;
 
 gulp.task('copyStatic', function() {
 	  gulp.src(sourceStatic + '/**/*', {base: sourceStatic})
-      .pipe(newer(destinationStatic))
+      //.pipe(newer(destinationStatic))
 	    .pipe(gulp.dest(destinationStatic));
 });
 
 gulp.task('copyViews', function() {
 	gulp.src(sourceViews + '/**/*', {base: sourceViews})
-    .pipe(newer(destinationViews))
+    //.pipe(newer(destinationViews))
 	.pipe(gulp.dest(destinationViews));
 });
 

@@ -7,7 +7,8 @@ var cubeRootApp =  angular.module('CubeRootApp',
             'ngTouch',
             'ui.grid',
             'validation',
-            'validation.rule'
+            'validation.rule',
+            'CubeRootApp.directives'
         ]
 );
 

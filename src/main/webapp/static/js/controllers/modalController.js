@@ -1,7 +1,6 @@
 "use strict";
-
-var cubeRootApp =  angular.module('CubeRootApp');
-cubeRootApp.controller('modalViewCtrl', function ($scope, $uibModal, $log) {
+angular.module('CubeRootApp')
+    .controller('modalViewCtrl', function ($scope, $uibModal, $log) {
 
     $scope.items = ['item1', 'item2', 'item3'];
 
@@ -24,11 +23,11 @@ cubeRootApp.controller('modalViewCtrl', function ($scope, $uibModal, $log) {
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
-});
+})
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
-cubeRootApp.controller('modalViewInstanceCtrl', function ($scope, $uibModalStack, items) {
+.controller('modalViewInstanceCtrl', function ($scope, $uibModalStack, items) {
 
     $scope.items = items;
     $scope.selected = {

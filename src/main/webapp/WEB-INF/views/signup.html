@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="signupForm" method="POST" ng-submit="submitSignupForm();" name="signupForm" novalidate>
+            <form id="signupForm" method="POST" ng-submit="submitSignupForm();" class="signupForm" name="signupForm" novalidate>
                 <!---form--->
                 <h3 class="text-center">
                     Sign Up
@@ -14,235 +14,298 @@
                     Basic Details
                 </h4>
 
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <!---input width--->
-                    <div class="">
-                    <label for="InputName">Full Name</label>
-                    <div class="input-group">
-                        <input type="text" ng-model="registrationForm.firstname" class="form-control" name="first_name" placeholder="Enter First Name" required tabindex="1"
-                               validator="required"
-                               valid-method="submit"
-                               required-error-message="Please enter your first name"
-                        >
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                    <br>
-                    <label for="InputName">Username</label>
-                    <div class="input-group">
-                        <input type="text" ng-model="registrationForm.username" class="form-control" name="username" placeholder="Enter Username" required tabindex="3"
-                               validator="required"
-                               valid-method="submit"
-                               required-error-message="Please enter your username"
+                    <div class="row">
+                        <div class="form-group clearfix col-md-6">
+                            <label for="InputFirstName">Full Name</label>
 
-                        >
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                    <br/>
-                    <label for="InputNAddressame">Enter email</label>
-                    <div class="input-group">
-                        <input type="text" ng-model="registrationForm.email" class="form-control" name="last_name" placeholder="Enter Last Name" required tabindex="5"
-                               validator="required, email"
-                               valid-method="submit"
-                               required-error-message="Please enter your email id"
-                        >
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                        <!--------------------------------------separator--------------------------------------------------------------->
-                </div>
-                </div>
+                                <input type="text" ng-model="registrationForm.firstname" class="form-control" name="first_name" placeholder="Enter First Name" required tabindex="1"
+                                       validator="text"
+                                       valid-method="submit, keyup"
+                                       required-error-message="Please enter your first name"
+                                       text-error-message="Please enter valid text for your first name"
+                                       id="InputFirstName"
 
-                    <div class="form-group">
-                        <div class="col-xs-6">
-                            <label for="InputName">&nbsp;</label>
-                            <div class="input-group">
+                                >
+
+                        </div>
+                        <div class="form-group clearfix clearfix col-md-6">
+
+                            <label for="InputLastName">&nbsp;</label>
                                 <input type="text" ng-model="registrationForm.lastname" class="form-control" name="last_name" placeholder="Enter Last Name" required tabindex="2"
-                                       validator="required"
+                                       validator="required,text"
                                        valid-method="submit"
                                        required-error-message="Please enter your last name"
-
+                                       id="InputLastName"
+                                       text-error-message="Please enter valid text for your first name"
                                 >
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+
                             </div>
 
-                            <br>
-                            <label for="InputPassword">Enter Password</label>
-                            <div class="input-group">
-                                <input type="password" ng-model="registrationForm.password" class="form-control" name="password" placeholder="Enter Password" required tabindex="4"
-                                       validator="required, password"
-                                       valid-method="submit"
-                                       required-error-message="Please enter your password"
-                                >
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
 
-                            <br>
-                            <label for="InputPassword">Retype Password</label>
-                            <div class="input-group">
-                                <input type="password" ng-model="registrationForm.retypePassword"class="form-control" name="retyePassword" placeholder="Retype Password" required tabindex="6"
-                                       validator="required, password"
-                                       valid-method="submit"
-                                       required-error-message="Please retype your password"
-                                >
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                            <!--------------------------------------separator--------------------------------------------------------------->
+                        </div>
+                    <!--------------------------------------separator--------------------------------------------------------------->
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="InputUsername">Username</label>
+
+                            <input type="text" ng-model="registrationForm.username" class="form-control" name="username" placeholder="Enter Username" required tabindex="3"
+                                   validator="required, text, nospace"
+                                   valid-method="submit"
+                                   required-error-message="Please enter your username"
+                                   id="InputUsername"
+                                   text-error-message="Please enter valid text for your username"
+                                   nospace-error-message="No space allowed in username"
+
+                            >
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            <label for="InputEmail">Enter email</label>
+                            <input type="text" ng-model="registrationForm.email" class="form-control" name="email" placeholder="Enter email id" required tabindex="4"
+                                   validator="required, email"
+                                   valid-method="submit"
+                                   required-error-message="Please enter your email id"
+                                   id="InputEmail"
+                            >
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <label for="InputStreetName">Choose your type</label>
-                            <div class="input-group">
-                                <select class="form-control" ng-model="registrationForm.usertype"
-                                        validator="required"
-                                        valid-method="submit"
-                                        required-error-message="Please select one option"
-                                >
-                                    <option selected value="">Select</option>
-                                    <option value="advertiser">Advertiser</option>
-                                    <option value="publisher">Publisher</option>
-                                </select>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                            <!----------------------------break-------------------------------------------------------------> <br>
+                <!--------------------------------------separator--------------------------------------------------------------->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="password">Enter Password</label>
+                        <input type="password" ng-model="registrationForm.password" class="form-control" name="password" placeholder="Enter Password" required tabindex="5"
+                                   validator="required"
+                                   valid-method="submit"
+                                   required-error-message="Please enter your password"
+                                   id="password"
+                                   compare-to="retypePassword"
+                            >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="retypePassword">Retype Password</label>
+                            <input type="password" ng-model="registrationForm.retypePassword"class="form-control" name="retypePassword" placeholder="Retype Password" required tabindex="6"
+                                   validator="required"
+                                   valid-method="submit"
+                                   required-error-message="Please retype your password"
+                                   id="retypePassword"
+                                   compare-to="password"
+                            >
+
+                        <div class="msg-block" ng-show="signupForm.$error">
+                          <span class="in tooltip top text-warning pwd-error" ng-show="signupForm.retypePassword.$error.matched || signupForm.password.$error.matched">
+                                Passwords don't match.
+                          </span>
                         </div>
+
+                    </div>
+                </div>
+
+                    <label for="SelectUserType">Choose your type</label>
+                    <div class="form-group">
+                        <select class="form-control" ng-model="registrationForm.usertype"
+                                validator="required"
+                                valid-method="submit"
+                                required-error-message="Please select one option"
+                                id="SelectUserType"
+                                tabindex="7"
+                                message-id="selectError"
+                                name="usertype"
+                        >
+                            <option value="? undefined:undefined ?"></option>
+                            <option value="advertiser">Advertiser</option>
+                            <option value="publisher">Publisher</option>
+                        </select>
+
+                        <div id="selectError"></div>
+                            </div>
                     </div>
                 </div>
 
                 <div class="panel panel-flat p-20 m-20 clearfix">
                     <h4>Advanced Details</h4>
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <label for="InputStreetName">Company Name</label>
-                            <div class="input-group">
-                                <input type="text" ng-model="registrationForm.companyname" class="form-control" name="company_name" placeholder="Enter Company Name " required
+                            <label for="InputCompanyName">Company Name</label>
+                                <input type="text" ng-model="registrationForm.companyname" class="form-control" name="company_name" placeholder="Enter Company Name "
                                        validator="required"
                                        valid-method="submit"
                                        required-error-message="Enter Company Name"
-                                >
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                            <!----------------------------break-------------------------------------------------------------> <br>
-                        </div>
-                    </div>
+                                       tabindex="8"
+                                       id="InputCompanyName"
 
-                    <div class="form-group" ng-if="registrationForm.userType=='publisher'">
-                        <div class="col-xs-12">
-                            <label for="InputStreetName">Monthly Unique Visitor</label>
-                            <div class="input-group">
+                                >
+                    <br/>
+                        <div ng-if="registrationForm.usertype=='publisher'">
+                            <label for="selectMonthlyVisitor">Monthly Unique Visitor</label>
                             <select class="form-control" ng-model="registrationForm.monthly_visitor" name="monthly_visitor"
-                                    validator="required"
                                     valid-method="submit"
                                     required-error-message="Please select your Monthly Unique Visitor"
+                                    id="selectMonthlyVisitor"
+                                    tabindex="9"
+                                    name="monthlyVisitor"
                             >
-                                <option selected value=""></option>
+                                <option selected></option>
                                 <option value="less_then_1">> Less then 1 Million</option>
                                 <option value="2to5">2 Million to 5 Million</option>
                                 <option value="5to10">5 Million to 10 Million</option>
                                 <option value="above10">above 10 Million</option>
                             </select>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                            <!----------------------------break-------------------------------------------------------------> <br>
+                            <br/>
                         </div>
-                    </div>
 
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <label for="InputStreetName">Website Url</label>
-                                <input type="text" ng-model="registrationForm.weburl" class="form-control" name="street_name" placeholder="Enter Website Url"
-                                       validator="required"
+                            <label for="InputWebsiteUrl">Website Url</label>
+                                <input type="text" ng-model="registrationForm.weburl" class="form-control" name="websiteUrl" placeholder="Enter Website Url"
+                                       validator="required, url"
                                        valid-method="submit"
                                        required-error-message="Please enter your Website Url"
+                                       id="InputWebsiteUrl"
+                                       tabindex="10"
                                 >
-                            <!----------------------------break-------------------------------------------------------------> <br>
-                        </div>
-                    </div>
+                    <br/>
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <label for="InputStreetName">Address</label>
-                            <div class="input-group">
-                                <input type="text" ng-model="registrationForm.address" class="form-control" name="street_name" placeholder="Enter Street Name and Number" required
+                            <label for="InputAddress">Address</label>
+                                <textarea ng-model="registrationForm.address" class="form-control" name="address" placeholder="Enter Street Name and Number"
                                        validator="required"
                                        valid-method="submit"
                                        required-error-message="Please enter Street Name and Number"
+                                       id="InputAddress"
+                                       tabindex="11"
                                 >
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                            <!----------------------------break-------------------------------------------------------------> <br>
-                        </div>
-                    </div>
+                                </textarea>
+                    <br/>
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
                             <label for="InputCity">City</label>
-                            <div class="input-group">
+
                                 <input type="text" class="form-control" ng-model="registrationForm.city" name="city" placeholder="Enter City" required
                                        validator="required"
                                        valid-method="submit"
                                        required-error-message="Please enter your City"
+                                       id="InputCity"
+                                       tabindex="12"
                                 >
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
-                            <!----------------------------break-------------------------------------------------------------> <br>
-                        </div>
-                    </div>
+                            <div class="form-group col-md-6">
+                            <label for="InputState">State</label>
+                                <select
+                                        class="form-control" ng-model="registrationForm.state" name="state"
+                                        validator="required"
+                                        valid-method="submit"
+                                        required-error-message="Please enter your State"
+                                        id="InputState"
+                                        tabindex="13"
+                                        name="state"
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <label for="InputProvince">State</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control"  ng-model="registrationForm.state" name="province" placeholder="Enter State" required
-                                       validator="required"
-                                       valid-method="submit"
-                                       required-error-message="Please enter your State"
                                 >
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                    <option value="" class="text-grey-800">Select State</option>
+
+                                    <option value="AN">Andaman &amp; Nicobar Islands</option>
+
+                                    <option value="AP">Andhra Pradesh</option>
+
+                                    <option value="AR">Arunachal Pradesh</option>
+
+                                    <option value="AS">Assam</option>
+
+                                    <option value="BR">Bihar</option>
+
+                                    <option value="CH">Chandigarh</option>
+
+                                    <option value="CT">Chhattisgarh</option>
+
+                                    <option value="DN">Dadra &amp; Nagar Haveli</option>
+
+                                    <option value="DL">Delhi</option>
+
+                                    <option value="DD">Daman &amp; Diu</option>
+
+                                    <option value="GA">Goa</option>
+
+                                    <option value="GJ">Gujarat</option>
+
+                                    <option value="HR">Haryana</option>
+
+                                    <option value="HP">Himachal Pradesh</option>
+
+                                    <option value="JK">Jammu &amp; Kashmir</option>
+
+                                    <option value="JH">Jharkhand</option>
+
+                                    <option value="KA">Karnataka</option>
+
+                                    <option value="KL">Kerala</option>
+
+                                    <option value="MP">Madhya Pradesh</option>
+
+                                    <option value="MH">Maharashtra</option>
+
+                                    <option value="MN">Manipur</option>
+
+                                    <option value="ML">Meghalaya</option>
+
+                                    <option value="MZ">Mizoram</option>
+
+                                    <option value="NL">Nagaland</option>
+
+                                    <option value="OR">Odisha</option>
+
+                                    <option value="PY">Pondicherry</option>
+
+                                    <option value="PB">Punjab</option>
+
+                                    <option value="RJ">Rajasthan</option>
+
+                                    <option value="SK">Sikkim</option>
+
+                                    <option value="TN">Tamil Nadu</option>
+
+                                    <option value="TS">Telangana</option>
+
+                                    <option value="TR">Tripura</option>
+
+                                    <option value="UP">Uttar Pradesh</option>
+
+                                    <option value="UL">Uttarakhand</option>
+
+                                    <option value="WB">West Bengal</option>
+
+                                </select>
                             </div>
-                            <!----------------------------break-------------------------------------------------------------> <br>
                         </div>
 
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <label for="InputProvince">Phone</label>
-                            <div class="input-group">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="InputPhone">Phone</label>
                                 <input type="text" class="form-control" ng-model="registrationForm.phone"  name="phone" placeholder="Enter Phone" required
-                                       validator="required"
+                                       validator="required, number"
                                        valid-method="submit"
                                        required-error-message="Please enter your Phone Number"
+                                       id="InputPhone"
+                                       tabindex="14"
                                 >
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                            <!----------------------------break-------------------------------------------------------------> <br>
                         </div>
+                        <div class="form-group col-md-6">
 
-                    </div>
-
-
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <label for="InputProvince">Zipcode</label>
-                            <div class="input-group">
+                            <label for="InputZipcode">Zipcode</label>
                                 <input type="text" class="form-control" ng-model="registrationForm.zip"  name="zipcode" placeholder="Enter Zipcode" required
-                                       validator="required"
+                                       validator="required, number"
                                        valid-method="submit"
                                        required-error-message="Please enter your Zipcode"
+                                       id="InputZipcode"
+                                       tabindex="15"
                                 >
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                            <!----------------------------break-------------------------------------------------------------> <br>
                         </div>
-
                     </div>
-s
+                    <br/>
 
-                    <div class="form-group text-center">
-                            <input type="submit" name="submit" id="submit" value="Submit" ng-click="form.submit(signupForm)" class="btn btn-primary btn-lg">
+                    <div class="form-group text-center clearfix">
+                            <input type="submit" name="submit" id="submit" value="Submit" ng-click="form.submit(signupForm)" class="btn btn-primary btn-lg" tabindex="16">
                     </div>
         </form>
         </div>

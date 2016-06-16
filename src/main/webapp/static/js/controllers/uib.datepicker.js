@@ -20,7 +20,7 @@ cubeRootApp.controller('datePickerCtrl', function ($scope) {
     $scope.dateOptions = {
         dateDisabled: disabled,
         formatYear: 'yy',
-        maxDate: endDate,
+        maxDate: new Date(2020, 2, 22),
         minDate: new Date(),
         startingDay: 1
     };

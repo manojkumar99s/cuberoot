@@ -5,16 +5,16 @@
             <h3 class="text-center">
                 Login
             </h3>
-<!--  -->
-                <form class="form-horizontal" name="signInForm" novalidate>
 
+                <form id="signInForm" class="form-horizontal"  method="POST" ng-submit="" name="signInForm" novalidate>
                     <div class="form-group">
                         <label for="username" class="col-sm-2 control-label">Username</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="username" name="username" ng-model="user.username" placeholder="Email"
                            	 validator="required, email"
                            	 valid-method="submit"
-                           required-error-message="Please enter your registered email id."
+                           required-error-message="Please enter your registered email id"
+                           email-error-message="Please enter a valid registered email id"
         					>
                         </div>
                     </div>
@@ -50,7 +50,6 @@
                         </div>
                     </div>
                     <div>
-                        signInForm.$valid  : {{ signInForm.$valid  }}
                     </div>
                 </form>
             </div>
@@ -64,16 +63,25 @@
             <h3 class="modal-title">Forgot Password?</h3>
         </div>
         <div class="modal-body">
+            <form name="forgotForm" method="POST" id="forgotForm" class="form-horizontal ">
             <div class="form-group">
-                <label for="inputForgotEmail" class="col-sm-2 control-label">Username / Email</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputForgotEmail" placeholder="Please enter your email">
+                <label for="password" class="text-right col-sm-4 control-label">Username / Email</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" id="inputForgotEmail" placeholder="Please enter your email"
+                           name="forgotEmail"
+                           ng-model="user.email"
+                           validator="required, email"
+                           valid-method="submit"
+                           required-error-message="Please enter your email"
+                           email-error-message="Please enter a valid email id"
+                    >
                 </div>
             </div>
+            </form>
             <br/>
         </div>
         <div class="modal-footer text-center">
-            <button class="btn btn-primary" ng-click="ok()">Submit</button>
+            <button class="btn btn-primary"  ng-click="form.submit(forgotForm)">Reset my password</button>
         </div>
     </script>
 <!-- /Modal view -->

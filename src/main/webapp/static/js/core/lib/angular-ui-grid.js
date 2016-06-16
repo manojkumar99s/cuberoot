@@ -572,7 +572,7 @@ function ($timeout, gridUtil, uiGridConstants, uiGridColumnMenuService, $documen
 
       /**
        * @ngdoc method
-       * @methodOf ui.grid.directive:uiGridColumnMenu
+       * @methodOf ui.grid.directives:uiGridColumnMenu
        * @name showMenu
        * @description Shows the column menu.  If the menu is already displayed it
        * calls the menu to ask it to hide (it will animate), then it repositions the menu
@@ -611,7 +611,7 @@ function ($timeout, gridUtil, uiGridConstants, uiGridColumnMenuService, $documen
 
       /**
        * @ngdoc method
-       * @methodOf ui.grid.directive:uiGridColumnMenu
+       * @methodOf ui.grid.directives:uiGridColumnMenu
        * @name hideMenu
        * @description Hides the column menu.
        * @param {boolean} broadcastTrigger true if we were triggered by a broadcast
@@ -2499,8 +2499,8 @@ function ($compile, $timeout, $window, $document, gridUtil, uiGridConstants, i18
 
       var baseDirectiveName = 'uiGridOneBind';
       //If it is an aria tag then append the aria label seperately
-      //This is done because the aria tags are formatted aria-* and the directive name can't have a '-' character in it.
-      //If the diretiveName has to be overridden then it does so here. This is because the tag being modified and the directive sometimes don't match up.
+      //This is done because the aria tags are formatted aria-* and the directives name can't have a '-' character in it.
+      //If the diretiveName has to be overridden then it does so here. This is because the tag being modified and the directives sometimes don't match up.
       var directiveName = (v.aria ? baseDirectiveName + 'Aria' : baseDirectiveName) + (v.directiveName ? v.directiveName : v.tag);
       oneBinders.directive(directiveName, ['gridUtil', function(gridUtil){
         return {
@@ -2527,7 +2527,7 @@ function ($compile, $timeout, $window, $document, gridUtil, uiGridConstants, i18
                   }
               })){
                 //We tried our best to find it for you
-                gridUtil.logError("["+directiveName+"] A valid grid could not be found to bind id. Are you using this directive " +
+                gridUtil.logError("["+directiveName+"] A valid grid could not be found to bind id. Are you using this directives " +
                                  "within the correct scope? Trying to generate id: [gridID]-" + val);
                 throw new Error("No valid grid could be found");
               }
@@ -2600,9 +2600,9 @@ function ($compile, $timeout, $window, $document, gridUtil, uiGridConstants, i18
             // True ensures that equality is determined using angular.equals instead of ===
             }, true); //End rm watchers
           } //End compile function
-        }; //End directive return
-      } // End directive function
-    ]); //End directive
+        }; //End directives return
+      } // End directives function
+    ]); //End directives
   }); // End angular foreach
 })();
 
@@ -3377,7 +3377,7 @@ function uiGridDirective($compile, $templateCache, $timeout, $window, gridUtil, 
             });
           }
 
-          // Initialize the directive
+          // Initialize the directives
           function init() {
             grid.gridWidth = $scope.gridWidth = gridUtil.elementWidth($elm);
 
@@ -8036,7 +8036,7 @@ angular.module('ui.grid')
     this.renderedColumns.length = 0;
   };
 
-  // TODO(c0bra): calculate size?? Should this be in a stackable directive?
+  // TODO(c0bra): calculate size?? Should this be in a stackable directives?
 
 
   GridRenderContainer.prototype.containsColumn = function (col) {
@@ -13992,7 +13992,7 @@ module.filter('px', function() {
 
   module.directive('uiI18n', ['i18nService', 'i18nConstants', localeDirective]);
 
-  // directive syntax
+  // directives syntax
   var uitDirective = function ($parse, i18nService, i18nConstants) {
     return {
       restrict: 'EA',
@@ -15142,7 +15142,7 @@ module.filter('px', function() {
                  renderContainerCtrl = controllers[1],
                  uiGridCellnavCtrl = controllers[2];
 
-              // Skip attaching cell-nav specific logic if the directive is not attached above us
+              // Skip attaching cell-nav specific logic if the directives is not attached above us
               if (!uiGridCtrl.grid.api.cellNav) { return; }
 
               var containerId = renderContainerCtrl.containerId;
@@ -15248,7 +15248,7 @@ module.filter('px', function() {
               var uiGridCtrl = controllers[0],
                 renderContainerCtrl = controllers[1];
 
-              // Skip attaching cell-nav specific logic if the directive is not attached above us
+              // Skip attaching cell-nav specific logic if the directives is not attached above us
               if (!uiGridCtrl.grid.api.cellNav) { return; }
 
               var containerId = renderContainerCtrl.containerId;
@@ -15315,14 +15315,14 @@ module.filter('px', function() {
   module.directive('uiGridCell', ['$timeout', '$document', 'uiGridCellNavService', 'gridUtil', 'uiGridCellNavConstants', 'uiGridConstants', 'GridRowColumn',
     function ($timeout, $document, uiGridCellNavService, gridUtil, uiGridCellNavConstants, uiGridConstants, GridRowColumn) {
       return {
-        priority: -150, // run after default uiGridCell directive and ui.grid.edit uiGridCell
+        priority: -150, // run after default uiGridCell directives and ui.grid.edit uiGridCell
         restrict: 'A',
         require: ['^uiGrid', '?^uiGridCellnav'],
         scope: false,
         link: function ($scope, $elm, $attrs, controllers) {
           var uiGridCtrl = controllers[0],
               uiGridCellnavCtrl = controllers[1];
-          // Skip attaching cell-nav specific logic if the directive is not attached above us
+          // Skip attaching cell-nav specific logic if the directives is not attached above us
           if (!uiGridCtrl.grid.api.cellNav) { return; }
 
           if (!$scope.col.colDef.allowCellFocus) {
@@ -15891,7 +15891,7 @@ module.filter('px', function() {
         }
 
         return {
-          priority: -100, // run after default uiGridCell directive
+          priority: -100, // run after default uiGridCell directives
           restrict: 'A',
           scope: false,
           require: '?^uiGrid',
@@ -16495,7 +16495,7 @@ module.filter('px', function() {
         return new Date(year, (month - 1), day);
       }
       return {
-        priority: -100, // run after default uiGridEditor directive
+        priority: -100, // run after default uiGridEditor directives
         require: '?ngModel',
         link: function (scope, element, attrs, ngModel) {
 
@@ -22441,7 +22441,7 @@ module.filter('px', function() {
             if ( grid.api.colResizable ){
               grid.api.colResizable.raise.columnSizeChanged(colDef, deltaChange);
             } else {
-              gridUtil.logError("The resizeable api is not registered, this may indicate that you've included the module but not added the 'ui-grid-resize-columns' directive to your grid definition.  Cannot raise any events.");
+              gridUtil.logError("The resizeable api is not registered, this may indicate that you've included the module but not added the 'ui-grid-resize-columns' directives to your grid definition.  Cannot raise any events.");
             }
           });
         },
@@ -22523,7 +22523,7 @@ module.filter('px', function() {
     };
   }]);
 
-  // Extend the uiGridHeaderCell directive
+  // Extend the uiGridHeaderCell directives
   module.directive('uiGridHeaderCell', ['gridUtil', '$templateCache', '$compile', '$q', 'uiGridResizeColumnsService', 'uiGridConstants', '$timeout', function (gridUtil, $templateCache, $compile, $q, uiGridResizeColumnsService, uiGridConstants, $timeout) {
     return {
       // Run after the original uiGridHeaderCell
@@ -23579,7 +23579,7 @@ module.filter('px', function() {
     ['$compile', 'uiGridConstants', 'gridUtil', '$parse',
       function ($compile, uiGridConstants, gridUtil, $parse) {
         return {
-          priority: -200, // run after default  directive
+          priority: -200, // run after default  directives
           scope: false,
           compile: function ($elm, $attrs) {
             var rowRepeatDiv = angular.element($elm.children().children()[0]);
@@ -25221,7 +25221,7 @@ module.filter('px', function() {
     ['$compile', 'uiGridConstants', 'uiGridSelectionConstants', 'gridUtil', '$parse', 'uiGridSelectionService',
       function ($compile, uiGridConstants, uiGridSelectionConstants, gridUtil, $parse, uiGridSelectionService) {
         return {
-          priority: -200, // run after default  directive
+          priority: -200, // run after default  directives
           scope: false,
           compile: function ($elm, $attrs) {
             var rowRepeatDiv = angular.element($elm.children().children()[0]);
@@ -25258,7 +25258,7 @@ module.filter('px', function() {
     ['$compile', 'uiGridConstants', 'uiGridSelectionConstants', 'gridUtil', '$parse', 'uiGridSelectionService', '$timeout',
       function ($compile, uiGridConstants, uiGridSelectionConstants, gridUtil, $parse, uiGridSelectionService, $timeout) {
         return {
-          priority: -200, // run after default uiGridCell directive
+          priority: -200, // run after default uiGridCell directives
           restrict: 'A',
           require: '?^uiGrid',
           scope: false,
@@ -27022,7 +27022,7 @@ module.filter('px', function() {
   ['$compile', 'uiGridConstants', 'gridUtil', '$parse',
     function ($compile, uiGridConstants, gridUtil, $parse) {
       return {
-        priority: -200, // run after default  directive
+        priority: -200, // run after default  directives
         scope: false,
         compile: function ($elm, $attrs) {
           var rowRepeatDiv = angular.element($elm.children().children()[0]);

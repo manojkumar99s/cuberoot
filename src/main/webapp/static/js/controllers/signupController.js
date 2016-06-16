@@ -1,10 +1,21 @@
 "use strict";
 
 var cubeRootApp =  angular.module('CubeRootApp');
-cubeRootApp.controller("signupController",['$scope', '$http','$validation', function($scope, $http, $validation){
+cubeRootApp.controller("signupController",['$scope', '$http','$validation',
+	function($scope, $http, $validation){
 
 	var $validationProvider = $validation;
-	$scope.registrationForm={};
+	$scope.registrationForm = {};
+
+/*
+	$scope.matchPassword = function(){
+		if($scope.registrationForm.password != $scope.registrationForm.retypePassword){
+			$scope.registrationForm.password.$error=true;
+			$scope.registrationForm.retypePassword.$error=true;
+		}
+	}
+*/
+
 	$scope.form = {
 		checkValid: $validationProvider.checkValid,
 
@@ -15,6 +26,10 @@ cubeRootApp.controller("signupController",['$scope', '$http','$validation', func
 		submit: function (form) {
 			$validationProvider.validate(form)
 				.success(function() {
+
+					$scope.registrationForm.phone = parseInt($scope.registrationForm.phone);
+					$scope.registrationForm.zip = parseInt($scope.registrationForm.zip);
+
 					$http({
 						method: 'POST',
 						data: $scope.registrationForm,

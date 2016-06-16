@@ -36,6 +36,7 @@
 	color:green;
 	display:none;
 }
+/*
 .ng-invalid.ng-dirty input,
 .ng-valid.ng-dirty textarea,
 .ng-invalid.ng-dirty select{border:1px solid #ff0000;}
@@ -43,3 +44,25 @@
 .ng-valid.ng-dirty input,
 .ng-valid.ng-dirty select,
 .ng-valid.ng-dirty textarea{ border:1px solid green;}
+*/
+
+form.ng-invalid{border:0px;}
+.ng-invalid{
+    border:1px solid #ff0000;
+}
+
+/*.ng-valid{ border:1px solid green;}*/
+
+.signupForm .ng-invalid input{
+
+}
+
+textarea{
+    resize: vertical;
+}
+
+
+
+
+
+

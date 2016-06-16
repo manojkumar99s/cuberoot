@@ -2265,7 +2265,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
     },
 
     // If there is no explicit multi-view configuration, make one up so we don't have
-    // to handle both cases in the view directive later. Note that having an explicit
+    // to handle both cases in the view directives later. Note that having an explicit
     // 'views' property will mean the default unnamed view properties are ignored. This
     // is also a good time to resolve view names to absolute names, so everything is a
     // straight lookup at link time.
@@ -3279,7 +3279,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
 
       // Resolve locals for the remaining states, but don't update any global state just
       // yet -- if anything fails to resolve the current state needs to remain untouched.
-      // We also set up an inheritance chain for the locals here. This allows the view directive
+      // We also set up an inheritance chain for the locals here. This allows the view directives
       // to quickly look up the correct definition for each view in the current state. Even
       // though we create the locals object itself outside resolveState(), it is initially
       // empty and gets filled asynchronously. We need to keep track of the promise for the
@@ -4144,7 +4144,7 @@ function clickHook(el, $state, $timeout, type, current) {
       });
       e.preventDefault();
 
-      // if the state has no URL, ignore one preventDefault from the <a> directive.
+      // if the state has no URL, ignore one preventDefault from the <a> directives.
       var ignorePreventDefaultCount = type.isAnchor && !target.href ? 1: 0;
 
       e.preventDefault = function() {
@@ -4399,7 +4399,7 @@ function $StateRefActiveDirective($state, $stateParams, $interpolate) {
       var states = [], activeClasses = {}, activeEqClass, uiSrefActive;
 
       // There probably isn't much point in $observing this
-      // uiSrefActive and uiSrefActiveEq share the same directive object with some
+      // uiSrefActive and uiSrefActiveEq share the same directives object with some
       // slight difference in logic routing
       activeEqClass = $interpolate($attrs.uiSrefActiveEq || '', false)($scope);
 

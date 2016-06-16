@@ -1,7 +1,9 @@
 'use strict';
-var cubeRootApp =  angular.module('CubeRootApp');
-cubeRootApp.controller('loginCtrl', ['$validation','$scope',  '$uibModal', '$log', '$http', function ($validation, $scope,  $uibModal, $log, $http) {
+angular.module('CubeRootApp')
+    .controller('loginCtrl', ['$validation','$scope',  '$uibModal', '$log', '$http', '$state', 'commonService',
+        function ($validation, $scope,  $uibModal, $log, $http, $state, commonService) {
 
+    $scope.sendData = commonService.sendData;
 
 
     var $validationProvider = $validation;
@@ -13,25 +15,30 @@ cubeRootApp.controller('loginCtrl', ['$validation','$scope',  '$uibModal', '$log
         },
 
         submit: function (form) {
-            $validationProvider.validate(form)
-                .success(function(){
-                    $http({
-                        method: 'POST',
-                        data:$scope.user,
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        url: 'Api/UserLogin'
-                    }).then(function successCallback(response) { 
-                        console.log('user logged in.....')
-                    }, function errorCallback(response) {
-                        console.log('user not logged in...')
+            try {
+                $validationProvider.validate(form)
+                    .success(function () {
+                        $scope.sendData(
+                            'Api/UserLogin', //url
+                            $scope.user, // data
+                            function () {
+                                //success call back
+                                $state.transitionTo('appView.dashboard', '', {
+                                    reload: true, inherit: true, notify: true
+                                });
+                            },
+                            function () {
+                                //error call back
+                                $state.transitionTo('appView.dashboard', '', {
+                                    reload: true, inherit: true, notify: true
+                                });
+                            });
+                    })
+                    .error(function (err) {
+                        //form error call back
+                        //console.log(err);
                     });
-                })
-                .error(function(err){
-                    console.log(err);
-                });
-
+            }catch(e){};
             //console.log(validationResult);
 
         }
@@ -55,7 +62,7 @@ cubeRootApp.controller('loginCtrl', ['$validation','$scope',  '$uibModal', '$log
 
         var modalInstance = $uibModal.open({
             templateUrl: 'forgotPassword',
-            controller: 'modalViewInstanceCtrl',
+            controller: 'forgotPasswordCtrl',
             size: size,
             resolve: {
                 items: function () {
@@ -71,27 +78,12 @@ cubeRootApp.controller('loginCtrl', ['$validation','$scope',  '$uibModal', '$log
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
-}]);
+}])
+.controller('forgotPasswordCtrl', ['$scope','$rootScope' , '$uibModalStack', 'items', '$validation', 'commonService',
+    function ($scope, $rootScope, $uibModalStack, items, $validation, commonService) {
 
-/*
-cubeRootApp.config(['$validationProvider', function ($validationProvider) {
-
-    $validationProvider.validate()
-        .success(function(){
-            alert('validation successfull.')
-        })
-        .error(function(){
-            alert('validation error.')
-        });
-
-}]);*/
-
-cubeRootApp.controller('modalViewInstanceCtrl', ['$scope', '$uibModalStack', 'items', function ($scope, $uibModalStack, items) {
-
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
+    var $validationProvider = $validation;
+    $scope.sendData = commonService.sendData;
 
     $scope.ok = function () {
         $uibModalStack.close($scope.selected.item);
@@ -100,4 +92,38 @@ cubeRootApp.controller('modalViewInstanceCtrl', ['$scope', '$uibModalStack', 'it
     $scope.cancel = function () {
         $uibModalStack.dismiss('cancel');
     };
+
+    $scope.form= {
+        checkValid: $validationProvider.checkValid,
+
+        submit: function (form) {
+            $validationProvider.validate(form)
+                .success(function(){
+                    $scope.sendData(
+                        'Api/forgotPassword', //url
+                        $scope.user, // data
+                        function(){
+                            //success call back
+
+                        }, function(){
+                            //error call back
+                        });
+
+                });
+        }
+    };
 }]);
+
+
+/*
+ .config(['$validationProvider', function ($validationProvider) {
+
+ $validationProvider.validate()
+ .success(function(){
+ alert('validation successfull.')
+ })
+ .error(function(){
+ alert('validation error.')
+ });
+
+ }]);*/
