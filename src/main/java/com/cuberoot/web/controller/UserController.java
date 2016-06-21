@@ -43,10 +43,10 @@ public class UserController {
 	@Autowired
 	RoleModuleService moduleservice;
 	
-	@RequestMapping(value = "/Api/UserLogin",produces = { "application/json" },consumes={ "application/json" }, method = RequestMethod.POST)
-	public ResponseEntity<String> getUserLogin(HttpEntity<String> request) throws JSONException 
+	@RequestMapping(value = "/Api/UserLogin", method = RequestMethod.POST)
+	public ResponseEntity<String> UserLogin(@RequestBody String  request) throws JSONException 
 	{
-		 JSONObject jsonObj = new JSONObject(request.getBody());
+		 JSONObject jsonObj = new JSONObject(request);
          String username = jsonObj.getString("username");
          String password = jsonObj.getString("password");
 		 String responsestatus ="notexist";
@@ -57,10 +57,10 @@ public class UserController {
 		 
 	    return new ResponseEntity<String>(responsestatus, HttpStatus.OK);
 	}
-	@RequestMapping(value = "/Api/UserRegistration",produces = { "application/json" },consumes={ "application/json" }, method = RequestMethod.POST)
-	public ResponseEntity<String> getUserRegistration(HttpEntity<String> request) throws JSONException 
+	@RequestMapping(value = "/Api/UserRegistration",method = RequestMethod.POST)
+	public ResponseEntity<String> UserRegistration(@RequestBody String  request) throws JSONException 
 	{
-		 JSONObject jsonObj = new JSONObject(request.getBody());
+		 JSONObject jsonObj = new JSONObject(request);
         
 		 String firstname = jsonObj.getString("firstname");
 		 String lastname = jsonObj.getString("lastname");
