@@ -21,23 +21,29 @@ angular.module('CubeRootApp')
                         $scope.sendData(
                             'Api/UserLogin', //url
                             $scope.user, // data
-                            function () {
+                            function (response) {
                                 //success call back
                                 $state.transitionTo('appView.dashboard', '', {
                                     reload: true, inherit: true, notify: true
                                 });
                             },
-                            function () {
+                            function (response) {
+                                response = { success: false, message: 'Username or password is incorrect' };
+                                $scope.flash = response;
                                 //error call back
-                                $state.transitionTo('appView.dashboard', '', {
+                                /*$state.transitionTo('appView.dashboard', '', {
                                     reload: true, inherit: true, notify: true
-                                });
+                                });*/
+
+
+
                             });
                     })
                     .error(function (err) {
                         //form error call back
                         //console.log(err);
                     });
+
             }catch(e){};
             //console.log(validationResult);
 

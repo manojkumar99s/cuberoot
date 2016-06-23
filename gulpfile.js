@@ -15,6 +15,8 @@ var
     gulp = require('gulp'),
 
 // Include our plugins
+    run = require('run-sequence'),
+    debug = require('gulp-debug'),
     newer= require('gulp-newer'),
     watch = require('gulp-watch'),
     gutil = require('gulp-util'),
@@ -24,9 +26,9 @@ var
     minifyCss = require('gulp-minify-css'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    rename = require('gulp-rename')
+    rename = require('gulp-rename'),
+    browserSync = require('browser-sync').create()
 ;
-
 
 // Lint task
 gulp.task('lint', function() {
@@ -36,35 +38,40 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter('default'));
 });
 
+var lessSrc = 'src/main/webapp/static/less/_main/';
+var lessDest = 'src/main/webapp/static/css';
 
 // Compile our less files
 gulp.task('less', function() {
     return gulp
-        .src('src/main/webapp/static/less/_main/*.less')              // locate /less/ folder root to grab 4 main files
+        .src(lessSrc+'/*.less', {base: lessSrc})              // locate /less/ folder root to grab 4 main files
+        //.pipe(newer(lessDest))
+        //.pipe(debug())
         .pipe(less())                                 // compile
-        .pipe(gulp.dest('assets/css'))                // destination path for normal CSS
+        .pipe(gulp.dest('src/main/webapp/static/css'))                // destination path for normal CSS
         .pipe(minifyCss({                             // minify CSS
             keepSpecialComments: 0                    // remove all comments
         }))
         .pipe(rename({                                // rename file
             suffix: ".min"                            // add *.min suffix
         }))
-        .pipe(gulp.dest('src/main/webapp/static/css'));               // destination path for minified CSS
+        .pipe(gulp.dest('src/main/webapp/static/css'))               // destination path for minified CSS
+        //.pipe(debug())
 });
 
 
 // Concatenate & minify JS (uncomment if you want to use)
 /*gulp.task('concatenate', function() {
-    return gulp
-        .src('assets/js/*.js')                        // path to js files you want to concat
-        .pipe(concat('all.js'))                       // output file name
-        .pipe(gulp.dest('assets/js'))                 // destination path for normal JS
-        .pipe(rename({                                // rename file
-            suffix: ".min"                            // add *.min suffix
-        }))
-        .pipe(uglify())                               // compress JS
-        .pipe(gulp.dest('assets/js'));                // destination path for minified JS
-});*/
+ return gulp
+ .src('assets/js/*.js')                        // path to js files you want to concat
+ .pipe(concat('all.js'))                       // output file name
+ .pipe(gulp.dest('assets/js'))                 // destination path for normal JS
+ .pipe(rename({                                // rename file
+ suffix: ".min"                            // add *.min suffix
+ }))
+ .pipe(uglify())                               // compress JS
+ .pipe(gulp.dest('assets/js'));                // destination path for minified JS
+ });*/
 
 
 // Minify template's core JS file
@@ -88,52 +95,46 @@ gulp.task('default', [                                // list of default tasks
     'watch'                                           // watch for changes
 ]);
 
-var 
-	sourceStatic = './src/main/webapp/static',  
+var
+    sourceStatic = './src/main/webapp/static',
 //	destinationStatic = '/home/vr/sts-bundle/pivotal-tc-server-developer-3.1.3.SR1/base-instance/webapps/CuberootWeb/static',
     destinationStatic = '/home/vr/CS/tomcat/webapps/CuberootWeb//static',
 
-	sourceViews = './src/main/webapp/WEB-INF/views',
+    sourceViews = './src/main/webapp/WEB-INF/views',
 //	destinationViews = '/home/vr/sts-bundle/pivotal-tc-server-developer-3.1.3.SR1/base-instance/webapps/CuberootWeb/WEB-INF/views'
     destinationViews = '/home/vr/CS/tomcat/webapps/CuberootWeb/WEB-INF/views'
-;
+    ;
 
 gulp.task('copyStatic', function() {
-	  gulp.src(sourceStatic + '/**/*', {base: sourceStatic})
-      //.pipe(newer(destinationStatic))
-	    .pipe(gulp.dest(destinationStatic));
+    gulp.src(sourceStatic + '/**/*', {base: sourceStatic})
+        .pipe(newer(destinationStatic))
+        .pipe(debug())
+        .pipe(gulp.dest(destinationStatic));
 });
 
 gulp.task('copyViews', function() {
-	gulp.src(sourceViews + '/**/*', {base: sourceViews})
-    //.pipe(newer(destinationViews))
-	.pipe(gulp.dest(destinationViews));
+    gulp.src(sourceViews + '/**/*', {base: sourceViews})
+        .pipe(newer(destinationViews))
+        .pipe(debug())
+        .pipe(gulp.dest(destinationViews));
 });
 
-gulp.task('copy',	
+gulp.task('copy',
      [
+      //'less',
 	  'copyViews',
-	  'copyStatic'                                    
+	  'copyStatic'
     ]
 );
 
+
 // Watch files for changes
-gulp.task('watch',['copy'] ,function() {
-    gulp.watch('src/main/webapp/**/*', [             // listen for changes in app.js file and automatically compress
-        //'lint',                                       // lint
-        //'concatenate',                              // concatenate & minify JS files (uncomment if in use)
-        //'minify_core',                                 // compress app.js
-        //'less',
+gulp.task('watch',
+    function() {
+    gulp.watch('src/main/webapp/**/*',[
         'copy'
     ]);
-    //gulp.watch('src/main/webapp/static/less/**/*.less', ['less']);    // listen for changes in all LESS files and automatically re-compile
 });
 
-gulp.task('watchy', function() {
 
-    // Add the newer pipe to pass through newer files only
-    return gulp.src(sourceStatic)
-        .pipe(newer(destinationStatic))
-        .pipe(gulp.dest(destinationStatic));
 
-});

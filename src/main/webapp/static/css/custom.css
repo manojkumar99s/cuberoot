@@ -61,6 +61,42 @@ textarea{
     resize: vertical;
 }
 
+.navbar-brand.h2{
+    font-size:21px;
+    font-weight:600;
+}
+
+
+
+/* SVG styles */
+rect.wrapper
+{
+    fill: none;
+}
+.hover rect.wrapper
+{
+    fill: rgba(255, 102, 0, 0.3);
+}
+text
+{
+    /* font: 12px 'PT Sans Narrow',sans-serif; */
+    fill: black;
+}
+text.bbox_hack
+{
+    font: 24px 'Rock Salt',sans-serif;
+}
+.tags_in_stream text
+{
+    fill: white;
+    /* fill: red;      -- use this while debugging the graphic placement of the in-stream tags */
+}
+svg
+{
+    font: 14px 'PT Sans Narrow',sans-serif;
+}
+
+
 
 
 

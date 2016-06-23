@@ -7,7 +7,7 @@ service('commonService',['$http','$q',function($http,$q){
         try {
                 $http({
                     method: 'POST',
-                    data: $data,
+                    data: [$data],
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -19,6 +19,4 @@ service('commonService',['$http','$q',function($http,$q){
         }
         }
     }
-
-    
 }]);

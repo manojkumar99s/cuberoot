@@ -5,6 +5,7 @@
             <h3 class="text-center">
                 Login
             </h3>
+                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
 
                 <form id="signInForm" class="form-horizontal"  method="POST" ng-submit="" name="signInForm" novalidate>
                     <div class="form-group">

@@ -7,14 +7,12 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
     } else {
         $urlRouterProvider.otherwise('notFound');
     }*/
-
-
     //$urlRouterProvider.otherwise('/performance');
     $urlRouterProvider.when("","/login");
     $urlRouterProvider.when("/","/login");
 
 
-    $stateProvider
+    $stateProvider 
         .state('login', {
             url: '/login',
             templateUrl: './views/login.html',

@@ -4,15 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Advant Edeges</title>
+    <title>CubeRoot > Advant Edges</title>
 
     <!-- Global stylesheets -->
         <link href="static/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-        <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="static/css/core.css" rel="stylesheet" type="text/css">
-        <link href="static/css/components.css" rel="stylesheet" type="text/css">
-        <link href="static/css/colors.css" rel="stylesheet" type="text/css">
-        <link href="static/css/custom.css" rel="stylesheet" type="text/css">
+        <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="static/css/core.min.css" rel="stylesheet" type="text/css">
+        <link href="static/css/components.min.css" rel="stylesheet" type="text/css">
+        <link href="static/css/colors.min.css" rel="stylesheet" type="text/css">
         <link href="static/css/fonts.css" rel="stylesheet" type="text/css">
         <link href="static/css/angular-ui-grid.css" rel="stylesheet" type="text/css">
 
@@ -39,6 +38,7 @@
 <div class="navbar navbar-default header-highlight">
     <div class="navbar-header">
         <a class="navbar-brand" href="default.html"><img src="static/images/logo_light.png" alt=""></a>
+        <%--<a class="navbar-brand text-white h2" href="#/" >Advant Edge</a>--%>
 
         <ul class="nav navbar-nav visible-xs-block">
             <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -120,7 +120,6 @@
     <script type="text/javascript" src="static/js/controllers/loginController.js"></script>
     <script type="text/javascript" src="static/js/controllers/signupController.js"></script>
     <script type="text/javascript" src="static/js/controllers/appViewCtrl.js"></script>
-
     <!-- /Angular App JS files -->
 
     <!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css" />-->
