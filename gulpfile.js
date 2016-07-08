@@ -27,15 +27,25 @@ var
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
-    browserSync = require('browser-sync').create()
+    browserSync = require('browser-sync').create(),
+    Promise = require('es6-promise').Promise
 ;
+
+//var $ = require('gulp-load-plugins')();
 
 // Lint task
 gulp.task('lint', function() {
-    return gulp
-        .src('src/main/webapp/static/js/controllers/**/*.js')                 // lint core JS file. Or specify another path
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+         gulp
+            .src('src/main/webapp/static/js/controllers/**/*.js')                 // lint core JS file. Or specify another path
+            .pipe(jshint())
+            .pipe(jshint.reporter('default'));
+
+            resolve();
+
+        }, 10);
+    });
 });
 
 var lessSrc = 'src/main/webapp/static/less/_main/';
@@ -43,20 +53,28 @@ var lessDest = 'src/main/webapp/static/css';
 
 // Compile our less files
 gulp.task('less', function() {
-    return gulp
-        .src(lessSrc+'/*.less', {base: lessSrc})              // locate /less/ folder root to grab 4 main files
-        //.pipe(newer(lessDest))
-        //.pipe(debug())
-        .pipe(less())                                 // compile
-        .pipe(gulp.dest('src/main/webapp/static/css'))                // destination path for normal CSS
-        .pipe(minifyCss({                             // minify CSS
-            keepSpecialComments: 0                    // remove all comments
-        }))
-        .pipe(rename({                                // rename file
-            suffix: ".min"                            // add *.min suffix
-        }))
-        .pipe(gulp.dest('src/main/webapp/static/css'))               // destination path for minified CSS
-        //.pipe(debug())
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+
+        gulp
+            .src(lessSrc+'/*.less', {base: lessSrc})              // locate /less/ folder root to grab 4 main files
+            .pipe(changed( lessDest, {extension: '.css'}))
+            //.pipe(debug())
+            .pipe(less())                                 // compile
+            .pipe(gulp.dest(lessDest))                // destination path for normal CSS
+            .pipe(minifyCss({                             // minify CSS
+                keepSpecialComments: 0                    // remove all comments
+            }))
+            .pipe(rename({                                // rename file
+                suffix: ".min"                            // add *.min suffix
+            }))
+            .pipe(gulp.dest(lessDest));              // destination path for minified CSS
+            //.pipe(debug())
+
+        resolve();
+
+        }, 10);
+    });
 });
 
 
@@ -76,13 +94,19 @@ gulp.task('less', function() {
 
 // Minify template's core JS file
 gulp.task('minify_core', function() {
-    return gulp
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+     gulp
         .src('src/main/webapp/static/js/core/app.js')                 // path to app.js file
         .pipe(uglify())                               // compress JS
         .pipe(rename({                                // rename file
             suffix: ".min"                            // add *.min suffix
         }))
         .pipe(gulp.dest('src/main/webapp/static/js/core/'));          // destination path for minified file
+            resolve();
+
+        }, 10);
+    });
 });
 
 
@@ -93,7 +117,13 @@ gulp.task('default', [                                // list of default tasks
     'concatenate',                                  // uncomment if in use
     //'minify_core',                                    // compress app.js
     'watch'                                           // watch for changes
-]);
+],function(){
+    return new Promise(function(resolve, reject){
+        setTimeout(function(resolve, reject){
+            resolve();
+        },10)
+    })
+});
 
 var
     sourceStatic = './src/main/webapp/static',
@@ -108,17 +138,34 @@ var
     ;
 
 gulp.task('copyStatic', function() {
-    gulp.src(sourceStatic + '/**/*', {base: sourceStatic})
-        .pipe(newer(destinationStatic))
-        .pipe(debug())
-        .pipe(gulp.dest(destinationStatic));
+
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            gulp.src(sourceStatic + '/**/*', {base: sourceStatic})
+                .pipe(newer(destinationStatic))
+                .pipe(debug())
+                .pipe(gulp.dest(destinationStatic));
+
+        resolve();
+
+    }, 10);
+
+    });
 });
 
 gulp.task('copyViews', function() {
-    gulp.src(sourceViews + '/**/*', {base: sourceViews})
-        .pipe(newer(destinationViews))
-        .pipe(debug())
-        .pipe(gulp.dest(destinationViews));
+
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            gulp.src(sourceViews + '/**/*', {base: sourceViews})
+                .pipe(newer(destinationViews))
+                .pipe(debug())
+                .pipe(gulp.dest(destinationViews));
+            resolve();
+
+        }, 10);
+    });
+
 });
 
 gulp.task('copy',
@@ -126,20 +173,36 @@ gulp.task('copy',
       //'less',
 	  'copyViews',
 	  'copyStatic'
-    ]
-);
+    ],function(){
+        return new Promise(function(resolve, reject){
+            setTimeout(function(){
+                resolve();
+            },10)
+        })
+    });
 
 
 // Watch files for changes
 gulp.task('watch',
     function() {
-        gulp.watch('src/main/webapp/**/*.less',[
-            'less'
-        ]);
-        gulp.watch('src/main/webapp/**/*',[
-            'copy'
-        ]);
+        return new Promise(function(resolve, reject){
+            setTimeout(function(){
+                gulp.watch('src/main/webapp/**/*.less',[
+                    'less'
+                ]);
+                gulp.watch('src/main/webapp/**/*',[
+                    'copy'
+                ]);
+                resolve();
+
+            }, 10);
+        });
 });
 
 
-
+gulp.task('watchless',function(){
+    gulp.watch('src/main/webapp/!**!/!*.less',[
+        'less',
+        'copy'
+    ]);
+});

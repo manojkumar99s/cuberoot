@@ -2276,7 +2276,7 @@ label.display-block {
 .sidebar-xs > .sidebar-content {
   width: inherit;
 }
-@media (min-width: 769px) screen {
+@media screen and (min-width: 769px) {
   .sidebar-content {
     width: auto;
   }
@@ -2334,7 +2334,7 @@ svg {
   position: relative;
   border: 1px solid #ddd;
   display: block;
-  margin: 20px;
+  width: 98%;
 }
 .chartTooltip {
   position: absolute;
@@ -2404,4 +2404,19 @@ svg {
     stroke-dashoffset: 0;
     transform: scale(0.5);
   }
+}
+.content-wrapper {
+  width: auto;
+}
+.div-table {
+  display: table;
+}
+.tabs a {
+  color: #000;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-width: 1px 1px 0;
 }

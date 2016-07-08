@@ -34,8 +34,25 @@
 		</div>
 	</div>
 
+	<div class="chartsBlock campaign clearfix">
+	<div  class="tabs clearfix" id="chartTypes">
+		<a href="" class="active">
+			Impressions
+		</a>
+		<a href="">
+			Clicks
+		</a>
+		<a href="">
+			Conversions
+		</a>
+		<a href="">
+			Cost
+		</a>
+
+	</div>
 	<!-- Basic markup -->
-	<div  id="d3-streamgraph" class="chart">
+
+		<div  id="performanceChart" class="chart "></div>
 	</div>
 
 </div>
@@ -66,18 +83,17 @@
 	 * ******/
 	//chart("static/dummyData/performance.json", "multiple","date", "impressions",100000,"campaign_id");
 
-
 	//impressions report
-	//chart("/a1/report/1/2016-04-08,2016-04-19", "multiple","date", "impressions", 1000000,"campaign_id");
+	chart("performanceChart","/a1/report/1/2016-04-08,2016-04-19", "multiple","date", "impressions", 1000000,"campaign_id");
 
 	//clicks reports
-	//chart("/a1/report/2/2016-04-08,2016-04-19", "multiple","date", "clicks",10000,"campaign_id");
+	//chart("performanceChart","/a1/report/2/2016-04-08,2016-04-19", "multiple","date", "clicks",10000,"campaign_id");
 
 	//convesion reports
-	//chart("/a1/report/3/2016-04-08,2016-04-19", "multiple","date", "conversions",10000,"campaign_id");
+	//chart("performanceChart","/a1/report/3/2016-04-08,2016-04-19", "multiple","date", "conversions",10000,"campaign_id");
 
 	//Costs Reports
-	chart("/a1/report/4/2016-04-08,2016-04-19", "multiple","date", "cost",1000000000,"campaign_id");
+	//chart("performanceChart","/a1/report/4/2016-04-08,2016-04-19", "multiple","date", "cost",1000000000,"campaign_id");
 
 </script>
 

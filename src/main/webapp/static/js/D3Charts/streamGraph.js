@@ -16,7 +16,7 @@ function getColorRange(colorFamily){
     return colorrange;
 }
 
-function chart(jsonPath, color, axisXkey, axisYkey, divRatio, nestKey) {
+function chart(targetID, jsonPath, color, axisXkey, axisYkey, divRatio, nestKey) {
 
     var
         datearray = [],
@@ -27,7 +27,7 @@ function chart(jsonPath, color, axisXkey, axisYkey, divRatio, nestKey) {
         strokecolor = "#aaaaaa",
         format = d3.time.format("%m/%d/%y"),
         margin = {top: 10, right: 10, bottom: 45, left: 45},
-        chartPlaceHolder = d3.select("#d3-streamgraph"),
+        chartPlaceHolder = d3.select("#"+targetID),
         width = parseInt(chartPlaceHolder[0][0].offsetWidth) - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom,
         division = divRatio,
@@ -66,7 +66,7 @@ function chart(jsonPath, color, axisXkey, axisYkey, divRatio, nestKey) {
             .x(function(d) { return d[axisXkey]; })
             .y(function(d) { return d[axisYkey]; }),
 
-        tooltip = d3.select("#d3-streamgraph")
+        tooltip = chartPlaceHolder
             .append("div")
             .attr({'class':'chartTooltip'});
 
@@ -83,7 +83,7 @@ function chart(jsonPath, color, axisXkey, axisYkey, divRatio, nestKey) {
             .y1(function(d) { return y(d.y0 + d.y); })
         ;
 
-    var svg = d3.select("#d3-streamgraph").append("svg")
+    var svg = chartPlaceHolder.append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -326,7 +326,7 @@ function chart(jsonPath, color, axisXkey, axisYkey, divRatio, nestKey) {
                     tooltip.html( "<p>" + d.key + "<br>" + pro + "</p>" ).style("visibility", "hidden");
             });
 
-        var vertical = d3.select("#d3-streamgraph")
+        var vertical = chartPlaceHolder
             .append("div")
             .attr("class", "remove")
             .style("position", "absolute")
@@ -338,7 +338,7 @@ function chart(jsonPath, color, axisXkey, axisYkey, divRatio, nestKey) {
             .style("left", "0px")
             .style("background", "#fff");
 
-        d3.select("#d3-streamgraph")
+        chartPlaceHolder
             .on("mousemove", function(){
                 mousex = d3.mouse(this);
                 mousex = mousex[0] + 5;

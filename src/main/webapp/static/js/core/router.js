@@ -31,12 +31,12 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
             controller: 'appViewCtrl'
         })
 
-        .state('appView.dashboard', {
+/*        .state('appView.dashboard', {
             url: '/dashboard',
             parent:'appView',
             views: {
                 "mainSidebar": {
-                    templateUrl: './views/main_sidebar.html',
+                    templateUrl: './views/main_sidebar.html'
                 },
 
                 "content": {
@@ -44,8 +44,7 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
                     controller: 'dashboardCtrl'
                 }
             }
-            //abstract:true
-        })
+        })*/
 
         .state('appView.performance', {
             url: '/performance',
@@ -54,9 +53,10 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
                 parentTxt:'Dashboard',
                 pageName:'Performance'
             },
+            //abstract:true,
             views: {
                 "mainSidebar": {
-                    templateUrl: './views/main_sidebar.html',
+                    templateUrl: './views/main_sidebar.html'
                 },
 
                 "content": {
@@ -65,6 +65,28 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
                 }
             }
         })
+
+        /*.state('appView.performance.impressions', {
+            url: '/impressions',
+            parent:'appView.performance',
+            params:{
+                parentTxt:'Dashboard',
+                pageName:'Performance > Impressions'
+            },
+            views: {
+                "mainSidebar": {
+                    templateUrl: './views/main_sidebar.html',
+                },
+
+                "content": {
+                    templateUrl: './views/dashboard-performance.html',
+                    controller: 'dashboardCtrl',
+                    view:{
+                        template: 'performanceChartTpl'
+                    }
+                }
+            }
+        })*/
 
         .state('appView.audiences', {
             url: '/audiences',
