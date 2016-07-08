@@ -18,9 +18,13 @@ angular.module('CubeRootApp')
             try {
                 $validationProvider.validate(form)
                     .success(function () {
+
+                        var data = JSON.stringify($scope.user);
+                        console.log(data);
+
                         $scope.sendData(
                             'Api/UserLogin', //url
-                            $scope.user, // data
+                            "'"+data+"'", // data
                             function (response) {
                                 //success call back
                                 $state.transitionTo('appView.dashboard', '', {
@@ -28,7 +32,7 @@ angular.module('CubeRootApp')
                                 });
                             },
                             function (response) {
-                                response = { success: false, message: 'Username or password is incorrect' };
+                                response = { success: false, message: 'Username or password is incorrect', type:"error" };
                                 $scope.flash = response;
                                 //error call back
                                 /*$state.transitionTo('appView.dashboard', '', {

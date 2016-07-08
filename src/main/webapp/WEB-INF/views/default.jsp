@@ -7,14 +7,12 @@
     <title>CubeRoot > Advant Edges</title>
 
     <!-- Global stylesheets -->
-        <link href="static/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
         <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="static/css/core.min.css" rel="stylesheet" type="text/css">
         <link href="static/css/components.min.css" rel="stylesheet" type="text/css">
         <link href="static/css/colors.min.css" rel="stylesheet" type="text/css">
-        <link href="static/css/fonts.css" rel="stylesheet" type="text/css">
         <link href="static/css/angular-ui-grid.css" rel="stylesheet" type="text/css">
-
+        <%--<link href="http://metricsgraphicsjs.org/css/metricsgraphics.css" type="text/css" />--%>
 <!--
         <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css" />
 -->
@@ -23,13 +21,14 @@
     <!-- Core JS files -->
     <script type="text/javascript" src="static/js/core/lib/jquery.min.js"></script>
     <script type="text/javascript" src="static/js/core/lib/bootstrap.min.js"></script>
-
     <!-- Load library -->
     <script type="text/javascript" src="static/js/plugins/visualization/d3/d3.min.js"></script>
+    <%--<script type="text/javascript" src="http://d3js.org/d3.v4.0.0-alpha.15.min.js"></script>--%>
 
     <!-- Load tooltip -->
     <script type="text/javascript" src="static/js/plugins/visualization/d3/d3_tooltip.js"></script>
     <!-- /core JS files -->
+    <%--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.9.0/metricsgraphics.min.js"></script>--%>
 </head>
 
 <body ng-app="CubeRootApp">
@@ -66,7 +65,7 @@
                     <img src="static/images/image.png" alt="">
                     <span>Victoria</span>
                     <i class="caret"></i>
-                </a>
+                </a> 
 
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
@@ -123,6 +122,9 @@
     <!-- /Angular App JS files -->
 
     <!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css" />-->
+
+    <%--<link href="static/css/fonts.css" rel="stylesheet" type="text/css">--%>
+    <%--<link href="static/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">--%>
 
 </body>
 </html>

@@ -7,7 +7,8 @@
 				<li><a data-action="collapse"></a></li>
 				<li><a data-action="close"></a></li>
 			</ul>
-		</div>-->
+		</div>
+		-->
 	</div>
 	<div class="row ">
 		<div class="col-md-3">
@@ -33,42 +34,54 @@
 		</div>
 	</div>
 
-	<div id="chart">
-	</div>
-
 	<!-- Basic markup -->
-	<div class="chart-container">
-		<div class="chart" id="d3-streamgraph"></div>
+	<div  id="d3-streamgraph" class="chart">
 	</div>
-
-
-	<!-- With minimum width and scrolling -->
-<!--
-	<div class="chart-container has-scroll">
-		<div class="chart has-minimum-width"  id="d3-waterfall"></div>
-	</div>
--->
 
 </div>
 
 <div class="panel panel-flat p-x-10" ng-controller="tabularCtrl">
 	<div class="panel-heading">
 		<h5 class="panel-title">Basic table</h5>
-		<!--							<div class="heading-elements">
-                                        <ul class="icons-list">
-                                            <li><a data-action="collapse"></a></li>
-                                            <li><a data-action="close"></a></li>
-                                        </ul>
-                                    </div>-->
-	</div>
-<!--
-	<div id="grid1" ui-grid="gridOptions" class="grid"></div>
--->
+			<div class="heading-elements">
+				<ul class="icons-list">
+					<li><a data-action="collapse"></a></li>
+					<li><a data-action="close"></a></li>
+				</ul>
+			</div>
 
+	</div>
+
+	<div id="grid1" ui-grid="gridOptions" class="grid"></div>
 </div>
 
 <!-- D3 JS files -->
-
 <script type="text/javascript" src="static/js/D3Charts/streamGraph.js"></script>
-	<!--<script type="text/javascript" src="static/js/D3Charts/chart2.js"></script>-->
+<script type="text/javascript">
+
+	/********
+	 *
+	 * Usage chart(jsonPath, colorFamily, keyX, keyY, divisionRatio, nestKey)
+	 *
+	 * ******/
+	//chart("static/dummyData/performance.json", "multiple","date", "impressions",100000,"campaign_id");
+
+
+	//impressions report
+	//chart("/a1/report/1/2016-04-08,2016-04-19", "multiple","date", "impressions", 1000000,"campaign_id");
+
+	//clicks reports
+	//chart("/a1/report/2/2016-04-08,2016-04-19", "multiple","date", "clicks",10000,"campaign_id");
+
+	//convesion reports
+	//chart("/a1/report/3/2016-04-08,2016-04-19", "multiple","date", "conversions",10000,"campaign_id");
+
+	//Costs Reports
+	chart("/a1/report/4/2016-04-08,2016-04-19", "multiple","date", "cost",1000000000,"campaign_id");
+
+</script>
+
+
+<!--<script type="text/javascript" src="static/js/D3Charts/areaChart-missing-data.js"></script>-->
+<!--<script type="text/javascript" src="static/js/D3Charts/barChartExample.js"></script>-->
 <!--/ D3 JS files -->

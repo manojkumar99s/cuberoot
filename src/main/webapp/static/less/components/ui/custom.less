@@ -92,4 +92,91 @@
     }
   }
 
-  #chart{border:1px solid #aaa; display:inline-block; margin:20px;}
+  #chart,
+  .chart{ position:relative; border:1px solid #ddd; display:block; margin:20px;}
+
+.chartTooltip{
+  position: absolute;
+  background: #fff;
+  padding: 5px;
+  border: 1px solid #bbb;
+  color: #000;
+  font: 11px Arial,Tahoma,sans-serif;
+  -moz-box-shadow: 3px #eee;
+  -webkit-box-shadow: 0px 0px 3px 1px #ddd;
+  box-shadow: 0px 0px 3px 1px #ddd;
+  display: none;
+  -moz-transition:  top .5s,left .5s;
+  -webkit-transition:  top .5s,left .5s;
+  transition: top .5s,left .5s;
+}
+
+.axis path {
+  fill: none;
+  stroke: #777;
+  shape-rendering: crispEdges;
+}
+.axis text {
+  font-family: Lato;
+  font-size: 13px;
+}
+
+
+/***** SVG Loader CSS *********/
+
+#loader {
+  position: absolute;
+  margin: 50px auto;
+  width: 150px;
+}
+
+.loader {
+  position: absolute;
+  opacity: .7;
+}
+
+.loader circle {
+  animation: draw 4s infinite ease-in-out;
+  transform-origin: center;
+  transform: rotate(-90deg);
+}
+
+.loader-2 circle,
+.loader-6 circle {
+  animation-delay: 1s;
+}
+
+.loader-7 circle {
+  animation-delay: 2s;
+}
+
+.loader-4 circle,
+.loader-8 circle {
+  animation-delay: 3s;
+}
+
+.loader-3 {
+  left: -150px;
+  transform: rotateY(180deg);
+}
+
+.loader-6,
+.loader-7,
+.loader-8 {
+  left: -150px;
+  transform: rotateX(180deg) rotateY(180deg);
+}
+
+.loader-5 circle {
+  opacity: .2;
+}
+
+@keyframes draw {
+  50% {
+    stroke-dashoffset: 0;
+    transform: scale(.5);
+  }
+}
+
+
+

@@ -7,9 +7,4 @@ cubeRootApp.controller("dashboardCtrl",function($scope){
 })
 .controller("campaignCtrl",function($scope){
 
-})
-
-
-;
-
-
+});

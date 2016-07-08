@@ -98,11 +98,13 @@ gulp.task('default', [                                // list of default tasks
 var
     sourceStatic = './src/main/webapp/static',
 //	destinationStatic = '/home/vr/sts-bundle/pivotal-tc-server-developer-3.1.3.SR1/base-instance/webapps/CuberootWeb/static',
-    destinationStatic = '/home/vr/CS/tomcat/webapps/CuberootWeb//static',
+    //destinationStatic = '/home/vr/tomcat/webapps/CuberootWeb/static',// old tomcat path
+    destinationStatic = '/home/vr/apache-tomcat-7.0.64/webapps/CuberootWeb/static',
 
     sourceViews = './src/main/webapp/WEB-INF/views',
 //	destinationViews = '/home/vr/sts-bundle/pivotal-tc-server-developer-3.1.3.SR1/base-instance/webapps/CuberootWeb/WEB-INF/views'
-    destinationViews = '/home/vr/CS/tomcat/webapps/CuberootWeb/WEB-INF/views'
+    //destinationViews = '/home/vr/tomcat/webapps/CuberootWeb/WEB-INF/views' // old tomcat path
+    destinationViews = '/home/vr/apache-tomcat-7.0.64/webapps/CuberootWeb/WEB-INF/views'
     ;
 
 gulp.task('copyStatic', function() {
@@ -131,9 +133,12 @@ gulp.task('copy',
 // Watch files for changes
 gulp.task('watch',
     function() {
-    gulp.watch('src/main/webapp/**/*',[
-        'copy'
-    ]);
+        gulp.watch('src/main/webapp/**/*.less',[
+            'less'
+        ]);
+        gulp.watch('src/main/webapp/**/*',[
+            'copy'
+        ]);
 });
 
 

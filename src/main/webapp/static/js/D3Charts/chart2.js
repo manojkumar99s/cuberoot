@@ -18,22 +18,30 @@ d3.csv('static/dummyData/climate_data.csv', function(data) {
         .data(data)
         .enter()
         .append('circle');
-    debugger;
+   // debugger;
 /*
     dots.attr('r', function(d) {return d.TMAX});
     dots.attr('r', function(d) {return Math.abs(d.TMAX)});
 */
     dots
-        .attr('r', function(d) {return Math.abs(d.TMAX) / 100})
+        .attr('r', function(d) {
+            return Math.abs(d.TMAX) / 10
+        })
         .attr('cx',function(d){return Math.max(0 + padding, Math.random() * width - padding) })
         .attr('cy',function(d){return Math.max(0 + padding, Math.random() * height - padding) })
-        //.style("stroke","red")
+        .style("stroke","red")
         .style("fill",function(d){
-            year = d.DATE.chartAt(3);
+            year = d.DATE.charAt(3);
             if(year === "3"){
                 return "blue";
             } else {
                 return "green";
             }
-        });
+        })
+
+      .text(function(d){
+           // debugger;
+            return d.DATE});
+
+
 });
