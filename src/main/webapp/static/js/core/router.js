@@ -58,10 +58,12 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
                 "mainSidebar": {
                     templateUrl: './views/main_sidebar.html'
                 },
-
                 "content": {
                     templateUrl: './views/dashboard-performance.html',
-                    controller: 'dashboardCtrl'
+                    controller: 'dashboardPerformanceCtrl'
+                },
+                "impressions@appView.content":{
+                    template:"performanceChartTpl"
                 }
             }
         })
@@ -95,6 +97,7 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
                 parentTxt:'Dashboard',
                 pageName:'Audiences'
             },
+            controller:'appViewCtrl',
             views: {
                 "mainSidebar": {
                     templateUrl: './views/main_sidebar.html',
@@ -102,7 +105,7 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
 
                 "content": {
                     templateUrl: './views/dashboard-audiences.html',
-                    controller: 'dashboardCtrl'
+                    controller: 'dashboardAudiencesCtrl'
                 }
             }
         })

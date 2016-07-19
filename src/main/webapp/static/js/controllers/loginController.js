@@ -50,7 +50,6 @@ angular.module('CubeRootApp')
 
             }catch(e){};
             //console.log(validationResult);
-
         }
     };
 

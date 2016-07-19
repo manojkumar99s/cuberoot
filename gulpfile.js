@@ -58,8 +58,8 @@ gulp.task('less', function() {
 
         gulp
             .src(lessSrc+'/*.less', {base: lessSrc})              // locate /less/ folder root to grab 4 main files
-            .pipe(changed( lessDest, {extension: '.css'}))
-            //.pipe(debug())
+            .pipe(changed( lessDest, {extension: '.less'}))
+            .pipe(debug())
             .pipe(less())                                 // compile
             .pipe(gulp.dest(lessDest))                // destination path for normal CSS
             .pipe(minifyCss({                             // minify CSS
@@ -186,13 +186,14 @@ gulp.task('copy',
 gulp.task('watch',
     function() {
         return new Promise(function(resolve, reject){
+            console.log('Watch started.')
             setTimeout(function(){
                 gulp.watch('src/main/webapp/**/*.less',[
                     'less'
-                ]);
+                ]).on('error', function() {console.log("got an error in less")});
                 gulp.watch('src/main/webapp/**/*',[
                     'copy'
-                ]);
+                ]).on('error', function() {console.log("got an error in copy")});
                 resolve();
 
             }, 10);

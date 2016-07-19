@@ -560,6 +560,7 @@ a.badge,
     margin-bottom: -48px;
   }
   .sidebar-xs .sidebar-fixed.sidebar-main .sidebar-content {
+    display: block;
     width: 56px;
   }
   .sidebar-fixed.sidebar-default .sidebar-content {
@@ -2261,6 +2262,9 @@ label.display-block {
   width: 32px!important;
   height: 32px!important;
 }
+body {
+  overflow-x: hidden;
+}
 .p-x-10 {
   padding: 10px;
 }
@@ -2278,7 +2282,7 @@ label.display-block {
 }
 @media screen and (min-width: 769px) {
   .sidebar-content {
-    width: auto;
+    width: 260px;
   }
 }
 .content {
@@ -2336,6 +2340,14 @@ svg {
   display: block;
   width: 98%;
 }
+.charts {
+  border: 1px solid #ccc;
+  background: #fafafa;
+}
+.charts,
+.charts > div {
+  position: relative;
+}
 .chartTooltip {
   position: absolute;
   background: #fff;
@@ -2357,8 +2369,8 @@ svg {
   shape-rendering: crispEdges;
 }
 .axis text {
-  font-family: Lato;
-  font-size: 13px;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 10px;
 }
 /***** SVG Loader CSS *********/
 #loader {
@@ -2419,4 +2431,91 @@ svg {
   display: inline-block;
   border: 1px solid #ddd;
   border-width: 1px 1px 0;
+}
+.tabs a.active {
+  border-bottom: 1px solid #fafafa;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 1;
+  background: #fafafa;
+}
+.disabledScr {
+  width: 100%;
+  height: 100%;
+  display: table;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.3);
+  text-align: center;
+  vertical-align: middle;
+  /*  -webkit-transition: top 2s;
+      transition: top 2s;
+
+      -webkit-transition: left 2s;
+      transition: left 2s;
+
+      -webkit-transition-timing-function: ease-in; !* Safari and Chrome *!
+      transition-timing-function: ease-in;*/
+}
+.vertical,
+.horizontal {
+  position: absolute !important;
+  z-index: 19;
+  width: 1px;
+  height: 1px;
+  top: 0px;
+  bottom: 0px;
+  left: -10px;
+  background: none;
+  border-left: 1px dashed #0f7595;
+}
+.horizontal {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px dashed #0f7595;
+}
+/*** CSS Ring Animation ****/
+.loadingRing {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 15% auto 0;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 50px;
+}
+svg {
+  font-family: Arial, Verdana, sans-serif;
+}
+.legends {
+  width: 25%;
+  float: right;
+  overflow: auto;
+  padding: 15px 10px;
+}
+.legends .legend {
+  display: inline-block;
+  vertical-align: middle;
+}
+.legends .legend .colorBlk {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 6px;
+}
+.legends .legend .txt {
+  vertical-align: middle;
+}
+.legends .legend:hover {
+  background: #ccc;
+  padding: 2px 3px 2px 1px;
+  margin: -3px -4px -3px -2px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
 }

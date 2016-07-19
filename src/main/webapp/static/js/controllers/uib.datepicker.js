@@ -1,11 +1,31 @@
 "use strict";
 
 var cubeRootApp =  angular.module('CubeRootApp');
-cubeRootApp.controller('datePickerCtrl', function ($scope) {
+cubeRootApp.controller('datePickerCtrl', ["$scope","commonService",function ($scope,commonService) {
     $scope.today = function() {
         $scope.dt = new Date();
     };
     $scope.today();
+
+    $scope.setStartDate = function() {
+        var startDate = new Date("2016-04-08");
+        //startDate.setMonth(startDate.getMonth()-2);
+
+        //setting temp date to show / match data
+
+
+        $scope.startDate = startDate;
+
+    };
+    $scope.setStartDate();
+
+    $scope.setEndDate = function() {
+        var endDate = new Date("2016-04-19");
+        //endDate.setDate(endDate.getDate()-1);
+        $scope.endDate = endDate;
+    };
+    $scope.setEndDate();
+
 
     $scope.clear = function() {
         $scope.dt = null;
@@ -18,10 +38,10 @@ cubeRootApp.controller('datePickerCtrl', function ($scope) {
     };
 
     $scope.dateOptions = {
-        dateDisabled: disabled,
+       /* dateDisabled: disabled,*/
         formatYear: 'yy',
-        maxDate: new Date(2020, 2, 22),
-        minDate: new Date(),
+        maxDate: new Date(),
+        minDate: new Date(2015, 1, 1),
         startingDay: 1
     };
 
@@ -67,6 +87,7 @@ cubeRootApp.controller('datePickerCtrl', function ($scope) {
     tomorrow.setDate(tomorrow.getDate() + 1);
     var afterTomorrow = new Date();
     afterTomorrow.setDate(tomorrow.getDate() + 1);
+
     $scope.events = [
         {
             date: tomorrow,
@@ -95,4 +116,49 @@ cubeRootApp.controller('datePickerCtrl', function ($scope) {
 
         return '';
     }
-});
+
+    var
+        startDate = $scope.startDate,
+        endDate = $scope.endDate,
+        dateString = startDate.getFullYear()+"-"+(startDate.getMonth()+1)+"-"+startDate.getDate()+","+
+        endDate.getFullYear()+"-"+(endDate.getMonth()+1)+"-"+endDate.getDate()
+    ;
+
+    $scope.updateCommonService = function(){
+        var dates = {
+            startDate:$scope.startDate,
+            endDate:$scope.endDate
+        };
+        commonService.setDates(dates);
+    };
+
+    $scope.$parent.endDate = $scope.endDate;
+    $scope.$parent.startDate = $scope.startDate;
+
+
+
+    $scope.init=function(){
+        console.log('Dates init.');
+        console.log($scope.startDate);
+        $scope.updateCommonService();
+        $scope.$emit('datesLoaded');
+
+        setTimeout(function(){
+            $scope.$watch('startDate',function() {
+                console.log('start dateChanged');
+                $scope.$parent.startDate = $scope.startDate;
+                $scope.updateCommonService();
+                $scope.$emit('startDateChanged');
+            },true);
+
+            $scope.$watch('endDate',function() {
+                console.log('end dateChanged');
+                $scope.$parent.endDate = $scope.endDate;
+                $scope.updateCommonService();
+                $scope.$emit('endDateChanged');
+            },true);
+        },5000)
+    };
+
+
+}]);

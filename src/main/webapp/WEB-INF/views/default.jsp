@@ -12,6 +12,7 @@
         <link href="static/css/components.min.css" rel="stylesheet" type="text/css">
         <link href="static/css/colors.min.css" rel="stylesheet" type="text/css">
         <link href="static/css/angular-ui-grid.css" rel="stylesheet" type="text/css">
+        <link href="static/css/angular-ui-grid.css" rel="stylesheet" type="text/css">
         <%--<link href="http://metricsgraphicsjs.org/css/metricsgraphics.css" type="text/css" />--%>
 <!--
         <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css" />
@@ -24,8 +25,9 @@
     <!-- Load library -->
     <script type="text/javascript" src="static/js/plugins/visualization/d3/d3.min.js"></script>
     <%--<script type="text/javascript" src="http://d3js.org/d3.v4.0.0-alpha.15.min.js"></script>--%>
-
+    <script type="text/javascript" src="static/js/core/lib/nv.d3.min.js"></script>
     <!-- Load tooltip -->
+
     <script type="text/javascript" src="static/js/plugins/visualization/d3/d3_tooltip.js"></script>
     <!-- /core JS files -->
     <%--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.9.0/metricsgraphics.min.js"></script>--%>
@@ -100,10 +102,8 @@
     <script type="text/javascript" src="static/js/core/lib/angular-ui-grid.js"></script>
     <script type="text/javascript" src="static/js/core/lib/angular-validation.js"></script>
     <script type="text/javascript" src="static/js/core/lib/angular-validation-rule.js"></script>
+
     <!-- /angular plugins for sortable dynamic tabular data -->
-    <!--
-        <script type="text/javascript" src="../assets/js/core/lib/ui-bootstrap/ui-bootstrap-custom-1.3.3.min.js"></script>
-    -->
     <script type="text/javascript" src="static/js/core/lib/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3.min.js"></script>
     <!-- /angular js files -->
 
@@ -113,7 +113,9 @@
     <script type="text/javascript" src="static/js/directives/directives.js"></script>
     <script type="text/javascript" src="static/js/core/router.js"></script>
     <script type="text/javascript" src="static/js/controllers/jqueryScripts.js"></script>
-    <script type="text/javascript" src="static/js/controllers/dashboardController.js"></script>
+
+    <script type="text/javascript" src="static/js/controllers/dashboardPerformanceController.js"></script>
+    <script type="text/javascript" src="static/js/controllers/dashboardAudiencesController.js"></script>
     <script type="text/javascript" src="static/js/controllers/uib.datepicker.js"></script>
     <script type="text/javascript" src="static/js/controllers/tabular.js"></script>
     <script type="text/javascript" src="static/js/controllers/modalController.js"></script>
