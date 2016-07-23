@@ -262,7 +262,7 @@ body{
     left:-10px;
     background:none;
     border-left:1px dashed #0f7595;
-
+    pointer-events: none;
   }
 
   .horizontal{
@@ -294,6 +294,7 @@ svg{
   width:25%;
   float:right;
   overflow:auto;
+
   padding:15px 10px;
 
   .legend{
@@ -322,4 +323,33 @@ svg{
     box-shadow: 0 0 7px rgba(0,0,0,.5);
   }
 }
+
+
+.reports {
+
+  > div{
+    display:inline-block;
+    vertical-align: top;
+  }
+
+  .chart1{
+    width:66%;
+    margin-right:2%;
+  }
+
+  .chart2{
+    width:28%;
+    margin-left:2%;
+  }
+
+  &.reach > div,
+  &.reach .chart1,
+  &.reach .chart2{
+    width:100%;
+    margin:0;
+    display:block;
+  }
+
+}
+
 

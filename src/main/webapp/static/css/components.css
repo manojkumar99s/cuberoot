@@ -2470,6 +2470,7 @@ svg {
   left: -10px;
   background: none;
   border-left: 1px dashed #0f7595;
+  pointer-events: none;
 }
 .horizontal {
   width: 100%;
@@ -2518,4 +2519,23 @@ svg {
   border-radius: 5px;
   border: 1px solid #fff;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
+}
+.reports > div {
+  display: inline-block;
+  vertical-align: top;
+}
+.reports .chart1 {
+  width: 66%;
+  margin-right: 2%;
+}
+.reports .chart2 {
+  width: 28%;
+  margin-left: 2%;
+}
+.reports.reach > div,
+.reports.reach .chart1,
+.reports.reach .chart2 {
+  width: 100%;
+  margin: 0;
+  display: block;
 }

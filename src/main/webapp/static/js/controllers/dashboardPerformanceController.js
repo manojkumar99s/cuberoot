@@ -11,27 +11,36 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
          * Usage chart(jsonPath, colorFamily, keyX, keyY, divisionRatio, nestKey)
          * ******/
         //debugger;
-        var
-            startDate = $scope.startDate,
-            endDate = $scope.endDate,
-            dateString = startDate.getFullYear()+"-"+(startDate.getMonth()+1)+"-"+startDate.getDate()+","+
-            endDate.getFullYear()+"-"+(endDate.getMonth()+1)+"-"+endDate.getDate(),
-            reportsUrl = "/b1/report/";
-
-            //dateString="2016-04-08,2016-04-19"
-        ;
 
         //debugger;
         if(!$scope.campaign_id){
             $scope.campaign_id = "all";
         }
-        dateString +="/"+$scope.campaign_id;
+
+        var
+            startDate = $scope.startDate,
+            endDate = $scope.endDate,
+            dateString = startDate.getFullYear()+"-"+(startDate.getMonth()+1)+"-"+startDate.getDate()+","+
+            endDate.getFullYear()+"-"+(endDate.getMonth()+1)+"-"+endDate.getDate(),
+            reportsUrl = ""
+        ;
+
+        if($scope.campaign_id === "all"){
+            reportsUrl = "/b9/report/";
+            dateString +="/";
+        }else{
+            reportsUrl = "/b7/report/";
+            dateString +="/"+$scope.campaign_id;
+        }
+        //reportsUrl =  "/b1/report/";
+
 
         $scope.currentChart = chartType;
 
         var load_n_ProcessData = commonService.load_n_ProcessData;
         var improveData = commonService.improveData;
         var addInteractivity = commonService.addInteractivity;
+        var doTheRest = commonService.doTheRest;
 
         switch (chartType){
             case 'impressions':
@@ -44,28 +53,37 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                     commonService:commonService,
                     viewScope:$scope,
                     callback:function(dataObj){
+
+                        var
+                            axisYkey = "impressions",
+                            highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; }),
+                            scaleDetails = commonService.getDiv_n_Scale(highestYKey)
+                        ;
+
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
+
                         streamGraphChart({
                             targetID: 'performanceChart',
                             dataObj: {data: dataObj.data, improveData: improveData},
                             axis: {
                                 axisXkey: "date",
-                                axisYkey: "impressions",
+                                axisYkey: axisYkey,
                                 'x': true,
                                 'y': true,
                                 'xLabel': '',
                                 'yLabel': 'Impressions',
-                                division: 1000000
+                                scaleDetails: scaleDetails
                             },
+                            margin:{top:10,right:10,bottom:45,left:80},
                             dimensions: {width: '75%', height: '40%'},
-                            nestKey:"campaign_id"
+                            nestKey:"channel"
                         });
-/*
-                        "performanceChart",, "multiple","date", "impressions", 1000000,"campaign_id",
-                        {width:'75%',height:'35%'},
-                        {'x':true,'y':true,'xLabel':'Dates','yLabel':'Impressions'}
-*/
 
                         d3.select('#eCPMChart').style({'display':'block'});
+                        axisYkey = "cpm";
+                        highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; });
+                        scaleDetails = commonService.getDiv_n_Scale(highestYKey);
 
                         streamGraphChart({
                             targetID: 'eCPMChart',
@@ -77,28 +95,17 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                                 'y': true,
                                 'xLabel': '',
                                 'yLabel': 'eCPM',
-                                division: 1000000
+                                scaleDetails: scaleDetails
                             },
+                            margin:{top:10,right:10,bottom:45,left:80},
                             dimensions: {width: '75%', height: '25%'},
-                            nestKey:"campaign_id"
+                           nestKey:"channel"
                         });
 
-/*                        chart("eCPMChart",{data:dataObj.data,improveData:improveData}, "multiple","date", "cpp", 10000000,"campaign_id",
-                            {width:'75%',height:'20%'},
-                            {'x':false,'y':true,'xLabel':'','yLabel':'eCPM'})*/;
+                        commonService.addInteractivity({"id":"charts", currentChart : $scope.currentChart});
+                        /*doTheRest({tabularData:dataObj.data, currentChart:$scope.currentChart, commonService:commonService, viewScope:$scope});*/
 
-                        addInteractivity({"id":"charts"});
-
-                        var localData = dataObj.data;
-                        localData.forEach(function(key,val){
-                            var date = new Date (key.date);
-                            localData.date = key.date.getDay()+"-"+(parseInt(key.date.getMonth())+1)+"-"+key.date.getFullYear();
-                        });
-
-                        $scope.tabularData = localData;
-                        $scope.$apply();
-
-                    } 
+                    }
                 });
 
             break;
@@ -108,44 +115,68 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
 
                 var url = reportsUrl+"2/"+dateString;
                 load_n_ProcessData({
+
                     jsonPath : url,
                     sortKey: "date",
-                    viewScope:$scope,
+                    highestYKey:'clicks',
                     commonService:commonService,
+                    viewScope:$scope,
+
                     callback:function(dataObj){
-                        chart("performanceChart",{data:dataObj.data, improveData:improveData}, "multiple","date", "clicks", 100000,"campaign_id",
-                            {width:'75%',height:'35%'},
-                            {'x':true,'y':true,'xLabel':'Dates','yLabel':'Clicks'});
 
-                        d3.select('#eCPMChart').style({'display':'block'});
-                        chart("eCPMChart",{data:dataObj.data,improveData:improveData}, "multiple","date", "cpc", 10000000,"campaign_id",
-                            {width:'75%',height:'20%'},
-                            {'x':false,'y':true,'xLabel':'','yLabel':'Cost per click'});
+                        var
+                            axisYkey = "clicks",
+                            highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; }),
+                            scaleDetails = commonService.getDiv_n_Scale(highestYKey)
+                        ;
 
-                        addInteractivity({"id":"charts"});
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
 
-                        var localData = dataObj.data;
-                        localData.forEach(function(key,val){
-                            var date = new Date (key.date);
-                            localData.date = key.date.getDay()+"-"+(parseInt(key.date.getMonth())+1)+"-"+key.date.getFullYear();
+                        streamGraphChart({
+                            targetID: 'performanceChart',
+                            dataObj: {data: dataObj.data, improveData: improveData},
+                            axis: {
+                                axisXkey: "date",
+                                axisYkey: axisYkey,
+                                'x': true,
+                                'y': true,
+                                'xLabel': '',
+                                'yLabel': 'Clicks',
+                                scaleDetails: scaleDetails
+                            },
+                            margin:{top:10,right:10,bottom:45,left:80},
+                            dimensions: {width: '75%', height: '40%'},
+                           nestKey:"channel"
                         });
 
-                        $scope.tabularData = localData;
-                        $scope.$apply();
+                        d3.select('#eCPMChart').style({'display':'block'});
+                        axisYkey = "cpc";
+                        highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; });
+                        scaleDetails = commonService.getDiv_n_Scale(highestYKey);
+
+                        streamGraphChart({
+                            targetID: 'eCPMChart',
+                            dataObj: {data: dataObj.data, improveData: improveData},
+                            axis: {
+                                axisXkey: "date",
+                                axisYkey: axisYkey,
+                                'x': false,
+                                'y': true,
+                                'xLabel': '',
+                                'yLabel': 'Cost per click',
+                                scaleDetails: scaleDetails
+                            },
+                            margin:{top:10,right:10,bottom:45,left:80},
+                            dimensions: {width: '75%', height: '25%'},
+                           nestKey:"channel"
+                        });
+
+                        /*doTheRest({tabularData:dataObj.data, currentChart:$scope.currentChart, commonService:commonService, viewScope:$scope});*/
+                        addInteractivity({"id":"charts", currentChart : $scope.currentChart});
 
                     }
                 });
-
-/*                chart("performanceChart","/a9/report/2/"+dateString, "multiple","date", "clicks",10000,"campaign_id",
-                    {width:'100%',height:'35%'},
-                    {'x':true,'y':true});
-
-                chart("eCPMChart","/a9/report/2/"+dateString, "multiple","date", "cpc", 1000000,"campaign_id",
-                    {width:'100%',height:'20%'},
-                    {'x':false,'y':true});
-
-                addInteractivity({"id":"charts"});*/
-
 
                 break;
 
@@ -155,47 +186,69 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                 load_n_ProcessData({
                     jsonPath : url,
                     sortKey: "date",
+                    highestYKey:'impressions',
                     viewScope:$scope,
                     commonService:commonService,
                     callback:function(dataObj){
-                        chart("performanceChart",{data:dataObj.data, improveData:improveData}, "multiple","date", "reach", 1000,"campaign_id",
-                            {width:'75%',height:'35%'},
-                            {'x':true,'y':true,'xLabel':'Dates','yLabel':'Clicks'});
 
-                        d3.select('#eCPMChart').style({'display':'block'});
-                        chart("eCPMChart",{data:dataObj.data,improveData:improveData}, "multiple","date", "cpc", 100000,"campaign_id",
-                            {width:'75%',height:'20%'},
-                            {'x':false,'y':true,'xLabel':'','yLabel':'Cost per conversion'});
+                        var
+                            axisYkey = "conversions",
+                            highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; }),
+                            scaleDetails = commonService.getDiv_n_Scale(highestYKey);
+                        ;
 
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
 
-                        addInteractivity({"id":"charts"});
-
-                        var localData = dataObj.data;
-                        localData.forEach(function(key,val){
-                            var date = new Date (key.date);
-                            localData.date = key.date.getDay()+"-"+(parseInt(key.date.getMonth())+1)+"-"+key.date.getFullYear();
+                        streamGraphChart({
+                            targetID: 'performanceChart',
+                            dataObj: {data: dataObj.data, improveData: improveData},
+                            axis: {
+                                axisXkey: "date",
+                                axisYkey: axisYkey,
+                                'x': true,
+                                'y': true,
+                                'xLabel': '',
+                                'yLabel': 'Conversions',
+                                scaleDetails: scaleDetails
+                            },
+                            margin:{top:10,right:10,bottom:45,left:80},
+                            dimensions: {width: '75%', height: '40%'},
+                           nestKey:"channel"
                         });
 
-                        $scope.tabularData = localData;
-                        $scope.$apply();
+
+                        d3.select('#eCPMChart').style({'display':'block'});
+                        axisYkey = "cpc";
+                        highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; });
+                        scaleDetails = commonService.getDiv_n_Scale(highestYKey);
+
+                        streamGraphChart({
+                            targetID: 'eCPMChart',
+                            dataObj: {data: dataObj.data, improveData: improveData},
+                            axis: {
+                                axisXkey: "date",
+                                axisYkey: axisYkey,
+                                'x': false,
+                                'y': true,
+                                'xLabel': '',
+                                'yLabel': 'Cost per conversion',
+                                scaleDetails: scaleDetails
+                            },
+                            margin:{top:10,right:10,bottom:45,left:80},
+                            dimensions: {width: '75%', height: '25%'},
+                           nestKey:"channel"
+                        });
+
+                        /*doTheRest({tabularData:dataObj.data, currentChart:$scope.currentChart, commonService:commonService, viewScope:$scope});*/
+                        addInteractivity({"id":"charts", currentChart : $scope.currentChart});
 
                     }
                 });
 
-/*                chart("performanceChart","/a9/report/3/"+dateString, "multiple","date", "conversions",10000,"campaign_id",
-                    {width:'100%',height:'35%'},
-                    {'x':true,'y':true});
-
-                chart("eCPMChart","/a9/report/2/"+dateString, "multiple","date", "cpc", 1000000,"campaign_id",
-                    {width:'100%',height:'20%'},
-                    {'x':false,'y':true});
-                addInteractivity({"id":"charts"});
-                */
-
             break;
 
             case 'cost':
-
 
                 var url = reportsUrl+"4/"+dateString;
                 load_n_ProcessData({
@@ -204,23 +257,35 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                     viewScope:$scope,
                     commonService:commonService,
                     callback:function(dataObj){
-                        chart("performanceChart",{data:dataObj.data, improveData:improveData}, "multiple","date", "cost", 1000000000,"campaign_id",
-                            {width:'75%',height:'35%'},
-                            {'x':true,'y':true,'xLabel':'Dates','yLabel':'Cost'});
 
-                        addInteractivity({"id":"charts"});
 
-                        var localData = dataObj.data;
-                        localData.forEach(function(key,val){
-                            var date = new Date (key.date);
-                            localData.date = key.date.getDay()+"-"+(parseInt(key.date.getMonth())+1)+"-"+key.date.getFullYear();
-                        });
+                        var
+                            axisYkey = "cost",
+                            highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; }),
+                            scaleDetails = commonService.getDiv_n_Scale(highestYKey)
+                        ;
 
-                        $scope.tabularData = localData;
+                        $scope.tabularData = dataObj.data;
                         $scope.$apply();
 
+                        streamGraphChart({
+                            targetID: 'performanceChart',
+                            dataObj: {data: dataObj.data, improveData: improveData},
+                            axis: {
+                                axisXkey: "date",
+                                axisYkey: axisYkey,
+                                'x': true,
+                                'y': true,
+                                'xLabel': '',
+                                'yLabel': 'Cost',
+                                scaleDetails: scaleDetails
+                            },
+                            margin:{top:10,right:10,bottom:45,left:80},
+                            dimensions: {width: '75%', height: '40%'},
+                           nestKey:"channel"
+                        });
                         d3.select('#eCPMChart').style({'display':'none'});
-
+                        addInteractivity({"id":"charts", currentChart : $scope.currentChart});
                     }
 
                 });

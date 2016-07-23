@@ -181,7 +181,7 @@ function barChart(obj) {
             ;
 
         d3.selectAll('.bars').on("click",function(){
-            angular.element(document.getElementById('charts')).scope().loadChart('interestPieChart');
+            angular.element(document.getElementById('charts')).scope().loadChart('subPieChart');
         });
 
 

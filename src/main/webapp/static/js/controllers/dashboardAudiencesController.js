@@ -2,7 +2,7 @@
 var cubeRootApp =  angular.module('CubeRootApp');
 cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",function($scope,commonService){
 
-    $scope.currentChart = "reach";
+    $scope.currentChart = "demographic";
 
     /*$rootScope.tabularData = [];*/
     $scope.updateChart = commonService.updateChart($scope);
@@ -28,12 +28,106 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
         var load_n_ProcessData = commonService.load_n_ProcessData;
         var improveData = commonService.improveData;
         var addInteractivity = commonService.addInteractivity;
-        angular.element("#charts").removeClass('reach');
+
+        function clearForNewGraph() {
+            var chartsId = angular.element("#charts");
+            chartsId.attr('class','');
+            chartsId.addClass('charts reports');
+            d3.select('#chart1').html("");
+            d3.select('#chart2').html("");
+        };
+
+        if($scope.currentChart != "subPieChart"){
+            clearForNewGraph();
+        }
+
 
         switch (chartType){
+
+            case 'reach':
+
+                if($scope.campaign_id === "all"){
+                    reportsUrl = "/b9/report/";
+                    dateString = dateString.replace('all','')
+
+                } /*else if(dateString.indexOf($scope.campaign_id) === -1) {
+             reportsUrl = "/b7/report/";
+             dateString +="/"+$scope.campaign_id;
+             }*/
+
+                var url = reportsUrl+"17/"+dateString;
+
+                /*                dateString = dateString.replace($scope.campaign_id,"");*/
+
+
+                load_n_ProcessData({
+                    jsonPath : url,
+                    sortKey: "date",
+                    highestYKey:'impressions',
+                    viewScope:$scope,
+                    commonService:commonService,
+                    callback:function(dataObj){
+
+                        var
+                            axisYkey = "reach",
+                            highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; }),
+                            scaleDetails = commonService.getDiv_n_Scale(highestYKey)
+                            ;
+
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
+
+                        clearForNewGraph();
+                        angular.element("#charts").addClass('reach');
+
+                        streamGraphChart({
+                            targetID: 'chart1',
+                            dataObj: {data: dataObj.data, improveData: improveData},
+                            axis: {
+                                axisXkey: "date",
+                                axisYkey: axisYkey,
+                                'x': true,
+                                'y': true,
+                                'xLabel': '',
+                                'yLabel': 'User Reached',
+                                scaleDetails: scaleDetails
+                            },
+                            margin:{top:10,right:10,bottom:45,left:80},
+                            dimensions: {width: '75%', height: '40%'},
+                            nestKey:"channel"
+                        });
+
+
+                        axisYkey = "cpp";
+                        highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; });
+                        scaleDetails = commonService.getDiv_n_Scale(highestYKey);
+
+                        streamGraphChart({
+                            targetID: 'chart2',
+                            dataObj: {data: dataObj.data, improveData: improveData},
+                            axis: {
+                                axisXkey: "date",
+                                axisYkey: axisYkey,
+                                'x': false,
+                                'y': true,
+                                'xLabel': '',
+                                'yLabel': 'Cost per 1000 people',
+                                scaleDetails: scaleDetails
+                            },
+                            margin:{top:10,right:10,bottom:45,left:80},
+                            dimensions: {width: '75%', height: '25%'},
+                            nestKey:"channel"
+                        });
+
+                        addInteractivity({"id":"charts", currentChart : $scope.currentChart});
+
+                    }
+                });
+
+                break;
+
             case 'interest':
 //                debugger;
-
 
             var url = reportsUrl+'5/'+dateString;
                 //url="static/dummyData/barChartData.json";
@@ -47,6 +141,9 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                     dateRange:dateString,
                     callback:function(dataObj){
 
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
+
                     barChart({
                             targetID:"chart1",
                             data:dataObj.data,
@@ -58,10 +155,6 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
 
                         addInteractivity({"id":"charts",'currentChart':$scope.currentChart});
 
-                        $scope.tabularData = dataObj.data;
-                        $scope.$apply();
-
-                        d3.select('#chart2').html("");
                     }
                 });
 
@@ -79,6 +172,10 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                     limit:10,
                     dateRange:dateString,
                     callback:function(dataObj){
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
+                        clearForNewGraph();
+
                         barChart({
                             targetID:"chart1",
                             data:dataObj.data,
@@ -88,21 +185,9 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                             margin:{top:40,right:10,bottom:40,left:100}
                         });
 
-/*                        multilinechart({
-                            targetID:"chart1",
-                            data:dataObj.data,
-                            commonService:commonService,
-                            dimension:{"width":"100%","height":"70%"},
-                            axis:{'x':true,'y':true,'xLabel':'Segments','yLabel':'Interest',axisXkey:'date',axisYkey:'impressions'},
-                            margin:{top:40,right:10,bottom:150,left:60}
-                        });*/
-
                         addInteractivity({"id":"charts",'currentChart':$scope.currentChart});
 
-                        $scope.tabularData = dataObj.data;
-                        $scope.$apply();
 
-                        d3.select('#chart2').html("");
                     }
                 });
 
@@ -123,7 +208,11 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                     commonService:commonService,
                     dateRange:dateString,
                     callback:function(dataObj){
-                        debugger
+
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
+                        clearForNewGraph();
+
                         barChart({
                             targetID:"chart1",
                             data:dataObj.data,
@@ -135,72 +224,78 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
 
                         addInteractivity({"id":"charts",'currentChart':$scope.currentChart});
 
-                        $scope.tabularData = dataObj.data;
-                        $scope.$apply();
 
-                        d3.select('#chart2').html("");
                     }
                 });
 
                 break;
 
             case 'geographic':
-
+                geoChart({});
+                addInteractivity({"id":"charts",'currentChart':$scope.currentChart});
             break;
 
             case 'demographic':
+//debugger;
+                var chartsId = angular.element("#charts");
+                chartsId.addClass('demographic');
 
-            break;
-
-            case 'reach':
-
-                angular.element("#charts").addClass('reach');
-                var url = reportsUrl+"17/"+dateString;
-                
+                var url = reportsUrl+'19/'+dateString;
                 load_n_ProcessData({
                     jsonPath : url,
-                    sortKey: "date",
+                    sortKey: "impressions",
+                    sortOrder:'reverse',
                     viewScope:$scope,
+                    limit:10,
                     commonService:commonService,
+                    dateRange:dateString,
                     callback:function(dataObj){
-                        chart("chart1",{data:dataObj.data, improveData:improveData}, "multiple","date", "reach", 1000,"campaign_id",
-                            {width:'75%',height:'35%'},
-                            {'x':true,'y':true,'xLabel':'Dates','yLabel':'User Reached'});
 
-
-                        d3.select('#chart2').style({'display':'block'});
-                        chart("chart2",{data:dataObj.data,improveData:improveData}, "multiple","date", "cpp", 100000,"campaign_id",
-                            {width:'75%',height:'20%'},
-                            {'x':false,'y':true,'xLabel':'','yLabel':'Cost per 1000 people'});
-
-
-                        addInteractivity({"id":"charts"});
-
-                        var localData = dataObj.data;
-                        localData.forEach(function(key,val){
-                            var date = new Date (key.date);
-                            localData.date = key.date.getDay()+"-"+(parseInt(key.date.getMonth())+1)+"-"+key.date.getFullYear();
-                        });
-
-                        $scope.tabularData = localData;
+                        $scope.tabularData = dataObj.data;
                         $scope.$apply();
+
+                        barChart({
+                            targetID:"chart1",
+                            data:dataObj.data,
+                            commonService:commonService,
+                            dimension:{"width":"100%","height":"70%"},
+                            axis:{'x':true,'y':true,'xLabel':'Gender','yLabel':'Impressions',axisXkey:'age', axisYkey:'impressions'},
+                            margin:{top:40,right:10,bottom:40,left:70}
+                        });
 
                     }
                 });
 
-                /*                chart("performanceChart","/a9/report/3/"+dateString, "multiple","date", "conversions",10000,"campaign_id",
-                 {width:'100%',height:'35%'},
-                 {'x':true,'y':true});
+                var url = reportsUrl+'20/'+dateString;
+                load_n_ProcessData({
+                    jsonPath : url,
+                    sortKey: "impressions",
+                    sortOrder:'reverse',
+                    viewScope:$scope,
+                    limit:10,
+                    commonService:commonService,
+                    dateRange:dateString,
+                    callback:function(dataObj){
 
-                 chart("eCPMChart","/a9/report/2/"+dateString, "multiple","date", "cpc", 1000000,"campaign_id",
-                 {width:'100%',height:'20%'},
-                 {'x':false,'y':true});
-                 addInteractivity({"id":"charts"});
-                 */
+                        var targetID = "chart2"
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
 
-                break;
+                        barChart({
+                            targetID:targetID,
+                            data:dataObj.data,
+                            commonService:commonService,
+                            dimension:{"width":"100%","height":"70%"},
+                            axis:{'x':true,'y':true,'xLabel':'Gender','yLabel':'Impressions',axisXkey:'gender', axisYkey:'impressions'},
+                            margin:{top:40,right:10,bottom:40,left:70}
+                        });
 
-            case 'interestPieChart':
+                        addInteractivity({"id":"charts",'currentChart':$scope.currentChart});
+                    }
+                });
+            break;
+
+            case 'subPieChart':
 
                 var url = ""; //pie chart api is still not available, using dummy data to plot
                 url="static/dummyData/pieChartData.json";
@@ -225,6 +320,8 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                         $scope.tabularData = dataObj.data;
                         $scope.$apply();
                         $scope.currentChart="interest";
+
+                        addInteractivity({"id":"charts", currentChart : $scope.currentChart});
 
                     }
                 });

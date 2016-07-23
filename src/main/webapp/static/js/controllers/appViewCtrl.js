@@ -25,7 +25,7 @@ angular.module('CubeRootApp')
                     //$scope.$broadcast('campaignIdsAvailable');
                 }, function errorCallback(response) {
                     console.log(response);
-                    alert('Error fetching campaign IDs /n make sure your session is valid.');
+                    //alert('Error fetching campaign IDs /n make sure your session is valid.');
                 });
 
         };
@@ -38,7 +38,7 @@ angular.module('CubeRootApp')
                     $scope.$broadcast('campaignIdsAvailable');
                 }, function errorCallback(response) {
                     console.log(response);
-                    alert('Error fetching campaign IDs /n make sure your session is valid.');
+                    //alert('Error fetching campaign IDs /n make sure your session is valid.');
                 });
 
         };

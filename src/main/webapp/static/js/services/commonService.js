@@ -52,6 +52,13 @@ service('commonService',['$http','$q',function($http,$q){
                 disabledScr.style({'display':'none'});
             }
         },
+        doTheRest : function(obj){
+
+            obj.commonService.addInteractivity({"id":"charts", currentChart : obj.currentChart});
+            obj.viewScope.tabularData = obj.tabularData;
+            obj.viewScope.$apply();
+
+        },
         addInteractivity: function (obj){
             var
                 chartBlock = d3.select("#"+obj.id+""),
@@ -78,53 +85,77 @@ service('commonService',['$http','$q',function($http,$q){
                         .attr("class", "horizontal")
                         .style({"opacity":"0","width": chartBlock[0][0].offsetWidth+"px"})
                     ;
-
-                chartBlock
-                    .on("mousemove", function(){
-                        var mousex = d3.mouse(this);
-                        vertical.style("left", mousex[0] +6 + "px" );
-                        horizontal.style("top", mousex[1] + 6 + "px" );
-                    });
-
-
-                svgBlock.on("mouseover",function(){
-
-                    d3.select("#charts .vertical").transition()
-                        .duration(250)
-                        .style('opacity', 1);
-
-                    d3.select("#charts .horizontal").transition()
-                        .duration(250)
-                        .style('opacity', 1);
-
-                });
-
-                svgBlock.on("mouseout",function(){
-
-                    d3.select("#charts .vertical").transition()
-                        .duration(250)
-                        .style('opacity',0);
-
-                    d3.select("#charts .horizontal").transition()
-                        .duration(250)
-                        .style('opacity', 0);
-
-                });
+            } else {
+                var
+                    vertical = d3.select('.vertical'),
+                    horizontal = d3.select('.horizontal')
+                ;
             }
+
+            chartBlock
+                .on("mousemove", function(){
+                    var mousex = d3.mouse(this);
+                    vertical.style("left", mousex[0]  + "px" );
+                    horizontal.style("top", mousex[1]  + "px" );
+                });
+
+
+            svgBlock.on("mouseover",function(){
+
+                d3.select("#charts .vertical").transition()
+                    .duration(250)
+                    .style('opacity', 1);
+
+                d3.select("#charts .horizontal").transition()
+                    .duration(250)
+                    .style('opacity', 1);
+
+            });
+
+            svgBlock.on("mouseout",function(){
+
+                d3.select("#charts .vertical").transition()
+                    .duration(250)
+                    .style('opacity',0);
+
+                d3.select("#charts .horizontal").transition()
+                    .duration(250)
+                    .style('opacity', 0);
+
+            });
+
+        },
+
+        getDiv_n_Scale : function(numb){
+            var
+                num = parseInt(numb).toString(),
+                digitCountType = 'Ten',
+                division = '1',
+                len=num.length,
+                numberScale = ['Digits','Ten','Hundreds','Thousands','Thousands','Lakh','Millions','Billions','Trillions','Quadrillions','Quintillions','Sextillions','Septillions']
+            ;
+
+            for(var i=2; i<len; i++){
+                division +='0';
+            }
+
+
+            return {division:parseInt(division),numberScale:numberScale[len]};
 
         },
 
         load_n_ProcessData : function( obj ){
-            //debugger;
+
             var
                 jsonPath = obj.jsonPath,
                 sortKey = obj.sortKey,
                 commonService = obj.commonService,
                 sortOrder = obj.sortOrder,
                 limit = obj.limit,
-                viewScope = obj.viewScope
-            ;
+                viewScope = obj.viewScope,
+                highestYKey = obj.highestYKey
 
+            ;
 
             commonService.showLoading();
 
@@ -165,8 +196,6 @@ service('commonService',['$http','$q',function($http,$q){
                     }
                 });
 
-
-
                 //debugger;
                 if (!isNaN(+data[0][sortKey])){
                     data.forEach(function (d) {
@@ -174,23 +203,22 @@ service('commonService',['$http','$q',function($http,$q){
                     });
 
                 }
+/*debugger;*/
+                var
+                    sortedData/*,
+                    highestYKeyVal =commonService.sortData(data,highestYKey).reverse()[0][highestYKey]*/
+                ;
 
-                var sortedData = data.sort(function (a, b) {
-                    if (a[sortKey] > b[sortKey]) {
-                        return 1;
-                    }
-                    if (a[sortKey] < b[sortKey]) {
-                        return -1;
-                    }
-                    // a must be equal to b
-                    return 0;
-                });
+                 sortedData = commonService.sortData(data,sortKey);
 
                 if(sortOrder==='reverse'){
                     sortedData = sortedData.reverse();
                 }
 
-                sortedData = sortedData.slice(0,limit);
+                if(!!limit)
+                    sortedData = sortedData.slice(0,limit);
+
+/*                sortedData['highestYKey'] = highestYKeyVal;*/
 
                 var dataObj = {data:sortedData};
 
@@ -199,17 +227,31 @@ service('commonService',['$http','$q',function($http,$q){
                 return dataObj;
             });
     },
+    sortData:function(data,sortKey){
+        var sortedData = data.sort(function (a, b) {
+            if (a[sortKey] > b[sortKey]) {
+                return 1;
+            }
+            if (a[sortKey] < b[sortKey]) {
+                return -1;
+            }
+            // a must be equal to b
+            return 0;
+        });
+        return sortedData;
+    },
     improveData:function(obj){
 
         var
-            data = obj.data,
+            processedData = obj.data,
             axisXkey = obj.axisXkey,
             axisYkey = obj.axisYkey,
             nestKey = obj.nestKey,
             division = obj.division
-            ;
 
-        data.forEach(function(d) {
+        ;
+
+        processedData.forEach(function(d) {
 
             d[axisXkey] = new Date(d[axisXkey]);
             d[axisYkey] = parseInt(d[axisYkey])/division;
@@ -229,13 +271,13 @@ service('commonService',['$http','$q',function($http,$q){
                 .sortKeys(d3.descending)
             ;
 
-        var layers = stack(nest.entries(data));
+        var layers = stack(nest.entries(processedData));
 
-        var totalaxisYkey=0, processedData = [], dateRange=[], channel="" ;
+        var totalaxisYkey=0, dateRange=[], channel="" ;
 
-        layers.forEach(function(d){
+/*        layers.forEach(function(d){
 
-            d.values.forEach(function(key){
+/!*            d.values.forEach(function(key){
                 totalaxisYkey += key[axisYkey];
                 dateRange = d3.extent(d.values, function(e) { return e[axisXkey]; });
 
@@ -252,17 +294,17 @@ service('commonService',['$http','$q',function($http,$q){
                     channel += key.channel;
                 }
 
-            });
+            });*!/
 
             d.totalaxisYkey = Math.round(totalaxisYkey * division);
-            d.name = obj.axisYkey;
             d.channel = channel;
             d.dateRange = dateRange;
 
             processedData.push(d);
-        });
+        });*/
 
-        var processedData = processedData.sort(function (a, b) {
+        processedData = [];
+        processedData = layers.sort(function (a, b) {
             if (a.totalaxisYkey > b.totalaxisYkey) {
                 return 1;
             }
