@@ -59,71 +59,73 @@ service('commonService',['$http','$q',function($http,$q){
             obj.viewScope.$apply();
 
         },
-        addInteractivity: function (obj){
+        addInteractivity: function (obj) {
             var
-                chartBlock = d3.select("#"+obj.id+""),
-                currentChartTab = d3.select('#chartTypes .'+obj.currentChart),
-                svgBlock = d3.selectAll("#charts svg")
+                chartBlock = d3.select("#" + obj.id + ""),
+                currentChartTab = d3.select('#chartTypes .' + obj.currentChart),
+                svgBlock = d3.selectAll("#charts svg"),
+                showGrid = obj.showGrid
             ;
 
-            d3.select('body #disabledScr').style({'display':'none'});
-            d3.selectAll('#chartTypes a').classed("active",false);
+            d3.select('body #disabledScr').style({'display': 'none'});
+            d3.selectAll('#chartTypes a').classed("active", false);
 
-            currentChartTab.classed("active",true);
+            currentChartTab.classed("active", true);
 
-            if(!d3.select("#charts .vertical")[0][0]){
-                var
-/*                    guides = chartBlock
-                        .append("div").attr('class','guides'),*/
-                    vertical = chartBlock
-                        .append("div")
-                        .attr("class", "vertical")
-                        .style({"opacity":"0","height": chartBlock[0][0].offsetHeight+'px'})
-                    ,
+            if (showGrid != false) {
+                if (!d3.select("#charts .vertical")[0][0]) {
+                    var
+                    /*                    guides = chartBlock
+                     .append("div").attr('class','guides'),*/
+                        vertical = chartBlock
+                            .append("div")
+                            .attr("class", "vertical")
+                            .style({"opacity": "0", "height": chartBlock[0][0].offsetHeight + 'px'})
+                        ,
 
-                    horizontal = chartBlock.append("div")
-                        .attr("class", "horizontal")
-                        .style({"opacity":"0","width": chartBlock[0][0].offsetWidth+"px"})
-                    ;
-            } else {
-                var
-                    vertical = d3.select('.vertical'),
-                    horizontal = d3.select('.horizontal')
-                ;
-            }
+                        horizontal = chartBlock.append("div")
+                            .attr("class", "horizontal")
+                            .style({"opacity": "0", "width": chartBlock[0][0].offsetWidth + "px"})
+                        ;
+                } else {
+                    var
+                        vertical = d3.select('.vertical'),
+                        horizontal = d3.select('.horizontal')
+                        ;
+                }
 
-            chartBlock
-                .on("mousemove", function(){
-                    var mousex = d3.mouse(this);
-                    vertical.style("left", mousex[0]  + "px" );
-                    horizontal.style("top", mousex[1]  + "px" );
+
+                chartBlock
+                    .on("mousemove", function () {
+                        var mousex = d3.mouse(this);
+                        vertical.style("left", mousex[0] + "px");
+                        horizontal.style("top", mousex[1] + "px");
+                    });
+
+                svgBlock.on("mouseover", function () {
+
+                    d3.select("#charts .vertical").transition()
+                        .duration(250)
+                        .style('opacity', 1);
+
+                    d3.select("#charts .horizontal").transition()
+                        .duration(250)
+                        .style('opacity', 1);
+
                 });
 
+                svgBlock.on("mouseout", function () {
 
-            svgBlock.on("mouseover",function(){
+                    d3.select("#charts .vertical").transition()
+                        .duration(250)
+                        .style('opacity', 0);
 
-                d3.select("#charts .vertical").transition()
-                    .duration(250)
-                    .style('opacity', 1);
+                    d3.select("#charts .horizontal").transition()
+                        .duration(250)
+                        .style('opacity', 0);
 
-                d3.select("#charts .horizontal").transition()
-                    .duration(250)
-                    .style('opacity', 1);
-
-            });
-
-            svgBlock.on("mouseout",function(){
-
-                d3.select("#charts .vertical").transition()
-                    .duration(250)
-                    .style('opacity',0);
-
-                d3.select("#charts .horizontal").transition()
-                    .duration(250)
-                    .style('opacity', 0);
-
-            });
-
+                });
+            }
         },
 
         getDiv_n_Scale : function(numb){
@@ -153,7 +155,8 @@ service('commonService',['$http','$q',function($http,$q){
                 sortOrder = obj.sortOrder,
                 limit = obj.limit,
                 viewScope = obj.viewScope,
-                highestYKey = obj.highestYKey
+                highestYKey = obj.highestYKey,
+                skipProcessing = obj.skipProcessing
 
             ;
 
@@ -164,62 +167,72 @@ service('commonService',['$http','$q',function($http,$q){
                 if (error) {
                     commonService.hideLoading();
                     var appViewMsg = {
-                        type:"error",
-                        message:"Some Server error occured, Please try after sometime."
+                        type: "error",
+                        message: "Some Server error occured, Please try after sometime."
                     };
-                    viewScope.$emit('appViewMessage',appViewMsg);
+                    viewScope.$emit('appViewMessage', appViewMsg);
                     return console.error(error);
                 }
 
-                if(!!data && data.length == 0){
+                if (!!data && data.length == 0) {
                     commonService.hideLoading();
                     var appViewMsg = {
-                        type:"error",
-                        message:"No Data found for this report."
+                        type: "error",
+                        message: "No Data found for this report."
                     };
-                    viewScope.$emit('appViewMessage',appViewMsg);
-                    return {data:data};
+                    viewScope.$emit('appViewMessage', appViewMsg);
+                    return {data: data};
                 }
 
-                var columnsWhichHaveData="";
+            if (!skipProcessing) {
+
+
+                var columnsWhichHaveData = "";
 
                 data.forEach(function (d) {
-                    for(var i in d){
-                        if(d[i] == null && columnsWhichHaveData.indexOf(i)==-1){
+                    for (var i in d) {
+                        if (d[i] == null && columnsWhichHaveData.indexOf(i) == -1) {
                             delete d[i];
-                        } else if(!isNaN(d[i])) {
+                        } else if (!isNaN(d[i])) {
                             d[i] = +d[i];
-                            columnsWhichHaveData = i+","
-                        }else{
-                            columnsWhichHaveData = i+","
+                            columnsWhichHaveData = i + ","
+                        } else {
+                            columnsWhichHaveData = i + ","
                         }
                     }
                 });
 
                 //debugger;
-                if (!isNaN(+data[0][sortKey])){
+                if (!isNaN(+data[0][sortKey])) {
                     data.forEach(function (d) {
                         d[sortKey] = +d[sortKey];
                     });
 
                 }
-/*debugger;*/
+                /*debugger;*/
                 var
                     sortedData/*,
-                    highestYKeyVal =commonService.sortData(data,highestYKey).reverse()[0][highestYKey]*/
-                ;
+                 highestYKeyVal =commonService.sortData(data,highestYKey).reverse()[0][highestYKey]*/
+                    ;
 
-                 sortedData = commonService.sortData(data,sortKey);
+                if (!!sortKey) {
+                    sortedData = commonService.sortData(data, sortKey);
 
-                if(sortOrder==='reverse'){
-                    sortedData = sortedData.reverse();
+                    if (sortOrder === 'reverse') {
+                        sortedData = sortedData.reverse();
+                    }
+                } else {
+                    sortedData = data
                 }
 
-                if(!!limit)
-                    sortedData = sortedData.slice(0,limit);
+                if (!!limit)
+                    sortedData = sortedData.slice(0, limit);
 
-/*                sortedData['highestYKey'] = highestYKeyVal;*/
+                /*                sortedData['highestYKey'] = highestYKeyVal;*/
 
+            } else {
+                sortedData = data;
+            }
                 var dataObj = {data:sortedData};
 
                 obj.callback(dataObj);

@@ -2,7 +2,7 @@
 var cubeRootApp =  angular.module('CubeRootApp');
 cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",function($scope,commonService){
 
-    $scope.currentChart = "demographic";
+    $scope.currentChart = "geographic";
 
     /*$rootScope.tabularData = [];*/
     $scope.updateChart = commonService.updateChart($scope);
@@ -224,15 +224,58 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
 
                         addInteractivity({"id":"charts",'currentChart':$scope.currentChart});
 
-
+ 
                     }
                 });
 
                 break;
 
             case 'geographic':
-                geoChart({});
-                addInteractivity({"id":"charts",'currentChart':$scope.currentChart});
+                var chartsId = angular.element("#charts");
+                chartsId.addClass('geographic');
+
+                var url = reportsUrl+'6/'+dateString;
+                //var topoJsonFile = "static/dummyData/world-110m2.json";
+                var topoJsonFile = "static/dummyData/world-50m.json";
+
+                load_n_ProcessData({
+                    jsonPath : topoJsonFile,
+                    viewScope:$scope,
+                    skipProcessing: true,
+                    commonService:commonService,
+                    callback:function(topoJsonData) {
+
+                        load_n_ProcessData({
+                            jsonPath: url,
+                            viewScope: $scope,
+                            skipProcessing: true,
+                            commonService: commonService,
+                            callback: function (dataObj) {
+
+                                $scope.tabularData = dataObj.data;
+                                $scope.$apply();
+
+                                geoChart({
+                                    targetID: "chart1",
+                                    topoJsonData: topoJsonData.data,
+                                    data: dataObj.data,
+                                    commonService: commonService,
+                                    dimension: {"width": "100%", "height": "40%"},
+                                    axis: {
+                                        'x': true,
+                                        'y': true,
+                                        'xLabel': 'City',
+                                        'yLabel': 'Impressions',
+                                        axisXkey: 'city',
+                                        axisYkey: 'impressions'
+                                    }
+                                    
+                                });
+                                addInteractivity({"id": "charts", 'currentChart': $scope.currentChart,showGrid:false});
+                            }
+                        });
+                    }
+                });
             break;
 
             case 'demographic':

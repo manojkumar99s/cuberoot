@@ -2539,3 +2539,29 @@ svg {
   margin: 0;
   display: block;
 }
+.geographic .chart1 {
+  width: 100%;
+  margin: 0;
+  padding: 0px;
+}
+.geographic .overlay {
+  fill: none;
+  pointer-events: visible;
+  position: relative;
+  z-index: 1;
+}
+.geographic .land {
+  fill: gray;
+}
+.geographic .boundary {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.geographic .circle {
+  fill: dodgerblue;
+  stroke-width: 0.5;
+  position: relative;
+  z-index: 11;
+}

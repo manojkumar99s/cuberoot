@@ -23,7 +23,8 @@
     <script type="text/javascript" src="static/js/core/lib/jquery.min.js"></script>
     <script type="text/javascript" src="static/js/core/lib/bootstrap.min.js"></script>
     <!-- Load library -->
-    <script type="text/javascript" src="static/js/plugins/visualization/d3/d3.min.js"></script>
+    <script type="text/javascript" src="static/js/plugins/visualization/d3/d3.v3.min.js"></script>
+
     <%--<script type="text/javascript" src="http://d3js.org/d3.v4.0.0-alpha.15.min.js"></script>--%>
     <script type="text/javascript" src="static/js/core/lib/nv.d3.min.js"></script>
     <!-- Load tooltip -->
