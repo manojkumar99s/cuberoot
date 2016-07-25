@@ -60,7 +60,15 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                             scaleDetails = commonService.getDiv_n_Scale(highestYKey)
                         ;
 
+                        $scope.columnDefs = [
+                            { field: 'date', displayName: 'Date', cellFilter: $scope.dateFormat},
+                            { field: 'channel', displayName: 'Channel' },
+                            { field: 'reach', displayName: 'Reach' },
+                            { field: 'cost', displayName: 'Cost' }
+                        ];
+
                         $scope.tabularData = dataObj.data;
+
                         $scope.$apply();
 
                         streamGraphChart({
@@ -91,7 +99,7 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                             axis: {
                                 axisXkey: "date",
                                 axisYkey: "cpm",
-                                'x': false,
+                                'x': true,
                                 'y': true,
                                 'xLabel': '',
                                 'yLabel': 'eCPM',
@@ -130,6 +138,13 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                             scaleDetails = commonService.getDiv_n_Scale(highestYKey)
                         ;
 
+                        $scope.columnDefs = [
+                            { field: 'date', displayName: 'Date', cellFilter: $scope.dateFormat},
+                            { field: 'channel', displayName: 'Channel' },
+                            { field: 'clicks', displayName: 'Clicks' },
+                            { field: 'cost', displayName: 'Cost' }
+                        ];
+
                         $scope.tabularData = dataObj.data;
                         $scope.$apply();
 
@@ -161,7 +176,7 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                             axis: {
                                 axisXkey: "date",
                                 axisYkey: axisYkey,
-                                'x': false,
+                                'x': true,
                                 'y': true,
                                 'xLabel': '',
                                 'yLabel': 'Cost per click',
@@ -197,6 +212,13 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                             scaleDetails = commonService.getDiv_n_Scale(highestYKey);
                         ;
 
+                        $scope.columnDefs = [
+                            { field: 'date', displayName: 'Date', cellFilter: $scope.dateFormat},
+                            { field: 'channel', displayName: 'Channel' },
+                            { field: 'conversions', displayName: 'Conversions' },
+                            { field: 'cost', displayName: 'Cost' }
+                        ];
+
                         $scope.tabularData = dataObj.data;
                         $scope.$apply();
 
@@ -229,7 +251,7 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                             axis: {
                                 axisXkey: "date",
                                 axisYkey: axisYkey,
-                                'x': false,
+                                'x': true,
                                 'y': true,
                                 'xLabel': '',
                                 'yLabel': 'Cost per conversion',
@@ -264,6 +286,12 @@ cubeRootApp.controller("dashboardPerformanceCtrl",["$scope","commonService",func
                             highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; }),
                             scaleDetails = commonService.getDiv_n_Scale(highestYKey)
                         ;
+
+                        $scope.columnDefs = [
+                            { field: 'date', displayName: 'Date', cellFilter: $scope.dateFormat},
+                            { field: 'channel', displayName: 'Channel' },
+                            { field: 'cost', displayName: 'Cost' }
+                        ];
 
                         $scope.tabularData = dataObj.data;
                         $scope.$apply();

@@ -38,7 +38,7 @@ cubeRootApp.controller('tabularCtrl', ['$scope', '$http', 'uiGridConstants','com
             }
         });
 debugger;*/
-        
+        $scope.gridOptions.columnDefs = $scope.$parent.columnDefs;
         $scope.gridOptions.data = $scope.$parent.tabularData;
 
         /*$scope.$apply();*/

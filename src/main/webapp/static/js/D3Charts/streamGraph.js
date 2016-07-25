@@ -47,7 +47,7 @@ function streamGraphChart(obj){
     //All axis  initialization >
         x = d3.time.scale().range([0, width]),
         y = d3.scale.linear().range([height-10, 0]),
-        z = d3.scale.category20(),
+        z = d3.scale.category10(),
 
         xAxis = d3.svg.axis()
             .scale(x)
@@ -68,8 +68,8 @@ function streamGraphChart(obj){
         dateExtent = d3.extent(data, function(d) { return d[axisXkey]; })
     ;
 
-    x.domain([dateExtent[0]-1, dateExtent[1]]);
-    y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]);
+    x.domain([dateExtent[0]-1, dateExtent[1]]).nice();
+    y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]).nice();
 
     var area = d3.svg.area()
         //.defined(function(d) { return !isNaN(d[axisYkey]); })
@@ -307,7 +307,7 @@ function streamGraphChart(obj){
                 .attr("transform", "translate(0," + (height - margin.top) + ")")
                 .call(xAxis)
                 .selectAll("text")
-                .attr("y", 15)
+                .attr("y", 0)
                 .attr("x", 25 * -1)
                 .attr("dy", ".15em")
                 .attr("transform", "rotate(-90)")

@@ -98,13 +98,13 @@ function geoChart(obj) {
             .attr('class','circle')
             .attr("r", 2.5)
             .attr("transform", function (d) {
-                var cityDetails = d.city.split(",");
+                /*var cityDetails = d.city.split(",");
                 var projectionValues = projection([
                     cityDetails[2],
                     cityDetails[1]
-                ]);
+                ]);*/
 
-
+                var projectionValues = projection([d.lat, d.long]);
 
                 if(isNaN(projectionValues[0]) || isNaN(projectionValues[1])) {
                     console.log(projectionValues);

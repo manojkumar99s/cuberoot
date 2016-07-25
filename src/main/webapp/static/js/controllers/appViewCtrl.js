@@ -2,6 +2,7 @@
 angular.module('CubeRootApp')
     .controller("appViewCtrl",["$scope","$state","$rootScope",'$uibModal', '$log', '$http',"commonService",function($scope, $state,$rootScope, $uibModal, $log, $http, commonService){
         $scope.$state = $state;
+        $scope.dateFormat = 'date:\'dd MMM yyyy\'';
 
         $scope.commonService = commonService;
 

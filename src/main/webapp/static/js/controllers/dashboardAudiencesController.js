@@ -2,7 +2,7 @@
 var cubeRootApp =  angular.module('CubeRootApp');
 cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",function($scope,commonService){
 
-    $scope.currentChart = "geographic";
+    $scope.currentChart = "reach";
 
     /*$rootScope.tabularData = [];*/
     $scope.updateChart = commonService.updateChart($scope);
@@ -72,8 +72,14 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                             axisYkey = "reach",
                             highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; }),
                             scaleDetails = commonService.getDiv_n_Scale(highestYKey)
-                            ;
+                        ;
 
+                        $scope.columnDefs = [
+                            { field: 'date', displayName: 'Date', cellFilter: $scope.dateFormat },
+                            { field: 'channel', displayName: 'Channel' },
+                            { field: 'reach', displayName: 'Reach' },
+                            { field: 'cost', displayName: 'Cost' }
+                        ];
                         $scope.tabularData = dataObj.data;
                         $scope.$apply();
 
@@ -108,7 +114,7 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                             axis: {
                                 axisXkey: "date",
                                 axisYkey: axisYkey,
-                                'x': false,
+                                'x': true,
                                 'y': true,
                                 'xLabel': '',
                                 'yLabel': 'Cost per 1000 people',
@@ -141,6 +147,10 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                     dateRange:dateString,
                     callback:function(dataObj){
 
+                        $scope.columnDefs = [
+                            { field: 'audience_segment', displayName: 'Segment' },
+                            { field: 'impressions', displayName: 'Impressions' }
+                        ];
                         $scope.tabularData = dataObj.data;
                         $scope.$apply();
 
@@ -172,6 +182,10 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                     limit:10,
                     dateRange:dateString,
                     callback:function(dataObj){
+                        $scope.columnDefs = [
+                            { field: 'device_type', displayName: 'Device' },
+                            { field: 'impressions', displayName: 'Impressions' }
+                        ];
                         $scope.tabularData = dataObj.data;
                         $scope.$apply();
                         clearForNewGraph();
@@ -209,8 +223,12 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                     dateRange:dateString,
                     callback:function(dataObj){
 
+                        $scope.columnDefs = [
+                            { field: 'os', displayName: 'Operating System' },
+                            { field: 'impressions', displayName: 'Impressions' }
+                        ];
                         $scope.tabularData = dataObj.data;
-                        $scope.$apply();
+                            $scope.$apply();
                         clearForNewGraph();
 
                         barChart({
@@ -252,7 +270,23 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                             commonService: commonService,
                             callback: function (dataObj) {
 
+                                dataObj.data.forEach(function(d){
+                                    var cityDetails = d.city.split(",");
+                                    d.city = cityDetails[0];
+                                    d.lat = cityDetails[2];
+                                    d.long = cityDetails[1];
+                                });
+
+
+                                $scope.columnDefs = [
+                                    { field: 'city', displayName: 'City' },
+                                    { field: 'impressions', displayName: 'Impressions' },
+                                    { field: 'reach', displayName :'Reach' },
+                                    { field : 'lat', displayName : 'Lat'},
+                                    { field : 'long', displayName : 'Long'}
+                                ];
                                 $scope.tabularData = dataObj.data;
+
                                 $scope.$apply();
 
                                 geoChart({
@@ -359,6 +393,7 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                             margin:{top:0,right:0,bottom:0,left:60},
                             viewScope:$scope
                         });
+
 
                         $scope.tabularData = dataObj.data;
                         $scope.$apply();
