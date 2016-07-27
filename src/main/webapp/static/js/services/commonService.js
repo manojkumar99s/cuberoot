@@ -130,19 +130,18 @@ service('commonService',['$http','$q',function($http,$q){
 
         getDiv_n_Scale : function(numb){
             var
-                num = parseInt(numb).toString(),
-                digitCountType = 'Ten',
+                num = parseInt(numb).toString().split('.')[0],
                 division = '1',
-                len=num.length,
-                numberScale = ['Digits','Ten','Hundreds','Thousands','Thousands','Lakh','Millions','Billions','Trillions','Quadrillions','Quintillions','Sextillions','Septillions']
+                len = num.length,
+                numberScale = ['','Ten','Hundred','Thousand','Thousands','Lakh','Million','Billion','Trillion','Quadrillion','Quintillion','Sextillion','Septillion']
             ;
-
-            for(var i=2; i<len; i++){
-                division +='0';
+            if(len > 3){
+                for(var i=3; i<len; i++){
+                    division +='0';
+                }
             }
 
-
-            return {division:parseInt(division),numberScale:numberScale[len]};
+            return {division:parseInt(division),numberScale:numberScale[len-3]};
 
         },
 
@@ -155,7 +154,6 @@ service('commonService',['$http','$q',function($http,$q){
                 sortOrder = obj.sortOrder,
                 limit = obj.limit,
                 viewScope = obj.viewScope,
-                highestYKey = obj.highestYKey,
                 skipProcessing = obj.skipProcessing
 
             ;
@@ -185,16 +183,18 @@ service('commonService',['$http','$q',function($http,$q){
                 }
 
             if (!skipProcessing) {
-
-
                 var columnsWhichHaveData = "";
-
                 data.forEach(function (d) {
                     for (var i in d) {
                         if (d[i] == null && columnsWhichHaveData.indexOf(i) == -1) {
                             delete d[i];
-                        } else if (!isNaN(d[i])) {
+                        } else if (!isNaN(d[i]) && !Array.isArray(d[i]) ) {
+                            var str = d[i].toString();
+                            if(str.indexOf('.')!==-1){
+                                d[i] = parseFloat(d[i]).toFixed(4);
+                            }
                             d[i] = +d[i];
+
                             columnsWhichHaveData = i + ","
                         } else {
                             columnsWhichHaveData = i + ","
@@ -202,18 +202,16 @@ service('commonService',['$http','$q',function($http,$q){
                     }
                 });
 
-                //debugger;
                 if (!isNaN(+data[0][sortKey])) {
                     data.forEach(function (d) {
                         d[sortKey] = +d[sortKey];
                     });
 
                 }
-                /*debugger;*/
+
                 var
-                    sortedData/*,
-                 highestYKeyVal =commonService.sortData(data,highestYKey).reverse()[0][highestYKey]*/
-                    ;
+                    sortedData
+                ;
 
                 if (!!sortKey) {
                     sortedData = commonService.sortData(data, sortKey);
@@ -228,7 +226,6 @@ service('commonService',['$http','$q',function($http,$q){
                 if (!!limit)
                     sortedData = sortedData.slice(0, limit);
 
-                /*                sortedData['highestYKey'] = highestYKeyVal;*/
 
             } else {
                 sortedData = data;
@@ -237,7 +234,7 @@ service('commonService',['$http','$q',function($http,$q){
 
                 obj.callback(dataObj);
 
-                return dataObj;
+                //return dataObj;
             });
     },
     sortData:function(data,sortKey){
@@ -263,11 +260,11 @@ service('commonService',['$http','$q',function($http,$q){
             division = obj.division
 
         ;
-
         processedData.forEach(function(d) {
 
             d[axisXkey] = new Date(d[axisXkey]);
-            d[axisYkey] = parseInt(d[axisYkey])/division;
+            if(!!division && division.toString().length > 1)
+                d[axisYkey] = parseInt(d[axisYkey])/division;
 
         });
 

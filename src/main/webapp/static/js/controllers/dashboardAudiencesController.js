@@ -2,7 +2,7 @@
 var cubeRootApp =  angular.module('CubeRootApp');
 cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",function($scope,commonService){
 
-    $scope.currentChart = "reach";
+    $scope.currentChart = "interest";
 
     /*$rootScope.tabularData = [];*/
     $scope.updateChart = commonService.updateChart($scope);
@@ -74,15 +74,6 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                             scaleDetails = commonService.getDiv_n_Scale(highestYKey)
                         ;
 
-                        $scope.columnDefs = [
-                            { field: 'date', displayName: 'Date', cellFilter: $scope.dateFormat },
-                            { field: 'channel', displayName: 'Channel' },
-                            { field: 'reach', displayName: 'Reach' },
-                            { field: 'cost', displayName: 'Cost' }
-                        ];
-                        $scope.tabularData = dataObj.data;
-                        $scope.$apply();
-
                         clearForNewGraph();
                         angular.element("#charts").addClass('reach');
 
@@ -99,14 +90,15 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                                 scaleDetails: scaleDetails
                             },
                             margin:{top:10,right:10,bottom:45,left:80},
-                            dimensions: {width: '75%', height: '40%'},
+                            dimensions: {width: '75%', height: '45%'},
                             nestKey:"channel"
                         });
 
-
-                        axisYkey = "cpp";
-                        highestYKey = d3.max(dataObj.data, function(d) { return d[axisYkey]; });
-                        scaleDetails = commonService.getDiv_n_Scale(highestYKey);
+                        var
+                            axisYkey2 = "cpconversion",
+                            highestYKey2 = d3.max(dataObj.data, function(d) { return d[axisYkey2]; }),
+                            scaleDetails2 = commonService.getDiv_n_Scale(highestYKey2)
+                        ;
 
                         streamGraphChart({
                             targetID: 'chart2',
@@ -118,22 +110,35 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                                 'y': true,
                                 'xLabel': '',
                                 'yLabel': 'Cost per 1000 people',
-                                scaleDetails: scaleDetails
+                                scaleDetails: scaleDetails2
                             },
                             margin:{top:10,right:10,bottom:45,left:80},
-                            dimensions: {width: '75%', height: '25%'},
+                            dimensions: {width: '75%', height: '35%'},
                             nestKey:"channel"
                         });
 
-                        addInteractivity({"id":"charts", currentChart : $scope.currentChart});
 
+                        var reachScale = (!!scaleDetails.numberScale) ? '('+scaleDetails.numberScale+')' : '';
+                        var cpcScale = (!!scaleDetails2.numberScale) ? '('+scaleDetails2.numberScale+')' : '';
+
+                        $scope.columnDefs = [
+                            { field: 'date', displayName: 'Date', cellFilter: $scope.dateFormat, enableFiltering : false},
+                            { field: 'channel', displayName: 'Channel' , enableFiltering : true},
+                            { field: 'reach', displayName: 'Reach '+reachScale/*, cellTemplate:'<div class="ui-grid-cell-contents">{{row.entity.impressions}}</div>'*/, enableFiltering : false},
+                            { field: 'cpconversion', displayName: 'CPC '+cpcScale/*, cellTemplate:'<div class="ui-grid-cell-contents">{{row.entity.cpm }}</div>'*/ , enableFiltering : false},
+                            { field: 'cost', displayName: 'Cost' , enableFiltering : false}
+                        ];
+
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
+
+                        addInteractivity({"id":"charts",'currentChart':$scope.currentChart});
                     }
                 });
 
                 break;
 
             case 'interest':
-//                debugger;
 
             var url = reportsUrl+'5/'+dateString;
                 //url="static/dummyData/barChartData.json";
@@ -147,13 +152,6 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                     dateRange:dateString,
                     callback:function(dataObj){
 
-                        $scope.columnDefs = [
-                            { field: 'audience_segment', displayName: 'Segment' },
-                            { field: 'impressions', displayName: 'Impressions' }
-                        ];
-                        $scope.tabularData = dataObj.data;
-                        $scope.$apply();
-
                     barChart({
                             targetID:"chart1",
                             data:dataObj.data,
@@ -162,6 +160,14 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                             axis:{'x':true,'y':true,'xLabel':'Segments','yLabel':'Impressions',axisXkey:'audience_segment', axisYkey:'impressions'},
                             margin:{top:40,right:10,bottom:40,left:100}
                         });
+
+                        $scope.enableColumnFiltering = false; 
+                        $scope.columnDefs = [
+                            { field: 'audience_segment', displayName: 'Segment' },
+                            { field: 'impressions', displayName: 'Impressions' }
+                        ];
+                        $scope.tabularData = dataObj.data;
+                        $scope.$apply();
 
                         addInteractivity({"id":"charts",'currentChart':$scope.currentChart});
 
@@ -281,9 +287,9 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
                                 $scope.columnDefs = [
                                     { field: 'city', displayName: 'City' },
                                     { field: 'impressions', displayName: 'Impressions' },
-                                    { field: 'reach', displayName :'Reach' },
+                                    { field: 'reach', displayName :'Reach' }/*,
                                     { field : 'lat', displayName : 'Lat'},
-                                    { field : 'long', displayName : 'Long'}
+                                    { field : 'long', displayName : 'Long'}*/
                                 ];
                                 $scope.tabularData = dataObj.data;
 
@@ -313,7 +319,6 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
             break;
 
             case 'demographic':
-//debugger;
                 var chartsId = angular.element("#charts");
                 chartsId.addClass('demographic');
 
@@ -376,7 +381,6 @@ cubeRootApp.controller("dashboardAudiencesCtrl",["$scope","commonService",functi
 
                 var url = ""; //pie chart api is still not available, using dummy data to plot
                 url="static/dummyData/pieChartData.json";
-//debugger;
                 d3.select('#chart2').html("");
                 load_n_ProcessData({
                     jsonPath : url,

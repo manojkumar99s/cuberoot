@@ -2343,6 +2343,7 @@ svg {
 .charts {
   border: 1px solid #ccc;
   background: #fafafa;
+  padding-bottom: 25px;
 }
 .charts,
 .charts > div {
@@ -2564,4 +2565,24 @@ svg {
   stroke-width: 0.5;
   position: relative;
   z-index: 11;
+}
+.demographic .chart1,
+.demographic .chart2 {
+  width: 48%;
+  display: inline-block;
+  padding: 0 2% 0 0;
+  margin: 0;
+}
+.demographic .chart2 {
+  border-left: 1px solid #ccc;
+}
+.updateBtn {
+  background: url('../images/refresh-icon.png') no-repeat center;
+  width: 43px;
+  height: 43px;
+  border-radius: 43px;
+  border: 2px solid #eee;
+  padding: 10px;
+  vertical-align: middle;
+  margin-top: -4px;
 }

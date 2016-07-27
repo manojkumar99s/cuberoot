@@ -40,7 +40,7 @@
 		</span>
 		<div class="col-md-2">
 			<p class="input-group">
-				<button ng-click="updateChart()" class="btn-primary btn">Update Chart</button>
+				<button ng-click="updateChart()" class="btn updateBtn"></button>
 			</p>
 		</div>
 	</div>
@@ -80,31 +80,11 @@
 			<h5 class="panel-title">Basic table</h5>
 		</div>
 
-		<div class="table-responsive" ng-controller="tabularCtrl">
-			<div id="grid1" ui-grid="gridOptions" class="grid"></div>
+		<div class="table-responsive" ng-include src="'views/tabular.html'">
 		</div>
+
 	</div>
 </div>
-<style>
-
-	.demographic .chart1,
-	.demographic .chart2{
-		width: 48%;
-		display: inline-block;
-		padding: 0 2% 0 0;
-		margin: 0;
-	}
-
-	.demographic .chart2{
-		border-left: 1px solid #ccc;
-	}
-
-</style>
-<style>
-
-
-</style>
-
 <script type="text/javascript" src="static/js/D3Charts/barChart.js"></script>
 <script type="text/javascript" src="static/js/D3Charts/pieCharts.js"></script>
 <script type="text/javascript" src="static/js/D3Charts/multilineChart.js"></script>

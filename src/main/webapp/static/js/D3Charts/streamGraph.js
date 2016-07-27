@@ -15,7 +15,7 @@ function streamGraphChart(obj){
         axisXkey = axis.axisXkey,
         axisYkey = axis.axisYkey,
         nestKey = obj.nestKey,
-        scaleDetails = obj.axis.scaleDetails,
+        scaleDetails = obj.axis.scaleDetails || {},
         division = scaleDetails.division,
         strokecolor = "#000";
 
@@ -68,7 +68,7 @@ function streamGraphChart(obj){
         dateExtent = d3.extent(data, function(d) { return d[axisXkey]; })
     ;
 
-    x.domain([dateExtent[0]-1, dateExtent[1]]).nice();
+    x.domain([dateExtent[0]-1, dateExtent[1]])//.nice();
     y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]).nice();
 
     var area = d3.svg.area()
@@ -211,7 +211,7 @@ function streamGraphChart(obj){
         htmlStr = "";
         for(i in currentDataSet){
             if(
-                (parseInt(currentDataSet[i])!==0 || dataKeys.indexOf(i)!=-1)&&
+                (Math.ceil(currentDataSet[i])!==0 || dataKeys.indexOf(i)!=-1)&&
                 i.indexOf('hashKey')==-1 &&
                 i!=='y' &&
                 i!=='y0'
@@ -270,7 +270,7 @@ function streamGraphChart(obj){
 
             mouse = d3.mouse(this);
 
-            showTooltip(d,i,mouse,dataKeys);
+           /* showTooltip(d,i,mouse,dataKeys);*/
 
 
         })
@@ -282,7 +282,7 @@ function streamGraphChart(obj){
             d3.select(this)
                 .classed("hover", false)
                 .attr("stroke-width", "0px");
-            tooltip.style({display: 'none'});
+            /*tooltip.style({display: 'none'});*/
         });
 
     nodes
@@ -307,7 +307,7 @@ function streamGraphChart(obj){
                 .attr("transform", "translate(0," + (height - margin.top) + ")")
                 .call(xAxis)
                 .selectAll("text")
-                .attr("y", 0)
+                .attr("y", 15)
                 .attr("x", 25 * -1)
                 .attr("dy", ".15em")
                 .attr("transform", "rotate(-90)")
@@ -326,24 +326,27 @@ function streamGraphChart(obj){
                 .attr("class", "y axis")
                 .call(yAxis.orient("left"))
             ;
+            if(!!axis.yLabel) {
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - (margin.left - 10))
+                    .attr("x", 0 - (height / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text(axis.yLabel)
+                ;
+            }
 
-            svg.append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 0 - (margin.left-10))
-                .attr("x",0 - (height / 2))
-                .attr("dy", "1em")
-                .style("text-anchor", "middle")
-                .text(axis.yLabel)
-            ;
-
-            svg.append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 0 - (margin.left-30))
-                .attr("x",0 - (height / 2))
-                .attr("dy", "1em")
-                .style({"text-anchor": "middle",'font-size':'11px'})
-                .text("(in "+axis.scaleDetails.numberScale+")")
-            ;
+            if(!!scaleDetails.numberScale) {
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - (margin.left - 30))
+                    .attr("x", 0 - (height / 2))
+                    .attr("dy", "1em")
+                    .style({"text-anchor": "middle", 'font-size': '11px'})
+                    .text("(in " + scaleDetails.numberScale + ")")
+                ;
+            }
 
         }
         svg.selectAll(".layer")
