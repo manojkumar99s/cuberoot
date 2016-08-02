@@ -61,7 +61,17 @@ cubeRootApp.controller('tabularCtrl', ['$scope', '$http', '$filter','uiGridConst
         //if($scope.gridOptions.columnDefs !== $scope.$parent.columnDefs)
         {
             $scope.Data = $scope.$parent.tabularData;
-            $scope.gridOptions.columnDefs = $scope.$parent.columnDefs;
+            $scope.columns = $scope.$parent.columnDefs;
+
+            if(!!$scope.columns) {
+                for (var i = 0, len = $scope.columns.length; i < len; i++) {
+                    if (!!enableFiltering && $scope.columns[i].enableFiltering === undefined) {
+                        $scope.columns[i].enableFiltering = false;
+                    }
+                }
+            }
+            $scope.gridOptions.columnDefs = $scope.columns;
+
             $scope.gridOptions.data = $scope.Data;
             console.log('columnDefs got changed.');
             //columnListener();

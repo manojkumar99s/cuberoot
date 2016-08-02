@@ -1162,8 +1162,17 @@ body[class*=navbar-bottom] .content {
 *
 * ---------------------------------------------------------------------------- */
 .footer {
+  /*bottom: (@line-height-computed * 1.5);*/
+  text-align: left;
+  background-color: #1a2226;
+  line-height: 30px;
   position: absolute;
-  bottom: 30px;
+  bottom: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #bababa;
+  width: 100%;
+  padding-left: 3%;
 }
 .footer:not(.navbar-fixed-bottom) {
   z-index: 1000;
@@ -1175,6 +1184,9 @@ body[class*=navbar-bottom] .content {
 }
 body[class*=navbar-bottom] .footer:not(.navbar) {
   display: none;
+}
+.footer a {
+  color: #bababa;
 }
 .footer-boxed {
   left: 0;
@@ -2576,6 +2588,32 @@ svg {
 .demographic .chart2 {
   border-left: 1px solid #ccc;
 }
+.interest .chart1,
+.interest .chart2 {
+  margin: 0;
+}
+.interest .chart2 {
+  border: 1px solid #fff;
+  margin: 30px 25px;
+  background: #eee;
+  border-radius: 20px;
+  box-shadow: 0 0 34px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+.devices .chart2,
+.os .chart2 {
+  display: none;
+}
+.devices .chart1,
+.os .chart1 {
+  width: 100%;
+}
+.tableBlock .tabs {
+  display: none;
+}
+.demographic.tableBlock .tabs {
+  display: block;
+}
 .updateBtn {
   background: url('../images/refresh-icon.png') no-repeat center;
   width: 43px;
@@ -2585,4 +2623,41 @@ svg {
   padding: 10px;
   vertical-align: middle;
   margin-top: -4px;
+}
+.idealTargetParamBlock .dummyImage {
+  border: 1px solid #fff;
+  margin: 10px 5px;
+  background: #eee;
+  border-radius: 20px;
+  box-shadow: 0 0 34px rgba(0, 0, 0, 0.2);
+  width: 80%;
+}
+.idealTargetParamBlock .p1,
+.idealTargetParamBlock .p2 {
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+.idealTargetParamBlock .p1 {
+  border: 1px solid #3ae23a;
+  background: #e8f7e7;
+}
+.idealTargetParamBlock .p2 {
+  border: 1px solid #ffb11e;
+  background: #faf48d;
+}
+.idealTargetParamBlock .division {
+  border-left: 1px solid #DDDDDD;
+  padding-left: 20px;
+}
+.idealTargetParamBlock .values {
+  padding-top: 8px;
+}
+.idealTargetParamBlock label.control-label {
+  text-align: right;
+}
+.fieldLoading {
+  background: #fafafa url('../images/ring.gif') no-repeat center;
+  background-size: contain;
 }

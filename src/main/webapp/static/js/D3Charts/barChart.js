@@ -33,10 +33,11 @@ function barChart(obj) {
 
 
     /*var x = d3.scale.log().range([0,width]);*/
-    var z = d3.scale.category20();
+    var z = d3.scale.category10();
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom")
+
         //.tickFormat(d3.time.format("%Y-%m"))
     ;
 
@@ -78,19 +79,20 @@ function barChart(obj) {
 
         x_Axis.call(xAxis)
             .selectAll("text")
-            .style("text-anchor", "end")
-            .attr('opacity','0')
+            .style("text-anchor", "middle")
+            .attr('opacity','1')
             .attr("dx", "-0.5em")
             .attr("dy", "-.55em")
-            .attr("transform", "rotate(-90)")
+            .attr("y", 20)
+            /*.attr("transform", "rotate(-90)")*/
         ;
         //debugger;
-        x_Axis.append("text")
+/*        x_Axis.append("text")
             .text(axis.xLabel)
             .style("text-anchor", "middle")
             .attr({"x":(width / 2)})
             .attr({'y':20})
-        ;
+        ;*/
 
 
     /*        svg
@@ -135,8 +137,8 @@ function barChart(obj) {
                 tooltip.style({display: 'block', left: mousex + "px", top: mousey + "px"});
 
                 tooltip.html(function () {
-                    return axis.xLabel+" :" + pathData[axisXkey]  + "</br>" +
-                        axis.yLabel+" :" + pathData[axisYkey]  + "</br>"
+                    return axis.xLabel+" :" + d[axisXkey]  + "</br>" +
+                        axis.yLabel+" :" + d[axisYkey]  + "</br>"
                     ;
                 })
             });
@@ -180,9 +182,9 @@ function barChart(obj) {
             })
             ;
 
-        d3.selectAll('.bars').on("click",function(){
+/*        d3.selectAll('.bars').on("click",function(){
             angular.element(document.getElementById('charts')).scope().loadChart('subPieChart');
-        });
+        });*/
 
 
 

@@ -10,10 +10,7 @@ cubeRootApp.controller('datePickerCtrl', ["$scope","commonService",function ($sc
     $scope.setStartDate = function() {
         var startDate = new Date("2016-04-08");
         //startDate.setMonth(startDate.getMonth()-2);
-
         //setting temp date to show / match data
-
-
         $scope.startDate = startDate;
 
     };
@@ -135,8 +132,6 @@ cubeRootApp.controller('datePickerCtrl', ["$scope","commonService",function ($sc
     $scope.$parent.endDate = $scope.endDate;
     $scope.$parent.startDate = $scope.startDate;
 
-
-
     $scope.init=function(){
         console.log('Dates init.');
         console.log($scope.startDate);
@@ -145,17 +140,23 @@ cubeRootApp.controller('datePickerCtrl', ["$scope","commonService",function ($sc
 
         setTimeout(function(){
             $scope.$watch('startDate',function() {
-                console.log('start dateChanged');
-                $scope.$parent.startDate = $scope.startDate;
-                $scope.updateCommonService();
-                $scope.$emit('startDateChanged');
+
+                if($scope.$parent.startDate !== $scope.startDate) {
+                    console.log('start date Changed');
+                    $scope.$parent.startDate = $scope.startDate;
+                    $scope.updateCommonService();
+                    $scope.$emit('startDateChanged');
+                }
+
             },true);
 
             $scope.$watch('endDate',function() {
-                console.log('end dateChanged');
-                $scope.$parent.endDate = $scope.endDate;
-                $scope.updateCommonService();
-                $scope.$emit('endDateChanged');
+                if( $scope.$parent.endDate !== $scope.endDate) {
+                    console.log('end date Changed');
+                    $scope.$parent.endDate = $scope.endDate;
+                    $scope.updateCommonService();
+                    $scope.$emit('endDateChanged');
+                }
             },true);
         },5000)
     };

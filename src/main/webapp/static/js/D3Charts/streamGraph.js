@@ -54,21 +54,20 @@ function streamGraphChart(obj){
             .orient("bottom")
             .ticks(d3.time.days)
             .tickFormat(function(d) { return d3.time.format('%b %d')(new Date(d)); })
-           ,
+       ,
 
         yAxis = d3.svg.axis()
-            .scale(y),
+            .scale(y)
+        ;
 
-
-
-        tooltip = chartPlaceHolder
+        var tooltip = chartPlaceHolder
             .append("div")
             .attr({'class':'chartTooltip'}),
 
         dateExtent = d3.extent(data, function(d) { return d[axisXkey]; })
     ;
 
-    x.domain([dateExtent[0]-1, dateExtent[1]])//.nice();
+    x.domain([dateExtent[0], dateExtent[1]])//.nice();
     y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]).nice();
 
     var area = d3.svg.area()
@@ -109,7 +108,7 @@ function streamGraphChart(obj){
             m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
             d1= new Date(date)
         ;
-        return  d1.getDate()+' '+m_names[d1.getMonth()];
+        return  d1.getDate()+' '+m_names[d1.getMonth()] +' '+d1.getFullYear();
     };
 
     var formatDateRange=function(dates){
@@ -132,24 +131,6 @@ function streamGraphChart(obj){
             .data(processedData)
             .enter()
             .append('g')
-            //.attr({'style':'display:none;'})
-/*            .on("mousemove",function(d) {
-                //debugger
-                pathData = d;
-
-                mouse = d3.mouse(this);
-                mousex = mouse[0] + 5 + margin.left;
-                mousey = mouse[1] + 5 + margin.top;
-                // console.log(mouse);
-
-                tooltip.style({display: 'block', left: mousex + "px", top: mousey + "px"});
-
-                tooltip.html(function () {
-                    return "Tenure: " + formatDateRange(pathData.dateRange) + "</br>" +
-                        "Channel:" + pathData.channel + "</br>" +
-                        "Campaign Id :" + pathData.key;
-                })
-            })*/
             .append("path")
             //.attr("y", 100)
             .attr({"class":function(d){

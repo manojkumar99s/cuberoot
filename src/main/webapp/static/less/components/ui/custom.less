@@ -399,6 +399,46 @@ svg{
     border-left: 1px solid #ccc;
   }
 }
+
+.interest
+{
+  .chart1,
+  .chart2{
+    margin:0;
+  }
+  .chart2{
+    border: 1px solid #fff;
+    margin: 30px 25px;
+    background: #eee;
+    border-radius: 20px;
+    box-shadow: 0 0 34px rgba(0,0,0,0.2);
+    display:none;
+  }
+}
+
+.devices,
+.os{
+  .chart2{
+    display:none;
+  }
+  .chart1{
+    width:100%;
+  }
+}
+
+.tableBlock{
+  .tabs{
+    display:none;
+  }
+}
+
+.demographic.tableBlock{
+  .tabs{
+    display:block;
+  }
+}
+
+
 .updateBtn{
   background: url('@{images-path}refresh-icon.png') no-repeat center;
   width: 43px;
@@ -410,3 +450,48 @@ svg{
   margin-top: -4px;
 }
 
+.idealTargetParamBlock {
+
+  .dummyImage {
+    border: 1px solid #fff;
+    margin: 10px 5px;
+    background: #eee;
+    border-radius: 20px;
+    box-shadow: 0 0 34px rgba(0, 0, 0, 0.2);
+    width: 80%;
+  }
+
+  .p1, .p2 {
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+
+  .p1 {
+    border: 1px solid #3ae23a;
+    background: rgb(232, 247, 231);
+
+  }
+
+  .p2 {
+    border: 1px solid #ffb11e;
+    background: rgb(250, 244, 141);
+  }
+  .division{
+    border-left:1px solid #DDDDDD;
+    padding-left:20px;
+  }
+  .values{
+    padding-top:8px;
+  }
+  label.control-label{
+    text-align: right;
+  }
+
+}
+
+.fieldLoading {
+  background: #fafafa url('@{images-path}ring.gif') no-repeat center;
+  background-size: contain;
+}

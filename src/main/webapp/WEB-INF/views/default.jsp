@@ -55,7 +55,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Text link</a></li>
+                <%--<li><a href="#">Text link</a></li>--%>
 
                 <li>
                     <a href="#">
@@ -66,16 +66,16 @@
 
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="static/images/image.png" alt="">
+                        <img src="static/images/man-silhouette.png" alt="">
                         <span>Victoria</span>
                         <i class="caret"></i>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
-                        <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
-                        <li><a href="#"><span class="badge badge-warning pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
-                        <li class="divider"></li>
+                        <%--<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>--%>
+                        <%--<li><a href="#"><i class="icon-coins"></i> My balance</a></li>--%>
+                        <%--<li><a href="#"><span class="badge badge-warning pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>--%>
+                        <%--<li class="divider"></li>--%>
                         <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
                         <li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
                     </ul>
@@ -117,6 +117,7 @@
 
     <script type="text/javascript" src="static/js/controllers/dashboardPerformanceController.js"></script>
     <script type="text/javascript" src="static/js/controllers/dashboardAudiencesController.js"></script>
+    <script type="text/javascript" src="static/js/controllers/dashboardIdealTargetController.js"></script>
     <script type="text/javascript" src="static/js/controllers/uib.datepicker.js"></script>
     <script type="text/javascript" src="static/js/controllers/tabular.js"></script>
     <script type="text/javascript" src="static/js/controllers/modalController.js"></script>
@@ -128,7 +129,7 @@
     <!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css" />-->
 
     <%--<link href="static/css/fonts.css" rel="stylesheet" type="text/css">--%>
-    <%--<link href="static/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">--%>
+    <link href="static/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
 
 </body>
 </html>

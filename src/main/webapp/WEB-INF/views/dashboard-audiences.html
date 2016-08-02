@@ -75,17 +75,27 @@
 
 	</div>
 
-	<div class="panel panel-flat p-x-10">
+	<div class="panel panel-flat p-x-10 tableBlock">
 		<div class="panel-heading">
 			<h5 class="panel-title">Basic table</h5>
 		</div>
 
-		<div class="table-responsive" ng-include src="'views/tabular.html'">
+		<div  class="tabs clearfix" id="demographicTableTabs">
+			<a ng-click="updateTabularData('ageRange')" class="ageRange">
+				Age Range
+			</a>
+			<a ng-click="updateTabularData('gender')" class="gender">
+				Gender
+			</a>
 		</div>
+
+		<div class="table-responsive" ng-include src="'views/tabular.html'"></div>
 
 	</div>
 </div>
 <script type="text/javascript" src="static/js/D3Charts/barChart.js"></script>
+<script type="text/javascript" src="static/js/D3Charts/barChart-horizontal.js"></script>
+
 <script type="text/javascript" src="static/js/D3Charts/pieCharts.js"></script>
 <script type="text/javascript" src="static/js/D3Charts/multilineChart.js"></script>
 <script type="text/javascript" src="static/js/D3Charts/streamGraph.js"></script>

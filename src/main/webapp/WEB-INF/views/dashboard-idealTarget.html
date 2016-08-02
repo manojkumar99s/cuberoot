@@ -1,0 +1,131 @@
+<div class="panel panel-flat p-x-10">
+	<div class="panel-heading">
+		<h5 class="panel-title">Ideal Target</h5>
+	</div>
+
+	<div class="idealTargetParamBlock"  style="min-height:500px;">
+
+		<div class="row container-fluid">
+			<div class="col-md-3">
+				<select class="form-control" name="campaignId" id="campaignId" ng-model="campaign_id" ng-change="onCampaignSelect()">
+					<option value="" selected>Select a Campaign</option>
+					<option ng-repeat="campaignid in campaignIds" value="{{campaignid}}">{{ campaignid }}</option>
+				</select>
+			</div>
+
+			<div class="col-md-3">
+				<select class="form-control" name="performanceMetric" id="performanceMetric" ng-model="metric"
+						ng-change="loadITP()"
+
+				>
+					<option value="" selected>Select Performance Metric</option>
+					<option ng-repeat="option in performanceMetrics" value="{{option.key}}">{{option.value}}</option>
+<!--
+					<option ng-repeat="key as metric for metric in performanceMetrics" value="{{metric}}">{{ metric }}</option>
+-->
+				</select>
+			</div>
+		<span  ng-controller="datePickerCtrl" ng-init="init()">
+		<div class="col-md-2">
+			<p class="input-group">
+				<input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="startDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required" style="">
+				  <span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+				  </span>
+			</p>
+		</div>
+		<div class="col-md-2">
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="endDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+				  <span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+				  </span>
+			</p>
+		</div>
+	</span>
+</div>
+
+
+
+	<div class="row" ng-if="idealTargetParams!=null">
+<br/><br/>
+		<div class="col-xs-3">
+			<img src="static/images/man-silhouette.png" class="dummyImage" />
+
+			<br/><br/>
+			Priorities of Ideal Target Parameter values:
+			<span class="p1">Priority 1</span>
+			<span class="p2">Priority 2</span>
+		</div>
+		<div class="col-xs-7 division">
+
+			<form class="form-horizontal" role="form" >
+				<div class="form-group"  ng-if="!!idealTargetParams.channel">
+					<label class="control-label col-xs-4">Ideal Channel:</label>
+					<div class="col-xs-8 values">
+						{{idealTargetParams.channel}}
+					</div>
+				</div>
+				<div class="form-group"  ng-if="!!idealTargetParams.channel">
+					<label class="control-label col-xs-4">Date:</label>
+					<div class="col-xs-8 values">
+						{{ idealTargetParams.date | date : "dd MMM y" }}
+					</div>
+				</div>
+				<div class="form-group" ng-if="!!idealTargetParams.age">
+					<label class="control-label col-xs-4" >Age group:</label>
+					<div class="col-xs-8 values">
+						<span class="p1">{{idealTargetParams.age.p1}}</span>
+						<span class="p2" ng-if="!!idealTargetParams.age.p2">{{idealTargetParams.age.p2}}</span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="!!idealTargetParams.device">
+					<label class="control-label col-xs-4" >Devices:</label>
+					<div class="col-xs-8 values">
+						<span class="p1">{{idealTargetParams.device_type.p1}}</span>
+						<span class="p2" ng-if="!!idealTargetParams.device_type.p2">{{idealTargetParams.device_type.p2}}</span>
+					</div>
+				</div>
+				<div class="form-group"  ng-if="!!idealTargetParams.audience_segment">
+					<label class="control-label col-xs-4">Intrests:</label>
+					<div class="col-xs-8 values">
+						<span class="p1">{{idealTargetParams.audience_segment.p1}}</span>
+						<span class="p2" ng-if="!!idealTargetParams.audience_segment.p2">{{idealTargetParams.audience_segment.p2}}</span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="!!idealTargetParams.browser">
+					<label class="control-label col-xs-4" >Browser:</label>
+					<div class="col-xs-8 values">
+						<span class="p1">{{idealTargetParams.browser.p1}}</span>
+						<span class="p2" ng-if="!!idealTargetParams.browser.p2">{{idealTargetParams.browser.p2}}</span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="!!idealTargetParams.os">
+					<label class="control-label col-xs-4" >OS:</label>
+					<div class="col-xs-8 values">
+						<span class="p1">{{idealTargetParams.os.p1}}</span>
+						<span class="p2" ng-if="!!idealTargetParams.os.p2">{{idealTargetParams.os.p2}}</span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="!!idealTargetParams.resolution">
+					<label class="control-label col-xs-4" >Resolution:</label>
+					<div class="col-xs-8 values">
+						<span class="p1">{{idealTargetParams.resolution.p1}}</span>
+						<span class="p2" ng-if="!!idealTargetParams.resolution.p2">{{idealTargetParams.resolution.p2}}</span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="!!idealTargetParams.city">
+					<label class="control-label col-xs-4" >Location:</label>
+					<div class="col-xs-8 values">
+						<span class="p1">{{idealTargetParams.city.p1}}</span>
+						<span class="p2" ng-if="!!idealTargetParams.city.p2">{{idealTargetParams.city.p2}}</span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+
+</div>
+</div>

@@ -188,7 +188,7 @@ service('commonService',['$http','$q',function($http,$q){
                     for (var i in d) {
                         if (d[i] == null && columnsWhichHaveData.indexOf(i) == -1) {
                             delete d[i];
-                        } else if (!isNaN(d[i]) && !Array.isArray(d[i]) ) {
+                        } else if (!!d[i] && !isNaN(d[i]) && !Array.isArray(d[i]) ) {
                             var str = d[i].toString();
                             if(str.indexOf('.')!==-1){
                                 d[i] = parseFloat(d[i]).toFixed(4);

@@ -20,10 +20,18 @@ angular.module('CubeRootApp')
         });
 
         $scope.updateCampaignIds = function(){
+            $scope.campaign_id = "";
+            var campaignId = angular.element("#campaignId");
+            campaignId.attr('disabled',true);
+            campaignId.addClass('fieldLoading');
+
             commonService.requestCampaignIds()
                 .then(function successCallback(response) {
                     $scope.campaignIds = response.data;
+                    $scope.campaign_id = "";
                     //$scope.$broadcast('campaignIdsAvailable');
+                    campaignId.removeClass('fieldLoading');
+                    campaignId.removeAttr('disabled');
                 }, function errorCallback(response) {
                     console.log(response);
                     //alert('Error fetching campaign IDs /n make sure your session is valid.');

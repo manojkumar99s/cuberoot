@@ -12,9 +12,18 @@
 
 // Stick footer to the bottom of the page
 .footer {
+	/*bottom: (@line-height-computed * 1.5);*/
+	text-align: left;
+	background-color: @background-dark-gray;
+	line-height:(@line-height-computed * 1.5);
 	position: absolute;
-	bottom: (@line-height-computed * 1.5);
-	
+	bottom: 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	color: @text-color-light-gray;
+	width:100%;
+	padding-left:3%;
+
 	// Add z-index
 	&:not(.navbar-fixed-bottom) {
 		z-index: @zindex-navbar;
@@ -31,6 +40,9 @@
     body[class*=navbar-bottom] &:not(.navbar) {
         display: none;
     }
+	a{
+		color: @text-color-light-gray;
+	}
 }
 
 // In boxed layout

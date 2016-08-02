@@ -109,24 +109,45 @@ cubeRootApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvid
                 }
             }
         })
-        .state('appView.idealtarget', {
-            url: '/idealtarget',
+
+        .state('appView.idealTarget', {
+            url: '/idealTarget',
             parent:'appView',
             params:{
                 parentTxt:'Dashboard',
                 pageName:'Ideal Target'
             },
+            controller:'appViewCtrl',
             views: {
                 "mainSidebar": {
                     templateUrl: './views/main_sidebar.html',
                 },
 
                 "content": {
-                    templateUrl: './views/dashboard-idealtarget.html',
-                    controller: 'dashboardCtrl'
+                    templateUrl: './views/dashboard-idealTarget.html',
+                    controller: 'dashboardIdealTargetCtrl'
                 }
             }
         })
+/*        .state('appView.idealtarget', {
+            url: '/idealtarget',
+            parent:'appView',
+            params:{
+                parentTxt:'Dashboard',
+                pageName:'Ideal Target'
+            },
+            controller:'appViewCtrl',
+            views: {
+                "mainSidebar": {
+                    templateUrl: './views/main_sidebar.html',
+                },
+
+                "content": {
+                    templateUrl: './views/dashboard-idealTarget.html',
+                    controller: 'dashboardIdealTargetCtrl'
+                }
+            }
+        })*/
         .state('appView.campaign', {
             url: '/campaign',
             parent:'appView',
